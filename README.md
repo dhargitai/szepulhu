@@ -12,13 +12,7 @@ git clone git@bitbucket.org:diatigrah/szepulhu.git
 
 ## Install Dependencies
 
-1. Install project dependencies.
-
-```bash
-bin/composer.phar install
-```
-
-2. Install vagrant-bindfs plugin.
+Install vagrant-bindfs plugin.
 
 ```bash
 vagrant plugin install vagrant-bindfs
