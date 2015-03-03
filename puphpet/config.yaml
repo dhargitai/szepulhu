@@ -33,7 +33,7 @@ vagrantfile-local:
                     - '--parser future'
         synced_folder:
             qddi1xXQZdOQ:
-                owner: www-data
+                owner: apache
                 group: www-data
                 source: ./
                 target: /var/www

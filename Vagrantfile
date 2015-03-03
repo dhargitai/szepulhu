@@ -77,7 +77,7 @@ Vagrant.configure('2') do |config|
 
   data['vm']['synced_folder'].each do |i, folder|
     if folder['source'] != '' && folder['target'] != ''
-      sync_owner = !folder['sync_owner'].nil? ? folder['sync_owner'] : 'www-data'
+      sync_owner = !folder['sync_owner'].nil? ? folder['sync_owner'] : 'apache'
       sync_group = !folder['sync_group'].nil? ? folder['sync_group'] : 'www-data'
 
       if folder['sync_type'] == 'nfs'
