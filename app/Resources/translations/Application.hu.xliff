@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="interest.free_appointment_scheduling">
+                <source>free_appointment_scheduling</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Ingyenes időpontkezelés</div>
+                    <div class="label_description">
+                        Hótt-egyszerű mobilos és webes időpontfoglalás,
+                        email és SMS emlékeztetők és utánkövetés
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.free_client_tracking">
+                <source>free_client_tracking</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Ingyenes weboldal és online marketing</div>
+                    <div class="label_description">
+                        Egy gyönyörű weboldal és képgaléria, közösségi média eszközök,
+                        valamint listázás a Szépül.hu szakember adatbázisában
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.free_website_and_online_marketing">
+                <source>free_website_and_online_marketing</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Ingyenes kliens utánkövetés</div>
+                    <div class="label_description">
+                        Kliens bejelentkezések, kapcsolati információk és fotók nyomonkövetése
+                        minden találkozó után mobil alkalmazáson vagy a weboldalon keresztül
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.grow_and_simplify_business">
+                <source>grow_and_simplify_business</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Prémium eszközök az üzlet növelésére és egyszerűsítésére</div>
+                    <div class="label_description">
+                        Email Marketing eszközök, extra promóció a Szépül.hu listázásban és egyéb helyeken,
+                        hogy még több új kliens találjon rád
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.not_sure">
+                <source>not_sure</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Még nem tudom biztosan</div>
+                    <div class="label_description">Ez is teljesen rendben van</div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="form.professional.last_name">
+                <source>form.professional.last_name</source>
+                <target>Vezetéknév</target>
+            </trans-unit>
+            <trans-unit id="form.professional.first_name">
+                <source>form.professional.first_name</source>
+                <target>Keresztnév</target>
+            </trans-unit>
+            <trans-unit id="button.next">
+                <source>button.next</source>
+                <target>Tovább</target>
+            </trans-unit>
+            <trans-unit id="button.finish">
+                <source>button.finish</source>
+                <target>Befejezés</target>
+            </trans-unit>
+            <trans-unit id="form.professional.role.contractor">
+                <source>form.professional.role.contractor</source>
+                <target>Bérlő / Független szerződő fél</target>
+            </trans-unit>
+            <trans-unit id="form.professional.role.employee">
+                <source>form.professional.role.employee</source>
+                <target>Alkalmazott</target>
+            </trans-unit>
+            <trans-unit id="form.professional.role.owner">
+                <source>form.professional.role.owner</source>
+                <target>Tulajdonos</target>
+            </trans-unit>
+            <trans-unit id="form.professional.interests">
+                <source>form.professional.interests</source>
+                <target>Érdeklődési körök</target>
+            </trans-unit>
+            <trans-unit id="form.professional.phone">
+                <source>form.professional.phone</source>
+                <target>Magán telefonszám</target>
+            </trans-unit>
+            <trans-unit id="form.salon.name">
+                <source>form.salon.name</source>
+                <target>Szalon neve</target>
+            </trans-unit>
+            <trans-unit id="form.salon.postCode">
+                <source>form.salon.postCode</source>
+                <target>Irányítószám</target>
+            </trans-unit>
+            <trans-unit id="form.salon.city">
+                <source>form.salon.city</source>
+                <target>Város</target>
+            </trans-unit>
+            <trans-unit id="form.salon.address">
+                <source>form.salon.address</source>
+                <target>Cím</target>
+            </trans-unit>
+            <trans-unit id="form.salon.addressAdditional">
+                <source>form.salon.addressAdditional</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="form.salon.phone">
+                <source>form.salon.phone</source>
+                <target>Szalon telefonszám</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

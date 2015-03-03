@@ -1,0 +1,6 @@
+Application\Entity\Professional\Recommendation:
+    recommendation_{1..100}:
+        name: <firstName()> <lastName()>
+        text: <paragraph(2)>
+        createdAt: <dateTimeBetween('-2 years', 'now')>
+        professional: @professional_*

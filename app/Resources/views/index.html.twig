@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="panel">
+        <div class="row">
+            <div class="big-search large-12 columns">
+                <h1>Foglalj időpontot szépség- és wellness szakembereknél a környékeden</h1>
+                <form>
+                    <div class="row">
+                        <div class="small-12 medium-3 columns">
+                            <div class="row">
+                                <div class="small-3 columns">
+                                    <label for="right-label" class="right inline">Label</label>
+                                </div>
+                                <div class="small-9 columns">
+                                    <input type="text" id="right-label" placeholder="Inline Text Input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="small-12 medium-3 columns">
+                            <div class="row">
+                                <div class="small-3 columns">
+                                    <label for="right-label" class="right inline">Label</label>
+                                </div>
+                                <div class="small-9 columns">
+                                    <input type="text" id="right-label" placeholder="Inline Text Input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="small-12 medium-3 columns">
+                            <div class="row">
+                                <div class="small-3 columns">
+                                    <label for="right-label" class="right inline">Label</label>
+                                </div>
+                                <div class="small-9 columns">
+                                    <input type="text" id="right-label" placeholder="Inline Text Input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="small-12 medium-3 columns">
+                            <div class="row">
+                                <button type="submit" class="button">Keresés</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-8 columns">
+
+            <article>
+                <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+                    {% for professional in featuredProfessionals %}
+                    <li>
+                        <div class="panel featuredProfessional">
+                            <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                                {% thumbnail professional.profilePicture, 'medium_square' %}
+                            </a>
+
+                            <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ professional.lastName }} {{ professional.firstName }} </a></span><br>
+                            <span class="professionalProfession">{{ professional.profession }}</span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <hr>
+
+            Ahogy itt is láthattad...
+
+        </div>
+
+        <aside class="large-4 columns">
+
+            <div class="panel">
+                <a href="">Böngéssz szakembereink ajánlataiból</a>
+            </div>
+
+            <div class="panel">
+                <a href="#">
+                    <img src="" alt="">
+                    A nap fotója
+                </a>
+            </div>
+
+        </aside>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+_sonata:
+    resource: sonata/routing.yml
+
+fos_user_security:
+     resource: "@AppUserBundle/Resources/config/routing/security.xml"
+
+fos_user_resetting:
+     resource: "@AppUserBundle/Resources/config/routing/resetting.xml"
+     prefix: /visszaallitas
+
+fos_user_profile:
+     resource: "@AppUserBundle/Resources/config/routing/profile.xml"
+     prefix: /profil
+
+fos_user_register:
+     resource: "@AppUserBundle/Resources/config/routing/registration.xml"
+     prefix: /regisztracio
+
+fos_user_change_password:
+     resource: "@AppUserBundle/Resources/config/routing/change_password.xml"
+     prefix: /profil
+
+app_bundle_annotations:
+    resource: "@AppBundle/Controller"
+    prefix: /
+    type: annotation

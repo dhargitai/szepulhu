@@ -1,0 +1,64 @@
+.m-header {
+  background-color: $primary-color;
+  color: $white;
+  p {
+    color: $white;
+    text-shadow: $text-shadow;
+  }
+}
+
+.m-header--title {
+  color: $white;
+  text-shadow: $text-shadow;
+  font-size: rem-calc(70);
+  margin-top: rem-calc(50);
+  margin-bottom: rem-calc(50);
+}
+
+.m-header--button {
+  margin-top: rem-calc(25);
+  margin-bottom: rem-calc(50);
+}
+
+.m-header--list {
+  float: right;
+  @include inline-list;
+  a {
+    color: $white;
+    &:hover {
+      color: $black;
+    }
+  }
+}
+
+.top-bar {
+  background: transparent;
+  color: #333;
+  margin-bottom: 1em;
+  
+  .name h1 a {
+    color: #333;
+  }
+}
+
+.top-bar-section {
+  li:not(.has-form) a:not(.button) {
+    background: transparent;
+  }
+
+  li:not(.has-form).highlight {
+    margin-right: ($column-gutter / 2);
+
+    a:not(.button) {
+      background: #333;
+      color: #f5f5f5;
+    }
+  }
+
+  ul li {
+    background: transparent;
+  }
+  ul li > a {
+    color: #333;
+  }
+} 

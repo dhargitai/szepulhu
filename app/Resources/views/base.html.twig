@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets
+                'css/application.scss'
+                filter='compass'
+                filter='cssrewrite'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+
+            {% stylesheets
+                '@CraueFormFlowBundle/Resources/assets/css/buttons.css'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block header %}
+            {% include '_header.html.twig' %}
+        {% endblock %}
+
+        {% block body %}{% endblock %}
+
+        {% block footer %}
+            {% include '_footer.html.twig' %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% javascripts
+                'js/jquery/jquery.js'
+                'js/foundation/foundation.min.js'
+                'js/app.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
+</html>

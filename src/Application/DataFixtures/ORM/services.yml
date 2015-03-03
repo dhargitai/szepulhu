@@ -1,0 +1,15 @@
+Application\Entity\Professional\ServiceGroup:
+    service_group_{1..20}:
+        name: <serviceGroup()>
+        professional: @professional_*
+
+Application\Entity\Professional\Service:
+    service_{1..30}:
+        name: <service()>
+        description: <paragraph(2)>
+        price: <numberBetween(1100,13400)>
+        priceCanBeMore: <numberBetween(0,1)>
+        length: <numberBetween(15,150)>
+        displayableOnProfile: <numberBetween(0,1)>
+        onlineBookingDisabled: <numberBetween(0,1)>
+        group: @service_group_*

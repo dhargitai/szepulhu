@@ -1,0 +1,33 @@
+# General
+*.vagrant
+.bundle
+build/*
+bin/*
+.DS_Store
+secret.key
+.idea
+.ruby-version
+
+# Composer
+vendor
+composer.phar
+
+# Frontend
+.sass-cache/*
+*.css.map
+node_modules/*
+**/bower_components
+**/css/foundation
+
+# SF2
+/web/bundles/
+/web/uploads/*
+/web/css/*.css
+/web/js/*.js
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/src/Application/DataFixtures/data/*

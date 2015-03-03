@@ -1,0 +1,24 @@
+{
+  "name": "diatigrah-awesome-app",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "foundation": "5.5.1",
+    "jquery": "2.1.0"
+  },
+  "install" : {
+    "path"  : {
+      "js": "js",
+      "css": "css",
+      "scss": "css",
+      "map": "css"
+    },
+    "sources" : {
+      "foundation" : [
+        "bower_components/foundation/scss/**",
+        "bower_components/foundation/js/vendor/*",
+        "bower_components/foundation/js/foundation.min.js"
+      ]
+    }
+  }
+}

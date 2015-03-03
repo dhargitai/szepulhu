@@ -1,0 +1,27 @@
+{%- block form_label -%}
+    {% if label is not sameas(false) -%}
+        {% if not compound -%}
+    {% set label_attr = label_attr|merge({'for': id}) %}
+{%- endif %}
+        {% if required -%}
+    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+{%- endif %}
+        {% if label is empty -%}
+    {% set label = name|humanize %}
+{%- endif -%}
+        {% set label = label|trans({}, translation_domain) %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|raw }}</label>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+
+{%- block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+            <div class="checkbox_row">
+                {{- form_label(child) -}}
+                {{- form_widget(child) -}}
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}

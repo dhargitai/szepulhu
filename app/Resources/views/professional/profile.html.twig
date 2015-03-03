@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="large-3 columns">
+            {% thumbnail professional.profilePicture, 'medium' %}
+            <div class="contact-buttons">
+                <a class="tiny secondary button" href="">Üzenet</a>
+                <a class="tiny secondary button" href="">Kapcsolati infó</a>
+            </div>
+        </div>
+        <div class="large-5 columns">
+            <h1>{{ professional.lastName }} {{ professional.firstName }}</h1>
+            <h2>{{ professional.profession }} | <a class="salonLink" href="{{ path('professional_salon', {'slug': professional.salon.slug}) }}">{{ professional.salon.name }}</a></h2>
+            <p class="aboutMe">{{ professional.biography }}</p>
+        </div>
+        <div class="large-4 columns">
+            <a class="large radius button" href="#booking">Időpontfoglalás</a>
+        </div>
+
+    </div>
+
+    <div class="row"><hr/></div>
+
+    <div id="professionalGallery" class="row">
+
+        {% for picture in professional.gallery.galleryHasMedias %}
+        <div class="large-3 columns">
+            <div class="panel">
+                <p>
+                    <a href="{{ path('professional_photo', {'professionalSlug': professional.slug, 'photoId': picture.media.id}) }}">{% thumbnail picture.media, 'medium_square' %}</a>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row"><hr/></div>
+
+
+    <div class="row">
+        <div class="large-8 columns">
+            {% if (hasServices) %}
+            <h3>Foglalj időpontot</h3>
+            <a id="calendarLink" href="">{{ professional.lastName }} {{ professional.firstName }} időbeosztása</a>
+
+            <div id="services">
+            {% for serviceGroup in professional.serviceGroups %}
+                {% if (serviceGroup.services|length > 0) %}
+                <div class="service-group">
+                    <h4>{{ serviceGroup.name }}</h4>
+                    <ul>
+                        {% for service in serviceGroup.services %}
+                        <li class="row">
+                            <div class="large-6 columns">
+                                <h5>{{ service.name }}</h5>
+                                <p>{{ service.description }}</p>
+                            </div>
+                            <div class="large-2 columns">{{ service.price }} Ft.</div>
+                            <div class="large-2 columns">{{ service.length }} perc</div>
+                            <div class="large-2 columns"><a class="tiny button" href="">Időpont</a></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+            {% endif %}
+
+            <h3>{{ professional.recommendations|length }} Ellenőrzött ajánlás</h3>
+            <a id="recommendLink" href="">Írj egy ajánlást</a>
+            {% if (professional.recommendations|length > 0) %}
+            <ul id="recommendations">
+                {% for recommendation in professional.recommendations %}
+                <li class="row">
+                    <div class="large-2 columns">{{ recommendation.name }}<br/>{{ recommendation.createdAt | date('Y.m.d.') }}</div>
+                    <div class="large-10 columns">{{ recommendation.text }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="large-4 columns">
+            <h3>Kapcsolat</h3>
+
+            <h4>{{ professional.salon.name }}</h4>
+            <a href="">Kapcsolati adatok mutatása</a>
+            <div class="salon-contact-info hide">
+                {{ professional.salon.address }}<br/>
+                {{ professional.salon.addressAdditional }}<br/>
+                {{ professional.salon.city }} {{ professional.salon.postCode }}<br/>
+                {{ professional.salon.phone }}
+            </div>
+
+            <a class="map" href="{{ professional.salon.mapUrl }}" title="Google térkép" target="_blank">{% thumbnail professional.salon.map, 'medium_square' %}</a>
+
+            <h3>Nyitvatartás</h3>
+            ...
+
+            <h3>Egyéb linkek</h3>
+            <ul>
+                <li><a href="{{ professional.website }}">Weboldal</a></li>
+                <li><a href="{{ professional.blogPage }}">Blog</a></li>
+                <li class="icon"><a href="{{ professional.facebookPage }}" title="facebook"><i class="fi-social-facebook"></i></a></li>
+                <li class="icon"><a href="{{ professional.twitterAccount }}" title="twitter"><i class="fi-social-twitter"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

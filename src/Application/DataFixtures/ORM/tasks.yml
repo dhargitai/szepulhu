@@ -1,0 +1,30 @@
+Application\Entity\Professional\Task:
+    task_premium_badge:
+        code: PREMIUM_BADGE
+        isPremium: true
+        description: Vess egy pillantást a csecse Prémium kitűzőre a <a href="/profil">profil-oldaladon</a>
+        readMoreLink: http://neolvasstulsokat.hu
+
+    task_email_newsletter:
+        code: EMAIL_NEWSLETTER
+        isPremium: true
+        description: Itt tudsz kafa <a href="/email-nyuz">Emaileket kuldeni...</a>
+        readMoreLink: http://neolvasstulsokat2.hu
+
+    task_upload_gallery:
+        code: UPLOAD_GALLERY_PHOTOS
+        isPremium: false
+        description: Tölts fel a galériádat csecse képekkel
+        readMoreLink: /galeria-feltoltes
+
+    task_setup_personal_info:
+        code: SETUP_PERSONAL_INFO
+        isPremium: false
+        description: Töltsd ki a perszonál infódat mán
+        readMoreLink: http://neolvasstulsokat.hu
+
+    task_connect_facebook:
+        code: CONNECT_FACEBOOK
+        isPremium: false
+        description: És a fészbukkot ki fogja idecsatolni, he?
+        readMoreLink: http://neffeszbukkozzal.hu

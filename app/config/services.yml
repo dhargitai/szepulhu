@@ -1,0 +1,10 @@
+services:
+    app.professional_registration:
+        class: Application\EventListener\RegistrationSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.form.flow.register_professional:
+        class: Application\Form\RegisterProfessionalFlow
+        parent: craue.form.flow
+        scope: request

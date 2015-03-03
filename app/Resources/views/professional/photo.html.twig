@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="large-9 columns">
+            <div class="photo text-center">
+                {% thumbnail photo, 'big' %}
+            </div>
+        </div>
+        <div class="large-3 columns">
+            <div class="cta panel">
+                Profi vagy? Regizzé'!
+            </div>
+            <div class="panel">
+                <h3>Megosztás</h3>
+                Oszd meg a barátaiddal
+                <ul class="inline-list">
+                    <li><a href="#"><i class="fi-social-facebook"></i></a></li>
+                    <li><a href="#"><i class="fi-social-twitter"></i></a></li>
+                    <li><a href="#"><i class="fi-social-pinterest"></i></a></li>
+                </ul>
+
+                <h3>Kövess</h3>
+
+                <div class="large-3 columns">
+                    {% thumbnail professional.profilePicture, 'small_square' %}
+                </div>
+                <div class="large-9 columns">
+                    <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                        <span class="name">{{ professional.lastName }} {{ professional.firstName }}</span><br/>
+                        <span class="profession">{{ professional.profession }}</span>
+                    </a>
+                    <br/>
+                    <small>{{ professional.salon.name }}, {{ professional.salon.city }}</small>
+                </div>
+
+                <h3>Még több fotó</h3>
+                <ul class="inline-list">
+                    {% for picture in professional.gallery.galleryHasMedias %}
+                    <li><a href="{{ path('professional_photo', {'professionalSlug': professional.slug, 'photoId': picture.media.id}) }}">{% thumbnail picture.media, 'small_square' %}</a></li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

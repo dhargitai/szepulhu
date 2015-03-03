@@ -1,0 +1,12 @@
+Application\Entity\Professional\Salon:
+    salon_{1..20}:
+        name: <lastName()>slon
+        mapUrl: https://www.google.hu/maps/place/Tisza+Lajos+krt.+21,+Szeged,+6721/@46.2563789,20.1535365,17z/data=!4m2!3m1!1s0x4744880d59654327:0x73bbca5718b3e6b4?hl=en
+        map: <newImage('maps')>
+        country: Hungary
+        postCode: <numberBetween(1000,9000)>
+        city: <hungarianCity()>
+        address: <streetAddress()>
+        addressAdditional: <streetName()>
+        phone: <phoneNumber()>
+        picture: <newImage('salons')>
