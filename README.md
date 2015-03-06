@@ -10,14 +10,6 @@ Clone the project into your local file system:
 git clone git@bitbucket.org:diatigrah/szepulhu.git
 ```
 
-## Install Dependencies
-
-Install vagrant-bindfs plugin.
-
-```bash
-vagrant plugin install vagrant-bindfs
-```
-
 ## Provision Environment
 
 You can now build the development environment for the first time. In the project directory, execute the following command:
