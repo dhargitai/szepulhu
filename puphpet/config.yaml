@@ -151,6 +151,24 @@ nginx:
             ssl: '0'
             ssl_cert: ''
             ssl_key: ''
+        93847cyt093847:
+            proxy: ''
+            server_name: test.szepul.hu.dev
+            server_aliases:
+                - www.test.szepul.hu.dev
+            www_root: /var/www/szepul.hu/web
+            listen_port: '80'
+            location: \.php$
+            index_files:
+                - app_test.php
+            envvars:
+                - 'APP_ENV test'
+                - 'APP_DEBUG false'
+            engine: php
+            client_max_body_size: 1m
+            ssl: '0'
+            ssl_cert: ''
+            ssl_key: ''
 php:
     install: '1'
     version: '56'

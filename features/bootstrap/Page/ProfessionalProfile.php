@@ -16,7 +16,7 @@ class ProfessionalProfile extends Page
     /**
      * @var string $path
      */
-    protected $path = '/szaki/{professoinalId}';
+    protected $path = '/{professoinalSlug}';
 
     public function openTheSalon()
     {

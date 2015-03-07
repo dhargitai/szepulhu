@@ -18,7 +18,13 @@ You can now build the development environment for the first time. In the project
 vagrant up
 ```
 
-After the provision you should be able to access the site at [http://szepul.hu.dev](http://szepul.hu.dev)
+When provision is complete you have to add the project's domain to your hosts file:
+
+```bash
+echo '192.168.56.101  szepul.hu.dev test.szepul.hu.dev' | sudo tee -a /etc/hosts
+```
+
+After that you should be able to access the site at [http://szepul.hu.dev](http://szepul.hu.dev)
 
 ## Common Issues
 
