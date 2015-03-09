@@ -3,7 +3,10 @@ vagrantfile-local:
     vm:
         box: puphpet/centos65-x64
         box_url: puphpet/centos65-x64
-        hostname: ''
+        hostname: 'szepul.hu.dev'
+        hostaliases:
+            du9gw8763gr87:
+                test.szepul.hu.dev
         memory: '1024'
         cpus: '1'
         chosen_provider: virtualbox

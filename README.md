@@ -10,18 +10,26 @@ Clone the project into your local file system:
 git clone git@bitbucket.org:diatigrah/szepulhu.git
 ```
 
+## Initial setup
+
+Install Hostsupdater Vagrant plugin:
+
+```bash
+vagrant plugin install vagrant-hostsupdater
+```
+
+or add the project's domains to your hosts file manually:
+
+```bash
+echo '192.168.56.101  szepul.hu.dev test.szepul.hu.dev' | sudo tee -a /etc/hosts
+```
+
 ## Provision Environment
 
 You can now build the development environment for the first time. In the project directory, execute the following command:
 
 ```bash
 vagrant up
-```
-
-When provision is complete you have to add the project's domain to your hosts file:
-
-```bash
-echo '192.168.56.101  szepul.hu.dev test.szepul.hu.dev' | sudo tee -a /etc/hosts
 ```
 
 After that you should be able to access the site at [http://szepul.hu.dev](http://szepul.hu.dev)

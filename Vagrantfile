@@ -15,6 +15,11 @@ Vagrant.configure('2') do |config|
     config.vm.hostname = "#{data['vm']['hostname']}"
   end
 
+  config.hostsupdater.aliases = []
+  data['vm']['hostaliases'].each do |i, host_alias|
+    config.hostsupdater.aliases.push(host_alias)
+  end
+
   if data['vm']['network']['private_network'].to_s != ''
     config.vm.network 'private_network', ip: "#{data['vm']['network']['private_network']}"
   end
