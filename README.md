@@ -12,10 +12,18 @@ git clone git@bitbucket.org:diatigrah/szepulhu.git
 
 ## Initial setup
 
-Install Hostsupdater Vagrant plugin:
+### Install Vagrant:
+
+Use the package manager of you OS or visit [vagrantup.com](https://www.vagrantup.com/) for install instructions.
+
+### Install Vagrant plugins:
+
+ * Hostsupdater: this is for adding/removing local domain names on VM start and shutdown
+ * bindfs: mount the project directory inside the VM with specific user and group ownership 
+(change it in *puphet/config.yml* under **sync_owner** and **sync_group** keys)
 
 ```bash
-vagrant plugin install vagrant-hostsupdater
+vagrant plugin install vagrant-hostsupdater vagrant-bindfs
 ```
 
 or add the project's domains to your hosts file manually:
