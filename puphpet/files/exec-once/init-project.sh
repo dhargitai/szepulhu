@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "cd /var/www/szepul.hu" >> /home/vagrant/.bash_profile
 cd /var/www/szepul.hu
 rm -rf app/cache/*
 rm -rf app/logs/*
