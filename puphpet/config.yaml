@@ -36,7 +36,7 @@ vagrantfile-local:
                     - '--parser future'
         synced_folder:
             qddi1xXRZdOQ:
-                sync_owner: www-data
+                sync_owner: vagrant
                 sync_group: www-data
                 source: ./
                 target: /var/www/szepul.hu

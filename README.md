@@ -1,6 +1,6 @@
 # szepul.hu Setup
 
-Please follow the below steps to get started, if you encounter any issues installing the dependencies or provisioning the vm please check the [Common Issues](#common-issues) section first.
+Please follow the below steps to get started, if you encounter any issues installing the dependencies or provisioning the VM please check the [Common Issues](#common-issues) section first.
 
 ## Clone the project
 
@@ -48,4 +48,4 @@ After that you should be able to access the site at [http://szepul.hu.dev](http:
 
 # License
 
-Copyright 2015, Hargitai Dávid 
+Copyright 2015, Búza Géza & Hargitai Dávid 
