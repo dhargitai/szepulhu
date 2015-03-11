@@ -140,3 +140,4 @@ function has_color_support()
 
     return $support;
 }
+
