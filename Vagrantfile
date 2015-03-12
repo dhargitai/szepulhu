@@ -88,8 +88,8 @@ Vagrant.configure('2') do |config|
       if folder['sync_type'] == 'nfs'
         if Vagrant.has_plugin?('vagrant-bindfs')
           config.vm.synced_folder "#{folder['source']}", "/mnt/vagrant-#{i}", id: "#{i}", type: 'nfs'
-          config.bindfs.bind_folder "/mnt/vagrant-#{i}", "#{folder['target']}", user: sync_owner, group: sync_group, perms: nil
-        else
+          config.bindfs.bind_folder "/mnt/vagrant-#{i}", "#{folder['target']}", user: sync_owner, group: sync_group, perms: "u=rwX:g=rwX:o=rD" 
+       else
           config.vm.synced_folder "#{folder['source']}", "#{folder['target']}", id: "#{i}", type: 'nfs'
         end
       elsif folder['sync_type'] == 'smb'
