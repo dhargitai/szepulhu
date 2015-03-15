@@ -3,6 +3,7 @@ echo "cd /var/www/szepul.hu" >> /home/vagrant/.bash_profile
 cd /var/www/szepul.hu
 rm -rf app/cache/*
 rm -rf app/logs/*
+mkdir -p app/data
 /usr/local/bin/composer install
 app/console doctrine:schema:create
 app/console doctrine:fixtures:load --no-interaction
