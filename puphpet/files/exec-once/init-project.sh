@@ -4,7 +4,7 @@ cd /var/www/szepul.hu
 rm -rf app/cache/*
 rm -rf app/logs/*
 mkdir -p app/data
-/usr/local/bin/composer install
+/usr/local/bin/composer --prefer-source --no-interaction install
 app/console doctrine:schema:create
 app/console doctrine:fixtures:load --no-interaction
 app/console assets:install --symlink
