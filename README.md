@@ -1,3 +1,5 @@
+![alt text](https://codeship.com/projects/9313c430-adf4-0132-4988-526b9a410e37/status?branch=master "Build status")
+
 # szepul.hu Setup
 
 Please follow the below steps to get started, if you encounter any issues installing the dependencies or provisioning the VM please check the [Common Issues](#common-issues) section first.
