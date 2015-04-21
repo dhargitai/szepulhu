@@ -2,7 +2,6 @@
 .DS_Store
 .idea
 .ruby-version
-docker/mysql
 application/bin/*
 !application/bin/wait-for-db.sh
 

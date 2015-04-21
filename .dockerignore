@@ -1,4 +1,3 @@
 application/web/uploads
 application/web/play.php
-features
-spec
+application/web/app_dev.php

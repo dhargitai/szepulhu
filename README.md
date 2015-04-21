@@ -19,7 +19,7 @@ Visit [docs.docker.com](https://docs.docker.com/installation) for install instru
 ## Build development environment
 
 ```bash
-./build-dev.sh
+./build.sh
 ```
 
 After that you should be able to access the site at http://szepul.hu.dev.
