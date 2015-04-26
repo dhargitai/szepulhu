@@ -7,6 +7,8 @@ ADD docker/sites /etc/nginx/sites-enabled
 ADD application /var/www/szepul.hu
 ADD docker/run.sh /root/run.sh
 
+RUN echo '127.0.0.1 szepul.hu.dev' >> /etc/hosts
+
 WORKDIR /var/www/szepul.hu
 
 RUN composer config -g github-oauth.github.com fa748cab6ccc830d796ce74ed651807c3cd16fd2

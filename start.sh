@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export SILENT='-d'
+./stop.sh
 
 docker run --name szepulhu_mysql \
            --volumes-from szepulhu_mysql_data \
@@ -18,7 +18,7 @@ docker run --name szepulhu_web_1 \
            -e APP_ENV=dev \
            -e APP_DEBUG=1 \
            -e NGINX_SERVER_NAMES="szepul.hu.dev www.szepul.hu.dev" \
-           -p 80:80 $SILENT \
+           -p 80:80 -d \
          szepulhu_web
 
 echo ""

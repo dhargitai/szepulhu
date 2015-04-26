@@ -1,5 +1,12 @@
 #!/bin/bash
 
+./stop.sh
+docker rm -f szepulhu_mysql_data
+docker rmi -f szepulhu_web
+rm -rf application/app/Resources/public/css/foundation
+
+#HOST_IP=`ifconfig docker0 | grep 'inet ' | awk '{print $2}'`
+
 docker build -t szepulhu_web .
 docker create --name szepulhu_mysql_data arungupta/mysql-data-container
 
@@ -27,7 +34,7 @@ docker run --link szepulhu_mysql:db \
             php app/console doctrine:fixtures:load --no-interaction && \
             cd app/Resources/public && bower --config.interactive=false --allow-root install && cd ../../.. && \
             cp -R app/Resources/public/bower_components/foundation/scss app/Resources/public/css/foundation && \
-            mv app/Resources/public/css/foundation/normalize.scss app/Resources/public/css/foundation/_normalize.scss
+            mv app/Resources/public/css/foundation/normalize.scss app/Resources/public/css/foundation/_normalize.scss && \
             php app/console assetic:dump
          '
 

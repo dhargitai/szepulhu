@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec -it szepulhu_web_1 /var/www/szepul.hu/bin/behat "$@"

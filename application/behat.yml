@@ -3,7 +3,7 @@ default:
     Behat\Symfony2Extension: ~
     SensioLabs\Behat\PageObjectExtension: ~
     Behat\MinkExtension:
-      base_url: 'http://test.szepul.hu.dev/'
+      base_url: 'http://szepul.hu.dev/'
       goutte:
         guzzle_parameters:
           curl.options:
@@ -26,11 +26,23 @@ default:
 #   command to open the failing html pages:
       show_cmd: echo '%s'
       show_tmp_dir: /vagrant
+#  suites:
+#      domain:
+#        contexts: [ DomainContext ]
+#      critical:
+#        contexts:
+#          - WebContext:
+#            - http://webdriver:4444/wd/hub
+#            - http://web
+#          - ApiContext:
+#            - http://web
+#        filters:
+#          tags: @critical
 
 phantomjs:
   extensions:
     Behat\MinkExtension:
-      base_url: 'http://test.szepul.hu.dev/'
+      base_url: 'http://szepul.hu.dev/'
       selenium2:
         wd_host: http://localhost:4444/wd/hub
         browser: phantomjs

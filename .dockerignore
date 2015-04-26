@@ -1,3 +1,11 @@
 application/web/uploads
 application/web/play.php
 application/web/app_dev.php
+application/web/app_test.php
+application/app/config/config_test.yml
+application/spec
+application/features
+application/behat.yml
+application/phpdoc.xml
+application/phpmd.xml
+application/phpspec.yml
