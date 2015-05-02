@@ -10,7 +10,7 @@ application/vendor
 
 # Frontend
 .sass-cache/*
-node_modules/*
+**/node_modules
 **/bower_components
 **/css/foundation
 

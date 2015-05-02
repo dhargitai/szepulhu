@@ -10,11 +10,10 @@ Clone the project into your local file system:
 git clone git@bitbucket.org:diatigrah/szepulhu.git
 ```
 
-## Initial setup
+## Requirements
 
-### Install Docker and Docker Compose:
-
-Visit [docs.docker.com](https://docs.docker.com/installation) for install instructions.
+* Docker [docs.docker.com](https://docs.docker.com/installation)
+* npm [npmjs.com](https://www.npmjs.com/#getting-started)
 
 ## Build development environment
 

@@ -1,8 +1,7 @@
-FROM diatigrah/php-nginx-projectbase
+FROM diatigrah/php-nginx-projectbase:0.2.0
 
-ADD docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ADD docker/php.ini /etc/php5/fpm/conf.d/40-custom.ini
-ADD docker/sites /etc/nginx/sites-enabled
+ADD docker/services/php5-fpm/php.ini /etc/php5/fpm/conf.d/40-custom.ini
+ADD docker/services/nginx/sites /etc/nginx/sites-enabled
 
 ADD application /var/www/szepul.hu
 ADD docker/run.sh /root/run.sh

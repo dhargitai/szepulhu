@@ -1,14 +1,24 @@
 #!/bin/bash
 
-./stop.sh
-docker rm -f szepulhu_mysql_data
-docker rmi -f szepulhu_web
-rm -rf application/app/Resources/public/css/foundation
-
-#HOST_IP=`ifconfig docker0 | grep 'inet ' | awk '{print $2}'`
+if [ $(docker ps -a | grep szepulhu_mysql | wc -l) -eq 1 ]; then
+  docker rm -f szepulhu_mysql
+fi
+if [ $(docker ps -a | grep szepulhu_web_1 | wc -l) -eq 1 ]; then
+  docker rm -f szepulhu_web_1
+fi
+if [ $(docker images | grep szepulhu_web | wc -l) -eq 1 ]; then
+  docker rmi -f szepulhu_web
+fi
+if [ $(docker ps -a | grep szepulhu_dataonly_mysql | wc -l) -eq 0 ]; then
+  docker create --name szepulhu_dataonly_mysql arungupta/mysql-data-container
+fi
+rm -rf  application/app/Resources/public/css/foundation \
+        application/web/uploads/media/* \
+        application/web/css/* \
+        application/web/js/* \
+        application/src/Application/DataFixtures/data
 
 docker build -t szepulhu_web .
-docker create --name szepulhu_mysql_data arungupta/mysql-data-container
 
 ./start.sh
 
@@ -16,27 +26,27 @@ echo ""
 echo "For the first time we also have to generate fixtures, so we need even more patience..."
 ./wait-for-webserver.sh
 
-docker run --link szepulhu_mysql:db \
-           -v $(pwd)/application:/var/www/szepul.hu \
-           -e APP_ENV=dev \
-           -e APP_DEBUG=1 \
-           -e NGINX_SERVER_NAMES="szepul.hu.dev www.szepul.hu.dev" \
-           --rm \
-         szepulhu_web /bin/sh -c '
-            bin/wait-for-db.sh && \
-            composer install --ansi --prefer-dist --no-interaction && \
-            php app/console doctrine:database:drop --force && \
-            php app/console doctrine:database:create && \
-            php app/console doctrine:schema:create && \
-            wget https://www.dropbox.com/s/ty3soyfivprjcp4/szepul.hu.fixtures.files.tar.gz?dl=0 -O /tmp/fixtures.tar.gz && \
-            tar -xzf /tmp/fixtures.tar.gz --no-same-owner -C src/Application/DataFixtures/ && \
-            mkdir -p web/uploads/media && \
-            php app/console doctrine:fixtures:load --no-interaction && \
-            cd app/Resources/public && bower --config.interactive=false --allow-root install && cd ../../.. && \
-            cp -R app/Resources/public/bower_components/foundation/scss app/Resources/public/css/foundation && \
-            mv app/Resources/public/css/foundation/normalize.scss app/Resources/public/css/foundation/_normalize.scss && \
-            php app/console assetic:dump
-         '
+docker exec -it szepulhu_web_1 /bin/bash -c 'chown -R www-data: .'
+
+docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
+    bin/wait-for-db.sh && \
+    composer install --ansi --prefer-dist --no-interaction && \
+    php app/console doctrine:database:drop --force && \
+    php app/console doctrine:database:create && \
+    php app/console doctrine:schema:create && \
+    wget https://www.dropbox.com/s/ty3soyfivprjcp4/szepul.hu.fixtures.files.tar.gz?dl=0 -O /tmp/fixtures.tar.gz && \
+    tar -xzf /tmp/fixtures.tar.gz --no-same-owner -C src/Application/DataFixtures/ && \
+    mkdir -p web/uploads/media && \
+    php app/console doctrine:fixtures:load --no-interaction
+'
+
+cd application/app/Resources/public && \
+    npm install && \
+    node_modules/.bin/bower --config.interactive=false --allow-root install && \
+    cp -R bower_components/foundation/scss css/foundation && \
+    mv css/foundation/normalize.scss css/foundation/_normalize.scss && \
+    node_modules/.bin/gulp build && \
+cd ../../../../
 
 echo ""
 echo "Ok, done! Let's work!"
