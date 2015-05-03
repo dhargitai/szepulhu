@@ -8,7 +8,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.5.*",
+        "symfony/symfony": "2.6.*",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -36,8 +36,8 @@
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
         "behat/behat": "~3.0",
-        "behat/mink": "1.5",
-        "behat/mink-extension": "~2.0",
+        "behat/mink": "1.7.*@dev",
+        "behat/mink-extension": "2.0.*@dev",
         "behat/mink-browserkit-driver": "~1.1",
         "behat/symfony2-extension": "~2.0",
         "behat/mink-goutte-driver": "*",
@@ -45,6 +45,7 @@
         "ocramius/proxy-manager": "~0.5",
         "phpspec/phpspec": "~2.0",
         "bossa/phpspec2-expect": "~1.0",
+        "fabpot/goutte": "2.0.*@dev",
         "sensiolabs/behat-page-object-extension": "2.0.*@dev",
         "squizlabs/php_codesniffer": "1.*",
         "phpmd/phpmd": "2.*",
@@ -89,7 +90,7 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": {
-            "dev-master": "2.5-dev"
+            "dev-master": "2.6-dev"
         },
         "symfony-assets-install": "symlink"
     }
