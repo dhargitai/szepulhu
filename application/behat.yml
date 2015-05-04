@@ -14,6 +14,11 @@ default:
       selenium2:
         wd_host: http://10.1.1.1:4444/wd/hub
         browser: phantomjs
+      sessions:
+        defaultHeadless:
+          goutte:
+            guzzle_parameters:
+              verify: false
 #      sessions:
 #        my_session:
 #          browser_stack:
