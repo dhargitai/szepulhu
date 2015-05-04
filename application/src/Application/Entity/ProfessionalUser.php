@@ -327,7 +327,7 @@ class ProfessionalUser extends User implements Professional
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Application\Entity\Professional\Task")
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Professional\Task", inversedBy="professionals")
      */
     private $tasks;
 

@@ -3,9 +3,8 @@ imports:
     - { resource: parameters.php }
     - { resource: security.yml }
     - { resource: services.yml }
-    #- { resource: sonata/config_block.yml }
+    - { resource: sonata/config_block.yml }
     - { resource: sonata/config_media.yml }
-#    - { resource: sonata/config_user.yml }
 
 framework:
     #esi:             ~

@@ -54,6 +54,10 @@
                     <div class="label_description">Ez is teljesen rendben van</div>
                 ]]></target>
             </trans-unit>
+            <trans-unit id="form.name">
+                <source>form.name</source>
+                <target>Név</target>
+            </trans-unit>
             <trans-unit id="form.professional.last_name">
                 <source>form.professional.last_name</source>
                 <target>Vezetéknév</target>
@@ -69,6 +73,10 @@
             <trans-unit id="button.finish">
                 <source>button.finish</source>
                 <target>Befejezés</target>
+            </trans-unit>
+            <trans-unit id="form.professional.role">
+                <source>form.professional.role</source>
+                <target>Szerepkör</target>
             </trans-unit>
             <trans-unit id="form.professional.role.contractor">
                 <source>form.professional.role.contractor</source>

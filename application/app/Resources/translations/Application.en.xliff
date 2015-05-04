@@ -55,6 +55,10 @@
                     <div class="label_description">That's OK too!</div>
                 ]]></target>
             </trans-unit>
+            <trans-unit id="form.name">
+                <source>form.name</source>
+                <target>Name</target>
+            </trans-unit>
             <trans-unit id="form.last_name">
                 <source>form.last_name</source>
                 <target>Last name</target>
@@ -62,6 +66,10 @@
             <trans-unit id="form.first_name">
                 <source>form.first_name</source>
                 <target>First name</target>
+            </trans-unit>
+            <trans-unit id="form.professional.role">
+                <source>form.professional.role</source>
+                <target>Role</target>
             </trans-unit>
             <trans-unit id="button.next">
                 <source>button.next</source>
