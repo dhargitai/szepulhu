@@ -19,25 +19,25 @@ class StepInterests extends AbstractType
     {
         $interests = array(
             Professional::INTEREST_FREE_APPOINTMENT_SCHEDULING
-                => Professional::INTEREST_FREE_APPOINTMENT_SCHEDULING,
+            => Professional::INTEREST_FREE_APPOINTMENT_SCHEDULING,
             Professional::INTEREST_FREE_CLIENT_TRACKING
-                => Professional::INTEREST_FREE_CLIENT_TRACKING,
+            => Professional::INTEREST_FREE_CLIENT_TRACKING,
             Professional::INTEREST_FREE_WEBSITE_AND_ONLINE_MARKETING
-                => Professional::INTEREST_FREE_WEBSITE_AND_ONLINE_MARKETING,
+            => Professional::INTEREST_FREE_WEBSITE_AND_ONLINE_MARKETING,
             Professional::INTEREST_GROW_AND_SIMPLIFY_BUSINESS
-                => Professional::INTEREST_GROW_AND_SIMPLIFY_BUSINESS,
+            => Professional::INTEREST_GROW_AND_SIMPLIFY_BUSINESS,
             Professional::INTEREST_NOT_SURE
-                => Professional::INTEREST_NOT_SURE,
+            => Professional::INTEREST_NOT_SURE,
         );
         $builder
             ->add(
                 'interests', 'choice',
                 array(
-                    'label'              => 'form.professional.interests',
-                    'choices'            => $interests,
-                    'translation_domain' => 'Application',
-                    'multiple'           => true,
-                    'expanded'           => true,
+                    'label'                     => 'form.professional.interests',
+                    'choices'                   => $interests,
+                    'choice_translation_domain' => 'Application',
+                    'multiple'                  => true,
+                    'expanded'                  => true,
                 )
             );
     }

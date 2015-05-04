@@ -29,12 +29,5 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-assetic:
-    use_controller: "%use_assetic_controller%"
-    ruby: ~ #/root/.rbenv/versions/2.2.0/bin/ruby
-    filters:
-        compass:
-            bin: /root/.rbenv/versions/2.2.0/bin/compass
-
 #swiftmailer:
 #    delivery_address: me@example.com

@@ -18,6 +18,6 @@ sed -i "s|;clear_env = no|clear_env = no|" /etc/php5/fpm/pool.d/www.conf
 chown -R www-data: app && \
 bin/wait-for-db.sh && \
 rm -rf app/cache/* app/logs/* && \
-composer install --ansi --prefer-dist --no-interaction run-script "$COMPOSER_INSTALL_MODE" post-install-cmd
+composer run-script post-install-cmd
 
 /sbin/my_init

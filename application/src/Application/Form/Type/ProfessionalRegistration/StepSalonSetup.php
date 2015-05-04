@@ -14,7 +14,7 @@ use Application\Form\Type\SalonFormType;
 use Application\Model\Professional;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StepSalonSetup extends AbstractType
 {
@@ -22,7 +22,7 @@ class StepSalonSetup extends AbstractType
     {
         $salonRoles = ProfessionalUser::getSalonRoles();
         $phoneChoices = array(
-            Professional::PREFERRED_PHONE_SALON => 'form.salon.phone',
+            Professional::PREFERRED_PHONE_SALON    => 'form.salon.phone',
             Professional::PREFERRED_PHONE_PERSONAL => 'form.professional.phone',
         );
         $name = $options['lastName'] . " " . $options['firstName'];
@@ -30,8 +30,9 @@ class StepSalonSetup extends AbstractType
             ->add(
                 'role', 'choice',
                 array(
-                    'choices'            => $salonRoles,
-                    'translation_domain' => 'Application',
+                    'label'                     => 'form.professional.role',
+                    'choices'                   => $salonRoles,
+                    'choice_translation_domain' => 'Application',
                 )
             )
             ->add(
@@ -46,15 +47,15 @@ class StepSalonSetup extends AbstractType
             ->add(
                 'preferredPhoneOnProfile', 'choice',
                 array(
-                    'choices'            => $phoneChoices,
-                    'expanded' => true,
-                    'multiple' => false,
-                    'translation_domain' => 'Application',
+                    'choices'                   => $phoneChoices,
+                    'expanded'                  => true,
+                    'multiple'                  => false,
+                    'choice_translation_domain' => 'Application',
                 )
             );
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(

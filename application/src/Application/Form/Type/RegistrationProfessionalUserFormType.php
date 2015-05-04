@@ -41,12 +41,12 @@ class RegistrationProfessionalUserFormType extends RegistrationFormType
                     ->add(
                         'profession', 'choice',
                         array('choices' => $professionValues, 'placeholder' => '',
-                              'label'   => 'form.professional_profession', 'translation_domain' => 'FOSUserBundle')
+                              'label'   => 'form.professional_profession', 'choice_translation_domain' => 'FOSUserBundle')
                     )
                     ->add(
                         'role', 'choice',
                         array('choices'            => $roleValues, 'placeholder' => '',
-                              'label'              => 'form.professional_role', 'translation_domain' => 'FOSUserBundle')
+                              'label'              => 'form.professional_role', 'choice_translation_domain' => 'FOSUserBundle')
                     );
                 break;
         }
