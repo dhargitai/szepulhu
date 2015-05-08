@@ -15,6 +15,15 @@ git clone git@bitbucket.org:diatigrah/szepulhu.git
 * Docker [docs.docker.com](https://docs.docker.com/installation)
 * npm [npmjs.com](https://www.npmjs.com/#getting-started)
 
+### For linux users
+
+To be able to write the project files with your actual user you should run these commands:
+
+```bash
+sudo setfacl -R -m u:`whoami`:rwX appliction/
+sudo setfacl -dR -m u:`whoami`:rwX appliction/
+```
+
 ## Build development environment
 
 ```bash
