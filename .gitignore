@@ -1,33 +1,28 @@
 # General
-*.vagrant
-.bundle
-build/*
-bin/*
 .DS_Store
-secret.key
 .idea
 .ruby-version
+application/bin/*
+!application/bin/wait-for-db.sh
 
 # Composer
-vendor
-composer.phar
+application/vendor
 
 # Frontend
 .sass-cache/*
-*.css.map
-node_modules/*
+**/node_modules
 **/bower_components
 **/css/foundation
 
 # SF2
-/web/bundles/
-/web/uploads/*
-/web/css/*.css
-/web/js/*.js
-/app/bootstrap.php.cache
-/app/cache/*
-/app/config/parameters.yml
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-/src/Application/DataFixtures/data/*
+application/web/bundles/
+application/web/uploads/*
+application/web/css/*.css
+application/web/js/*.js
+application/app/bootstrap.php.cache
+application/app/cache/*
+application/app/config/parameters.yml
+application/app/logs/*
+!application/app/cache/.gitkeep
+!application/app/logs/.gitkeep
+application/src/Application/DataFixtures/data/*

@@ -1,8 +1,6 @@
-![alt text](https://codeship.com/projects/9313c430-adf4-0132-4988-526b9a410e37/status?branch=master "Build status")
-
 # szepul.hu Setup
 
-Please follow the below steps to get started, if you encounter any issues installing the dependencies or provisioning the VM please check the [Common Issues](#common-issues) section first.
+Please follow the below steps to get started.
 
 ## Clone the project
 
@@ -12,41 +10,43 @@ Clone the project into your local file system:
 git clone git@bitbucket.org:diatigrah/szepulhu.git
 ```
 
-## Initial setup
+## Requirements
 
-### Install Vagrant:
+* Docker [docs.docker.com](https://docs.docker.com/installation)
+* npm [npmjs.com](https://www.npmjs.com/#getting-started)
 
-Use the package manager of you OS or visit [vagrantup.com](https://www.vagrantup.com/) for install instructions.
+### For linux users
 
-### Install Vagrant plugins:
-
- * Hostsupdater: this is for adding/removing local domain names on VM start and shutdown
- * bindfs: mount the project directory inside the VM with specific user and group ownership 
-(change it in *puphet/config.yml* under **sync_owner** and **sync_group** keys)
+To be able to write the project files with your actual user you should run these commands:
 
 ```bash
-vagrant plugin install vagrant-hostsupdater vagrant-bindfs
+sudo setfacl -R -m u:`whoami`:rwX appliction/
+sudo setfacl -dR -m u:`whoami`:rwX appliction/
 ```
 
-or add the project's domains to your hosts file manually:
+## Build development environment
 
 ```bash
-echo '192.168.56.101  szepul.hu.dev test.szepul.hu.dev' | sudo tee -a /etc/hosts
+./build.sh
 ```
 
-## Provision Environment
-
-You can now build the development environment for the first time. In the project directory, execute the following command:
-
-```bash
-vagrant up
-```
-
-After that you should be able to access the site at [http://szepul.hu.dev](http://szepul.hu.dev)
+After that you should be able to access the site at http://szepul.hu.dev.
 
 ## Common Issues
 
-... ?
+#### Bower issue
+You may have an error while bower tries to install its dependencies:
+```console
+Failed to execute "git ls-remote --tags --heads git://github.com/jquery/jquery.git", exit code of #128
+fatal: unable to connect to github.com:
+github.com[0: 192.30.252.131]: errno=Connection refused
+```
+
+**Solution:** Run the following command on host:
+```console
+git config --global url."https://".insteadOf git://
+```
+
 
 # License
 

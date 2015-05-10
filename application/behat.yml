@@ -1,0 +1,55 @@
+default:
+  extensions:
+    Behat\Symfony2Extension: ~
+    SensioLabs\Behat\PageObjectExtension: ~
+    Behat\MinkExtension:
+      base_url: 'http://szepul.hu.dev/'
+      goutte:
+        guzzle_parameters:
+          curl.options:
+            CURLOPT_SSL_VERIFYPEER: false
+            CURLOPT_CERTINFO: false
+            CURLOPT_TIMEOUT: 120
+          ssl.certificate_authority: false
+      selenium2:
+        wd_host: http://10.1.1.1:4444/wd/hub
+        browser: phantomjs
+      sessions:
+        defaultHeadless:
+          goutte:
+            guzzle_parameters:
+              verify: false
+#      sessions:
+#        my_session:
+#          browser_stack:
+#            username: my_username
+#            access_key: my_password
+#            capabilities:
+#              browserName: "Chrome"
+#              browserVersion: "35"
+#              platform: "WIN8"
+#   command to open the failing html pages:
+      show_cmd: echo '%s'
+      show_tmp_dir: /vagrant
+#  suites:
+#      domain:
+#        contexts: [ DomainContext ]
+#      critical:
+#        contexts:
+#          - WebContext:
+#            - http://webdriver:4444/wd/hub
+#            - http://web
+#          - ApiContext:
+#            - http://web
+#        filters:
+#          tags: @critical
+
+phantomjs:
+  extensions:
+    Behat\MinkExtension:
+      base_url: 'http://szepul.hu.dev/'
+      selenium2:
+        wd_host: http://localhost:4444/wd/hub
+        browser: phantomjs
+      show_cmd: echo '%s'
+      show_tmp_dir: ./tmp/

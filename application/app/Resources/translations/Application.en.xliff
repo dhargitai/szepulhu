@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="interest.free_appointment_scheduling">
+                <source>free_appointment_scheduling</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Free Appointment Scheduling</div>
+                    <div class="label_description">
+                        Mobile and web appointment books,
+                        dead-simple online booking, email and
+                        text message reminders and follow-ups
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.free_client_tracking">
+                <source>free_client_tracking</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">A Free Website and Free Online Marketing</div>
+                    <div class="label_description">
+                        A beautiful website and image gallery, social media tools,
+                        and listing in the Szépül.hu Client Directory
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.free_website_and_online_marketing">
+                <source>free_website_and_online_marketing</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Free Client Tracking</div>
+                    <div class="label_description">
+                        Track client formulas, contact info and photos after
+                        every appointment from the mobile app or web site
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.grow_and_simplify_business">
+                <source>grow_and_simplify_business</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">Premium Tools to Grow and Simplify Your Business</div>
+                    <div class="label_description">
+                        Email Marketing tools, extra promotion in the Szépül.hu directory
+                        and across the web to drive you new clients
+                    </div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="interest.not_sure">
+                <source>not_sure</source>
+                <target><![CDATA[
+                    <div class="label_image free_appointment_scheduling"></div>
+                    <div class="label_main">I'm not sure yet</div>
+                    <div class="label_description">That's OK too!</div>
+                ]]></target>
+            </trans-unit>
+            <trans-unit id="form.name">
+                <source>form.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="form.last_name">
+                <source>form.last_name</source>
+                <target>Last name</target>
+            </trans-unit>
+            <trans-unit id="form.first_name">
+                <source>form.first_name</source>
+                <target>First name</target>
+            </trans-unit>
+            <trans-unit id="form.professional.role">
+                <source>form.professional.role</source>
+                <target>Role</target>
+            </trans-unit>
+            <trans-unit id="button.next">
+                <source>button.next</source>
+                <target>Next</target>
+            </trans-unit>
+            <trans-unit id="button.finish">
+                <source>button.finish</source>
+                <target>Finish</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
