@@ -34,7 +34,19 @@ After that you should be able to access the site at http://szepul.hu.dev.
 
 ## Common Issues
 
-... ?
+#### Bower issue
+You may have an error while bower tries to install its dependencies:
+```console
+Failed to execute "git ls-remote --tags --heads git://github.com/jquery/jquery.git", exit code of #128
+fatal: unable to connect to github.com:
+github.com[0: 192.30.252.131]: errno=Connection refused
+```
+
+**Solution:** Run the following command on host:
+```console
+git config --global url."https://".insteadOf git://
+```
+
 
 # License
 
