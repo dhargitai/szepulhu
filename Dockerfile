@@ -1,4 +1,4 @@
-FROM diatigrah/php-nginx-projectbase:0.2.0
+FROM diatigrah/php-nginx-projectbase:0.2.1
 
 ADD docker/services/php5-fpm/php.ini /etc/php5/fpm/conf.d/40-custom.ini
 ADD docker/services/php5-fpm/php.ini /etc/php5/cli/conf.d/40-custom.ini
