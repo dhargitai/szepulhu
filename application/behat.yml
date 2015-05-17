@@ -2,6 +2,7 @@ default:
   extensions:
     Behat\Symfony2Extension: ~
     SensioLabs\Behat\PageObjectExtension: ~
+    Behat\TeamCityFormatter\TeamCityFormatterExtension: ~
     Behat\MinkExtension:
       base_url: 'http://szepul.hu.dev/'
       goutte:

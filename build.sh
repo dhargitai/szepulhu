@@ -29,7 +29,7 @@ echo "For the first time we also have to generate fixtures, so we need even more
 docker exec -it szepulhu_web_1 /bin/bash -c 'chown -R www-data: .'
 
 docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
-    bin/wait-for-db.sh && \
+    /wait-for-db.sh && \
     composer install --ansi --prefer-dist --no-interaction && \
     php app/console doctrine:database:drop --force && \
     php app/console doctrine:database:create && \
