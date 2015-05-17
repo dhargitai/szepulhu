@@ -3,7 +3,7 @@
 <project name="szepul.hu" default="build">
   <property name="srcDir" value="${basedir}/src" />
   <target name="build"
-  depends="prepare,clean,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb"/>
+  depends="prepare,clean,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb,phpspec,behat"/>
 
   <target name="build-parallel"
   depends="prepare,lint,tools-parallel,phpunit,phpcb"/>
