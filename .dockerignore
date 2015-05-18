@@ -9,3 +9,4 @@ application/behat.yml
 application/phpdoc.xml
 application/phpmd.xml
 application/phpspec.yml
+application/src/Application/DataFixtures
