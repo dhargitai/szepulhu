@@ -1,6 +1,4 @@
 application/web/uploads
 application/web/play.php
 application/web/app_dev.php
-application/web/app_test.php
-application/app/config/config_test.yml
 application/src/Application/DataFixtures
