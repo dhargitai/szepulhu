@@ -15,7 +15,7 @@ sed -i "s|\${NGINX_INDEX_SCRIPT}|${NGINX_INDEX_SCRIPT}|" /etc/nginx/sites-enable
 
 sed -i "s|;clear_env = no|clear_env = no|" /etc/php5/fpm/pool.d/www.conf
 
-chown -R www-data: app && \
+chown -R www-data: . && \
 /wait-for-db.sh && \
 rm -rf app/cache/* app/logs/* && \
 composer run-script post-install-cmd
