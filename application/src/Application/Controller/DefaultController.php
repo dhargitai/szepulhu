@@ -20,7 +20,8 @@ class DefaultController extends Controller
         $professionalRepository = $this->getDoctrine()->getRepository('AppBundle:ProfessionalUser');
 
         return $this->render(
-            'index.html.twig', array('featuredProfessionals' => $professionalRepository->getFeaturedProfessionals())
+            'index.html.twig',
+            array('featuredProfessionals' => $professionalRepository->getFeaturedProfessionals())
         );
     }
 
@@ -58,17 +59,18 @@ class DefaultController extends Controller
                 return $this->redirect($this->generateUrl('home')); // redirect when done
             }
         }
-        $result = $this->_sumFormData($this->get('session')->get('flow_registerProfessionalFlow_data'));
+        $result = $this->sumFormData($this->get('session')->get('flow_registerProfessionalFlow_data'));
         return $this->render(
-            ':professional:registration.html.twig', array(
-                'form' => $form->createView(),
-                'flow' => $flow,
+            ':professional:registration.html.twig',
+            array(
+                'form'   => $form->createView(),
+                'flow'   => $flow,
                 'result' => $result,
             )
         );
     }
 
-    protected function _sumFormData(array $formData = null)
+    protected function sumFormData(array $formData = null)
     {
         $result = array();
         if (!is_null($formData)) {
@@ -131,10 +133,12 @@ class DefaultController extends Controller
         }
         $photoRepository = $this->getDoctrine()->getRepository('ApplicationSonataMediaBundle:Media');
         return $this->render(
-            'professional/photo.html.twig', array('photo'        => $photoRepository->find($photoId),
-                                                  'professional' => $professionalRepository->findOneBy(
-                                                      array('slug' => $professionalSlug)
-                                                  ))
+            'professional/photo.html.twig',
+            array('photo'        => $photoRepository->find($photoId),
+                'professional' => $professionalRepository->findOneBy(
+                    array('slug' => $professionalSlug)
+                )
+            )
         );
     }
 }

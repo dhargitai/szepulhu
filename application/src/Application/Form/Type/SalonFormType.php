@@ -23,7 +23,8 @@ class SalonFormType extends AbstractType
             ->add('city', 'text', array('label' => 'form.salon.city', 'translation_domain' => 'Application'))
             ->add('address', 'text', array('label' => 'form.salon.address', 'translation_domain' => 'Application'))
             ->add(
-                'addressAdditional', 'text',
+                'addressAdditional',
+                'text',
                 array('label' => 'form.salon.addressAdditional', 'translation_domain' => 'Application')
             )
             ->add('phone', 'text', array('label' => 'form.salon.phone', 'translation_domain' => 'Application'));

@@ -14,7 +14,8 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\Table(name="user")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"user_professional" = "Application\Entity\ProfessionalUser", "user_client" = "Application\Entity\ClientUser"})
+ * @ORM\DiscriminatorMap({"user_professional" = "Application\Entity\ProfessionalUser",
+ *  "user_client" = "Application\Entity\ClientUser"})
  */
 abstract class User extends BaseUser
 {

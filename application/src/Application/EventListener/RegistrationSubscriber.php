@@ -28,7 +28,8 @@ class RegistrationSubscriber implements EventSubscriberInterface
     {
         $viewData = $event->getForm()->getViewData();
         if ($viewData instanceof ProfessionalUser) {
-            echo 'ez profi';die;
+            echo 'ez profi';
+            die;
         }
     }
 }

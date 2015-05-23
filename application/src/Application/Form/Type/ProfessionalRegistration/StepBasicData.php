@@ -18,15 +18,20 @@ class StepBasicData extends AbstractType
     {
         $builder
             ->add(
-                'lastName', 'text', array('label' => 'form.professional.last_name', 'translation_domain' => 'Application')
+                'lastName',
+                'text',
+                array('label' => 'form.professional.last_name', 'translation_domain' => 'Application')
             )
             ->add(
-                'firstName', 'text',
+                'firstName',
+                'text',
                 array('label' => 'form.professional.first_name', 'translation_domain' => 'Application')
             )
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add(
-                'plainPassword', 'repeated', array(
+                'plainPassword',
+                'repeated',
+                array(
                     'type'            => 'password',
                     'options'         => array('translation_domain' => 'FOSUserBundle'),
                     'first_options'   => array('label' => 'form.password'),

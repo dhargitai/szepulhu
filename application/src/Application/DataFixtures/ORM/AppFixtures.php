@@ -19,7 +19,7 @@ use Symfony\Component\Finder\Finder;
 
 class AppFixtures implements FixtureInterface, ContainerAwareInterface
 {
-    protected $_container;
+    protected $container;
 
     public function load(ObjectManager $om)
     {
@@ -39,12 +39,12 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         foreach ($files as $file) {
             $filesArray[] = $file;
         }
-        return $this->_createImageMediaFile($filesArray[array_rand($filesArray)]);
+        return $this->createImageMediaFile($filesArray[array_rand($filesArray)]);
     }
 
     public function newGallery()
     {
-        $gallery = $this->_getGalleryManager()->create();
+        $gallery = $this->getGalleryManager()->create();
         $filesArray = array();
         $files = Finder::create()
             ->name('*.jpg')
@@ -53,14 +53,14 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
             $filesArray[] = $file;
         }
         for ($i = 1; $i <= 4; $i++) {
-            $image = $this->_createImageMediaFile($filesArray[array_rand($filesArray)]);
+            $image = $this->createImageMediaFile($filesArray[array_rand($filesArray)]);
             $this->addMedia($gallery, $image);
         }
         $gallery->setEnabled(true);
         $gallery->setName('media_gallery_' . $i);
         $gallery->setDefaultFormat('medium');
         $gallery->setContext('default');
-        $this->_getGalleryManager()->update($gallery);
+        $this->getGalleryManager()->update($gallery);
         return $gallery;
     }
 
@@ -162,9 +162,9 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         return $cities[array_rand($cities)];
     }
 
-    protected function _createImageMediaFile($fileName)
+    protected function createImageMediaFile($fileName)
     {
-        $manager = $this->_getMediaManager();
+        $manager = $this->getMediaManager();
         $media = $manager->create();
         $media->setBinaryContent($fileName);
         $media->setEnabled(true);
@@ -181,12 +181,12 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
      */
     public function setContainer(ContainerInterface $container = null)
     {
-        $this->_container = $container;
+        $this->container = $container;
     }
 
-    protected function _getRepositoryOf($className)
+    protected function getRepositoryOf($className)
     {
-        return $this->_container->get('doctrine.orm.entity_manager')->getRepository($className);
+        return $this->container->get('doctrine.orm.entity_manager')->getRepository($className);
     }
 
     /**
@@ -206,16 +206,16 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
     /**
      * @return \Sonata\MediaBundle\Model\MediaManagerInterface
      */
-    protected function _getMediaManager()
+    protected function getMediaManager()
     {
-        return $this->_container->get('sonata.media.manager.media');
+        return $this->container->get('sonata.media.manager.media');
     }
 
     /**
      * @return \Sonata\MediaBundle\Model\MediaManagerInterface
      */
-    protected function _getGalleryManager()
+    protected function getGalleryManager()
     {
-        return $this->_container->get('sonata.media.manager.gallery');
+        return $this->container->get('sonata.media.manager.gallery');
     }
 }

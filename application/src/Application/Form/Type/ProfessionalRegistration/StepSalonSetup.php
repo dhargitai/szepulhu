@@ -28,7 +28,8 @@ class StepSalonSetup extends AbstractType
         $name = $options['lastName'] . " " . $options['firstName'];
         $builder
             ->add(
-                'role', 'choice',
+                'role',
+                'choice',
                 array(
                     'label'                     => 'form.professional.role',
                     'choices'                   => $salonRoles,
@@ -36,7 +37,9 @@ class StepSalonSetup extends AbstractType
                 )
             )
             ->add(
-                'name', 'text', array(
+                'name',
+                'text',
+                array(
                     'label'              => 'form.name',
                     'translation_domain' => 'Application',
                     'data'               => $name,
@@ -45,7 +48,8 @@ class StepSalonSetup extends AbstractType
             ->add('salon', new SalonFormType())
             ->add('phone', 'text', array('label' => 'form.professional.phone', 'translation_domain' => 'Application'))
             ->add(
-                'preferredPhoneOnProfile', 'choice',
+                'preferredPhoneOnProfile',
+                'choice',
                 array(
                     'choices'                   => $phoneChoices,
                     'expanded'                  => true,

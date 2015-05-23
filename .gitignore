@@ -4,6 +4,8 @@
 .ruby-version
 application/bin/*
 !application/bin/wait-for-db.sh
+application/build
+application/cache.properties
 
 # Composer
 application/vendor

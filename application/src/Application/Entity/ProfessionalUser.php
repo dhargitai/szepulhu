@@ -16,8 +16,14 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="user_professional")
  * @ORM\Entity(repositoryClass="Application\Entity\ProfessionalUserRepository")
- * @UniqueEntity(fields = "username", targetClass = "Application\UserBundle\Entity\User", message="fos_user.username.already_used", groups={"flow_registerProfessionalFlow_step1"})
- * @UniqueEntity(fields = "email", targetClass = "Application\UserBundle\Entity\User", message="fos_user.email.already_used", groups={"flow_registerProfessionalFlow_step1"})
+ * @UniqueEntity(fields = "username",
+ *  targetClass = "Application\UserBundle\Entity\User",
+ *  message="fos_user.username.already_used",
+ *  groups={"flow_registerProfessionalFlow_step1"})
+ * @UniqueEntity(fields = "email",
+ *  targetClass = "Application\UserBundle\Entity\User",
+ *  message="fos_user.email.already_used",
+ *  groups={"flow_registerProfessionalFlow_step1"})
  */
 class ProfessionalUser extends User implements Professional
 {
@@ -306,21 +312,27 @@ class ProfessionalUser extends User implements Professional
     /**
      * @var Salon
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Professional\Salon", inversedBy="professionals", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Professional\Salon",
+     *  inversedBy="professionals",
+     *  cascade={"persist"})
      */
     private $salon;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Application\Entity\Professional\ServiceGroup", mappedBy="professional", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Application\Entity\Professional\ServiceGroup",
+     *  mappedBy="professional",
+     *  cascade={"remove"})
      */
     private $serviceGroups;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Application\Entity\Professional\Recommendation", mappedBy="professional", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="Application\Entity\Professional\Recommendation",
+     *  mappedBy="professional",
+     *  cascade={"remove"})
      */
     private $recommendations;
 

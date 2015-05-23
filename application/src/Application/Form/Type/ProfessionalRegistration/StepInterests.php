@@ -31,7 +31,8 @@ class StepInterests extends AbstractType
         );
         $builder
             ->add(
-                'interests', 'choice',
+                'interests',
+                'choice',
                 array(
                     'label'                     => 'form.professional.interests',
                     'choices'                   => $interests,

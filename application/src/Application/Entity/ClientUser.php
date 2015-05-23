@@ -12,8 +12,12 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="user_client")
  * @ORM\Entity(repositoryClass="Application\Entity\ClientUserRepository")
- * @UniqueEntity(fields = "username", targetClass = "Application\UserBundle\Entity\User", message="fos_user.username.already_used")
- * @UniqueEntity(fields = "email", targetClass = "Application\UserBundle\Entity\User", message="fos_user.email.already_used")
+ * @UniqueEntity(fields = "username",
+ *  targetClass = "Application\UserBundle\Entity\User",
+ *  message="fos_user.username.already_used")
+ * @UniqueEntity(fields = "email",
+ *  targetClass = "Application\UserBundle\Entity\User",
+ *  message="fos_user.email.already_used")
  */
 class ClientUser extends User
 {
@@ -43,7 +47,7 @@ class ClientUser extends User
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
