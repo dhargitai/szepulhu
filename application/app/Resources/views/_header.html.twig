@@ -23,16 +23,16 @@
                 </a>
                 </li>
             {% else %}
-            <li><a href="{{ path('client_user_registration') }}">Regisztráció</a></li>
-            <li><a href="{{ path('fos_user_security_login') }}">Belépés</a></li>
-            <li class="highlight"><a href="{{ path('professional_registration_flow') }}">Hirdesd a vállalkozásod</a></li>
+            <li><a href="{{ path('client_user_registration') }}">{{ 'menuitem.signup.text'|trans }}</a></li>
+            <li><a href="{{ path('fos_user_security_login') }}">{{ 'menuitem.login.text'|trans }}</a></li>
+            <li class="highlight"><a href="{{ path('professional_registration_flow') }}">{{ 'menuitem.listyourbusiness.text'|trans }}</a></li>
             {% endif %}
         </ul>
 
         <!-- Left Nav Section -->
         <ul class="left">
-            <li><a href="/fotok">Fotók</a></li>
-            <li><a href="#">Hogy működik?</a></li>
+            <li><a href="/fotok">{{ 'menuitem.photos.text'|trans }}</a></li>
+            <li><a href="/hogy-mukodik">{{ 'menuitem.howitworks.text'|trans }}</a></li>
         </ul>
     </section>
 </nav>

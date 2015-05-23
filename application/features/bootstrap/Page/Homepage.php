@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: hargitaidavid
- * Date: 2015.02.12.
- * Time: 22:52
+ *
+ *
+ * @author    Hargitai Dávid <div@diatigrah.hu>
+ * @copyright Hargitai Dávid, 2015.05.23.
+ * @package   szepulhu_functional_tests
  */
 
 namespace Page;
@@ -20,5 +21,16 @@ class Homepage extends Page
     public function selectOneOfTheFeaturedProfessionals()
     {
         $this->find('css', '.featuredProfessional:first-child a')->click();
+    }
+
+    public function hasMenuItemInNavigation($label, $targetPath)
+    {
+        $xpathSelector = sprintf(
+            "//nav[@role='navigation']//a[contains(text(),'%s') and contains(@href,'%s')]",
+            $label,
+            $targetPath
+        );
+        $menuItem = $this->find('xpath', $xpathSelector);
+        return !is_null($menuItem);
     }
 }

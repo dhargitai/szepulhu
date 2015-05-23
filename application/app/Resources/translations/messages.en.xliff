@@ -79,6 +79,34 @@
                 <source>button.finish</source>
                 <target>Finish</target>
             </trans-unit>
+            <trans-unit id="menuitem.photos.text">
+                <source>menuitem.photos.text</source>
+                <target>Browse photos</target>
+            </trans-unit>
+            <trans-unit id="menuitem.photos.title">
+                <source>menuitem.photos.title</source>
+                <target>Hair style photos, nail art pictures and more</target>
+            </trans-unit>
+            <trans-unit id="menuitem.howitworks.text">
+                <source>menuitem.howitworks.text</source>
+                <target>How it works</target>
+            </trans-unit>
+            <trans-unit id="menuitem.howitworks.title">
+                <source>menuitem.howitworks.title</source>
+                <target>Find a Hair Dresser, Makeup Artist or Beautician Near You</target>
+            </trans-unit>
+            <trans-unit id="menuitem.signup.text">
+                <source>menuitem.signup.text</source>
+                <target>Sign up</target>
+            </trans-unit>
+            <trans-unit id="menuitem.login.text">
+                <source>menuitem.login.text</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="menuitem.listyourbusiness.text">
+                <source>menuitem.listyourbusiness.text</source>
+                <target>List your business</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

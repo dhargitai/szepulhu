@@ -1,17 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: hargitaidavid
- * Date: 2015.02.13.
- * Time: 7:52
+ *
+ *
+ * @author    Hargitai Dávid <div@diatigrah.hu>
+ * @copyright Hargitai Dávid, 2015.05.23.
+ * @package   szepulhu_functional_tests
  */
 
 namespace Page;
 
 use Behat\Mink\Exception\ElementNotFoundException;
-use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 
-class ProfessionalProfile extends Page
+class ProfessionalProfile extends CustomPage
 {
     /**
      * @var string $path

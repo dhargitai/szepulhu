@@ -122,6 +122,34 @@
                 <source>form.salon.phone</source>
                 <target>Szalon telefonszám</target>
             </trans-unit>
+            <trans-unit id="menuitem.photos.text">
+                <source>menuitem.photos.text</source>
+                <target>Fotók</target>
+            </trans-unit>
+            <trans-unit id="page.photos.title">
+                <source>page.photos.title</source>
+                <target>Frizurák, köröm-műalkotások és egyéb munkák képei</target>
+            </trans-unit>
+            <trans-unit id="menuitem.howitworks.text">
+                <source>menuitem.howitworks.text</source>
+                <target>Hogy működik?</target>
+            </trans-unit>
+            <trans-unit id="page.howitworks.title">
+                <source>page.howitworks.title</source>
+                <target>Hogyan működik a Szépül.hu?</target>
+            </trans-unit>
+            <trans-unit id="menuitem.signup.text">
+                <source>menuitem.signup.text</source>
+                <target>Regisztráció</target>
+            </trans-unit>
+            <trans-unit id="menuitem.login.text">
+                <source>menuitem.login.text</source>
+                <target>Belépés</target>
+            </trans-unit>
+            <trans-unit id="menuitem.listyourbusiness.text">
+                <source>menuitem.listyourbusiness.text</source>
+                <target>Hirdesd a vállalkozásod</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -4,16 +4,10 @@ Feature: Accessible pages
   I need to be able to visit all the public pages without error
 
   Scenario: Open the homepage
-    Given I am on the homepage
-    Then the response status code should be 200
+    Given I visit the homepage
 
   Scenario: Open a professional's profile
-    Given I am on the homepage
-    When I go to one of the featured professionals
-    Then the response status code should be 200
+    Given I visit a professional's profile page
 
   Scenario: Open a salon's page
-    Given I am on the homepage
-    When I go to one of the featured professionals
-    And I go to its salon
-    Then the response status code should be 200
+    Given I visit a professional's salon page
