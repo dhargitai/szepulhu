@@ -4,7 +4,6 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\MinkContext;
 use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Page\Homepage;
@@ -56,19 +55,20 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
         $this->professionalProfile->openTheSalon();
     }
 
-    /**
-     * @When I follow the link in the navigation menu with label :label
-     */
-    public function iFollowTheLinkInTheNavigationMenuWithLabel($label)
-    {
-        $this->homepage->clickLink($label);
-    }
 
     /**
-     * @Then I should get on the :target page
+     * @Then I should see the following navigation links:
+     *
+     * @param TableNode $table
      */
-    public function iShouldGetOnThePage($target)
+    public function iShouldSeeTheFollowingNavigationLinks(TableNode $table)
     {
-        $this->getPage($target)->isOpen();
+        foreach ($table as $row) {
+            $targetPath = $this->getPage($row['target page'])->getUrlPath();
+            if (!$this->homepage->hasMenuItemInNavigation($row['label'], $targetPath)) {
+                $message = sprintf('Element "%s" not found.', $row['label']);
+                throw new LogicException($message);
+            }
+        }
     }
 }
