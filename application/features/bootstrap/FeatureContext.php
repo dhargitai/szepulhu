@@ -32,31 +32,6 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     }
 
     /**
-     * @Given I am on the homepage
-     */
-    public function iAmOnTheHomepage()
-    {
-        $this->homepage->open();
-    }
-
-    /**
-     * @When I go to one of the featured professionals
-     */
-    public function iGoToOneOfTheFeaturedProfessionals()
-    {
-        $this->homepage->selectOneOfTheFeaturedProfessionals();
-    }
-
-    /**
-     * @When I go to its salon
-     */
-    public function iGoToItsSalon()
-    {
-        $this->professionalProfile->openTheSalon();
-    }
-
-
-    /**
      * @Then I should see the following navigation links:
      *
      * @param TableNode $table
@@ -70,5 +45,33 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
                 throw new LogicException($message);
             }
         }
+    }
+
+    /**
+     * @Given I visit the homepage
+     * @Given I am on the homepage
+     */
+    public function iVisitTheHomepage()
+    {
+        $this->homepage->open();
+    }
+
+    /**
+     * @Given I visit a professional's profile page
+     */
+    public function iVisitAProfessionalSProfilePage()
+    {
+        $this->homepage->open();
+        $this->homepage->selectOneOfTheFeaturedProfessionals();
+    }
+
+    /**
+     * @Given I visit a professional's salon page
+     */
+    public function iVisitAProfessionalSSalonPage()
+    {
+        $this->homepage->open();
+        $this->homepage->selectOneOfTheFeaturedProfessionals();
+        $this->professionalProfile->openTheSalon();
     }
 }
