@@ -21,4 +21,19 @@ class Homepage extends Page
     {
         $this->find('css', '.featuredProfessional:first-child a')->click();
     }
+
+    public function hasMenuItemInNavigation($label)
+    {
+        $xpathSelector = sprintf(
+            "//nav[@role='navigation']//a[contains(text(),'%s')]",
+            $label
+        );
+        $menuItem = $this->find('xpath', $xpathSelector);
+        return !is_null($menuItem);
+    }
+
+    public function getPageAfterFollowingLink($locator)
+    {
+
+    }
 }
