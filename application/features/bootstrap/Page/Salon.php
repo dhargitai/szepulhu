@@ -11,15 +11,11 @@ namespace Page;
 
 use Behat\Mink\Exception\ElementNotFoundException;
 
-class ProfessionalProfile extends CustomPage
+class Salon extends CustomPage
 {
     /**
      * @var string $path
      */
-    protected $path = '/{professionalSlug}';
+    protected $path = '/{slug}';
 
-    public function getSlugOfTheSalon()
-    {
-        return $this->find('css', 'a.salonLink')->getAttribute('href');
-    }
 }

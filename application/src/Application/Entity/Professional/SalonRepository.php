@@ -3,6 +3,7 @@
 namespace Application\Entity\Professional;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * SalonRepository
@@ -12,4 +13,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class SalonRepository extends EntityRepository
 {
+    public function __construct($em)
+    {
+        $entityName = 'Application\Entity\Professional\Salon';
+        $class = new ClassMetadata($entityName);
+
+        parent::__construct($em, $class);
+    }
 }

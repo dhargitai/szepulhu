@@ -3,6 +3,8 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * ProfessionalUserRepository
@@ -12,6 +14,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProfessionalUserRepository extends EntityRepository
 {
+    public function __construct($em)
+    {
+        $entityName = 'Application\Entity\ProfessionalUser';
+        $class = new ClassMetadata($entityName);
+
+        parent::__construct($em, $class);
+    }
+
     public function getFeaturedProfessionals()
     {
         return $this->createQueryBuilder('p')

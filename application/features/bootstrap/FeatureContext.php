@@ -20,6 +20,7 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      * @var Homepage
      */
     private $homepage;
+
     /**
      * @var ProfessionalProfile
      */
@@ -61,8 +62,11 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     public function iVisitAProfessionalSProfilePage()
     {
-        $this->homepage->open();
-        $this->homepage->selectOneOfTheFeaturedProfessionals();
+        $this->iVisitTheHomepage();
+        $professionalSlug = trim($this->homepage->getSlugOfTheFirstFeaturedProfessional(), '/');
+        $this->professionalProfile->open(
+            array('professionalSlug' => $professionalSlug)
+        );
     }
 
     /**
@@ -70,8 +74,84 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     public function iVisitAProfessionalSSalonPage()
     {
-        $this->homepage->open();
-        $this->homepage->selectOneOfTheFeaturedProfessionals();
-        $this->professionalProfile->openTheSalon();
+        $this->iVisitAProfessionalSProfilePage();
+        $salonSlug = trim($this->professionalProfile->getSlugOfTheSalon(), '/');
+        $this->getPage('Salon')->open(
+            array('slug' => $salonSlug)
+        );
+    }
+
+    /**
+     * @When there isn't enough featured professionals to fill all the slots
+     */
+    public function thereIsnTEnoughFeaturedProfessionalsToFillAllTheSlots()
+    {
+        if (!$this->homepage->hasFreeFeaturedProfessionalSlot()) {
+            throw new LogicException("There's no any free featured professional slot.");
+        }
+    }
+
+    /**
+     * @Then I should see silhouettes on the empty spaces linking to :featuredProfessionalsPage
+     */
+    public function iShouldSeeSilhouettesOnTheEmptySpacesLinkingTo($featuredProfessionalsPage)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When my location is in one of the country's county
+     */
+    public function myLocationIsInOneOfTheCountrySCounty()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When there are featured professionals in the current county
+     */
+    public function thereAreFeaturedProfessionalsInTheCurrentCounty()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see featured professionals from my location's county
+     */
+    public function iShouldSeeFeaturedProfessionalsFromMyLocationSCounty()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then the county selector should be on the county of :arg1
+     */
+    public function theCountySelectorShouldBeOnTheCountyOf($arg1)
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When my location is outside of the current country
+     */
+    public function myLocationIsOutsideOfTheCurrentCountry()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @When there are featured professionals in the capital's county
+     */
+    public function thereAreFeaturedProfessionalsInTheCapitalSCounty()
+    {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then I should see featured professionals from the capital's county
+     */
+    public function iShouldSeeFeaturedProfessionalsFromTheCapitalSCounty()
+    {
+        throw new PendingException();
     }
 }

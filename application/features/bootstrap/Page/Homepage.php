@@ -23,6 +23,11 @@ class Homepage extends Page
         $this->find('css', '.featuredProfessional:first-child a')->click();
     }
 
+    public function getSlugOfTheFirstFeaturedProfessional()
+    {
+        return $this->find('css', '.featuredProfessional:first-child a')->getAttribute('href');
+    }
+
     public function hasMenuItemInNavigation($label, $targetPath)
     {
         $xpathSelector = sprintf(
@@ -32,5 +37,11 @@ class Homepage extends Page
         );
         $menuItem = $this->find('xpath', $xpathSelector);
         return !is_null($menuItem);
+    }
+
+    public function hasFreeFeaturedProfessionalSlot()
+    {
+        $firstFreeSlot = $this->find('css', '.featuredProfessional.free:first-child');
+        return !is_null($firstFreeSlot);
     }
 }

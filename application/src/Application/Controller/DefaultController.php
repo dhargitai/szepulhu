@@ -3,25 +3,40 @@
 namespace Application\Controller;
 
 use Application\Entity\Professional\Salon;
+use Application\Entity\ProfessionalUserRepository;
+use Application\Interactor\HomepageInteractor;
+use Application\Interactor\HomepageRequest;
 use Application\Sonata\MediaBundle\Document\Media;
 use Application\Entity\ProfessionalUser;
 use Application\Entity\ClientUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+/**
+ * @Route(service="app.default_controller")
+ */
+class DefaultController
 {
+    private $templating;
+    private $interactor;
+
+    public function __construct(EngineInterface $templating, HomepageInteractor $interactor)
+    {
+        $this->templating = $templating;
+        $this->interactor = $interactor;
+    }
+
     /**
      * @Route("/", name="home")
      */
     public function indexAction()
     {
-        $professionalRepository = $this->getDoctrine()->getRepository('AppBundle:ProfessionalUser');
-
-        return $this->render(
+        $response = $this->interactor->createResponse(new HomepageRequest());
+        return $this->templating->renderResponse(
             'index.html.twig',
-            array('featuredProfessionals' => $professionalRepository->getFeaturedProfessionals())
+            (array)$response
         );
     }
 
@@ -81,41 +96,6 @@ class DefaultController extends Controller
             }
         }
         return $result;
-    }
-
-    /**
-     * @Route("/{professionalSlug}", name="professional_profile", requirements={
-     *    "professionalSlug": "[a-zA-Z]+"
-     * })
-     * @param string $professionalSlug
-     *
-     * @return Response
-     */
-    public function professionalProfileAction($professionalSlug)
-    {
-        $professionalRepository = $this->getDoctrine()->getRepository('AppBundle:ProfessionalUser');
-        $professional = $professionalRepository->findOneBy(array('slug' => $professionalSlug));
-        return $this->render(
-            'professional/profile.html.twig',
-            array(
-                'professional' => $professional,
-                'hasServices'  => $professionalRepository->hasServices($professional->getId())
-            )
-        );
-    }
-
-    /**
-     * @Route("/{slug}", name="professional_salon")
-     * @param string $slug
-     *
-     * @return Response
-     */
-    public function professionalSalon($slug)
-    {
-        $salon = $this->getDoctrine()->getRepository('AppBundle:Professional\Salon')->findOneBy(
-            array('slug' => $slug)
-        );
-        return $this->render('professional/salon.html.twig', array('salon' => $salon));
     }
 
     /**
