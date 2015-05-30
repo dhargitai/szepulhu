@@ -59,13 +59,6 @@ abstract class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="county", type="string", length=255, nullable=true)
      */
     private $county;
@@ -75,7 +68,7 @@ abstract class User extends BaseUser
      *
      * @ORM\Column(name="zip_code", type="string", length=15, nullable=true)
      */
-    private $zipCode;
+    private $postCode;
 
     /**
      * @var string
@@ -243,30 +236,6 @@ abstract class User extends BaseUser
     }
 
     /**
-     * Set city
-     *
-     * @param string $city
-     *
-     * @return User
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
      * Set county
      *
      * @param string $county
@@ -291,27 +260,27 @@ abstract class User extends BaseUser
     }
 
     /**
-     * Set zipCode
+     * Set postCode
      *
-     * @param string $zipCode
+     * @param string $postCode
      *
      * @return User
      */
-    public function setZipCode($zipCode)
+    public function setPostCode($postCode)
     {
-        $this->zipCode = $zipCode;
+        $this->postCode = $postCode;
 
         return $this;
     }
 
     /**
-     * Get zipCode
+     * Get postCode
      *
      * @return string
      */
-    public function getZipCode()
+    public function getPostCode()
     {
-        return $this->zipCode;
+        return $this->postCode;
     }
 
     /**

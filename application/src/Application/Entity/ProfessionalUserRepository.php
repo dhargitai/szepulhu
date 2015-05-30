@@ -27,7 +27,7 @@ class ProfessionalUserRepository extends EntityRepository
         return $this->createQueryBuilder('p')
             ->andWhere(':now between p.featuredFrom and p.featuredTo')
             ->setParameter('now', new \DateTime('now'))
-            ->setMaxResults(6)
+            ->setMaxResults(5)
             ->getQuery()->getResult();
     }
 

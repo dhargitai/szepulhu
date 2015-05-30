@@ -1,0 +1,99 @@
+Application\Entity\City:
+    city_budapest:
+        id: 1
+        county: @county_pest
+        name: Budapest
+        isCapital: 1
+        isDistrict: 0
+        postCode: 1001
+    city_mohacs:
+        id: 2
+        county: @county_baranya
+        name: Mohács
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_hodmezovasarhely:
+        id: 3
+        county: @county_csongrad
+        name: Hódmezővásárhely
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_sopron:
+        id: 4
+        county: @county_gyms
+        name: Sopron
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_oroshaza:
+        id: 5
+        county: @county_bekes
+        name: Orosháza
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_bugyi:
+        id: 6
+        county: @county_pest
+        name: Bugyi
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_pecs:
+        id: 7
+        county: @county_baranya
+        name: Pécs
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_szeged:
+        id: 8
+        county: @county_csongrad
+        name: Szeged
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_gyor:
+        id: 9
+        county: @county_gyms
+        name: Győr
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_bekescsaba:
+        id: 10
+        county: @county_bekes
+        name: Békéscsaba
+        isCapital: 0
+        isDistrict: 0
+        postCode: <numberBetween(1000,7000)>
+    city_budapest_xi:
+        id: 11
+        county: @county_pest
+        name: Budapest XI.
+        isCapital: 1
+        isDistrict: 1
+        postCode: 1111
+    city_budapest_viii:
+        id: 12
+        county: @county_pest
+        name: Budapest VIII.
+        isCapital: 1
+        isDistrict: 1
+        postCode: 1081
+    city_budapest_ii:
+        id: 13
+        county: @county_pest
+        name: Budapest II.
+        isCapital: 1
+        isDistrict: 1
+        postCode: 1021
+    not_wanted_city:
+        id: 14
+        county: @county_nowhereland
+        name: Szellemváros
+        isCapital: 0
+        isDistrict: 0
+        postCode: 9999

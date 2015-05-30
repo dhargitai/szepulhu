@@ -82,6 +82,14 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     }
 
     /**
+     * @When I select :countyName county in the county selector
+     */
+    public function iSelectCountyInTheCountySelector($countyName)
+    {
+        $this->homepage->selectCounty($countyName);
+    }
+
+    /**
      * @When there isn't enough featured professionals to fill all the slots
      */
     public function thereIsnTEnoughFeaturedProfessionalsToFillAllTheSlots()
@@ -92,11 +100,21 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     }
 
     /**
-     * @Then I should see silhouettes on the empty spaces linking to :featuredProfessionalsPage
+     * @Then I should see silhouettes on the empty spaces linking to :professionalsSalesPage
      */
-    public function iShouldSeeSilhouettesOnTheEmptySpacesLinkingTo($featuredProfessionalsPage)
+    public function iShouldSeeSilhouettesOnTheEmptySpacesLinkingTo($professionalsSalesPage)
     {
-        throw new PendingException();
+        if (!$this->homepage->hasFirstFreeFeaturedProfessionalSlotSilhouette()) {
+            throw new LogicException("There's no silhouette image in the free featured professional slot.");
+        }
+
+        if (!$this->homepage->isFirstFreeFeaturedProfessionalSlotLinkingTo($professionalsSalesPage)) {
+            $message = sprintf(
+                "There's no link pointing to '%s' in the free featured professional slot.",
+                $professionalsSalesPage
+            );
+            throw new LogicException($message);
+        }
     }
 
     /**

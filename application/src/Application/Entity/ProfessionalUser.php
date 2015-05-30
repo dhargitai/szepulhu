@@ -343,6 +343,14 @@ class ProfessionalUser extends User implements Professional
      */
     private $tasks;
 
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\City",
+     *  inversedBy="professionals")
+     */
+    private $city;
+
     public function __construct()
     {
         parent::__construct();
@@ -1258,4 +1266,29 @@ class ProfessionalUser extends User implements Professional
     {
         $this->preferredPhoneOnProfile = $preferredPhoneOnProfile;
     }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
 }
