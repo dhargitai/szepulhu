@@ -7,7 +7,8 @@ use Prophecy\Argument;
 
 class HomepageResponseSpec extends ObjectBehavior
 {
-    protected $initialFeaturedProfessionals;
+    private $initialFeaturedProfessionals;
+    private $initialCounties;
 
     public function let()
     {
@@ -28,8 +29,11 @@ class HomepageResponseSpec extends ObjectBehavior
             )
         );
 
+        $this->initialCounties = array('Pest', 'Csongrád');
+
         $this->beConstructedWith(array(
             'featuredProfessionals' => $this->initialFeaturedProfessionals,
+            'countiesWithFeaturedProfessionals' => $this->initialCounties,
         ));
     }
 
@@ -41,5 +45,10 @@ class HomepageResponseSpec extends ObjectBehavior
     public function it_holds_featured_professionals()
     {
         $this->featuredProfessionals->shouldReturn($this->initialFeaturedProfessionals);
+    }
+
+    public function it_holds_counties()
+    {
+        $this->countiesWithFeaturedProfessionals->shouldReturn($this->initialCounties);
     }
 }

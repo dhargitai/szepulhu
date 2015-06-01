@@ -6,10 +6,16 @@ Feature: Featured professionals
   Background:
     Given I am on the homepage
 
-  Scenario: There isn't any featured professional in the current county
-    When I select "Csongrád" county in the county selector
+  @javascript
+  Scenario: There are one or more free featured professional slot in the county
+    When I select "Baranya" county in the county selector
     And there isn't enough featured professionals to fill all the slots
     Then I should see silhouettes on the empty spaces linking to "/vallalkozasoknak"
+
+  @javascript
+  Scenario: There isn't any free featured professional slot in the county
+    When I select "Csongrád" county in the county selector
+    Then I shouldn't see any free featured professional slot
 
 #  Scenario: Visit from known county
 #    When my location is in one of the country's county

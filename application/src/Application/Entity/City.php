@@ -54,6 +54,14 @@ class City
     private $county;
 
     /**
+     * @var integer
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Country",
+     *  inversedBy="cities")
+     */
+    private $country;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="isCapital", type="boolean")
@@ -247,5 +255,13 @@ class City
     public function getCitySlug()
     {
         return $this->citySlug;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

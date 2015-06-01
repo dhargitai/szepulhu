@@ -5,7 +5,7 @@ namespace spec\Application\Interactor;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class HomepageRequestSpec extends ObjectBehavior
+class FeaturedProfessionalsRequestSpec extends ObjectBehavior
 {
     private $requestedCounty;
 
@@ -20,7 +20,7 @@ class HomepageRequestSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Application\Interactor\HomepageRequest');
+        $this->shouldHaveType('Application\Interactor\FeaturedProfessionalsRequest');
     }
 
     public function it_holds_the_requested_county()

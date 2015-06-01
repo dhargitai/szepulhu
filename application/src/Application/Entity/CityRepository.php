@@ -1,6 +1,7 @@
 <?php
 
 namespace Application\Entity;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * CityRepository
@@ -10,4 +11,11 @@ namespace Application\Entity;
  */
 class CityRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct($em)
+    {
+        $entityName = 'Application\Entity\County';
+        $class = new ClassMetadata($entityName);
+
+        parent::__construct($em, $class);
+    }
 }

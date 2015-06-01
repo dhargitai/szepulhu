@@ -172,4 +172,15 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     {
         throw new PendingException();
     }
+
+    /**
+     * @Then I shouldn't see any free featured professional slot
+     */
+    public function iShouldnTSeeAnyFreeFeaturedProfessionalSlot()
+    {
+        if ($this->homepage->hasFreeFeaturedProfessionalSlot()) {
+            $message = "There's a free featured professional slot under the county where it shouldn't be.";
+            throw new LogicException($message);
+        }
+    }
 }

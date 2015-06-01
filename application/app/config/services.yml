@@ -9,10 +9,22 @@ services:
         arguments:
             - @doctrine.orm.default_entity_manager
 
+    app.county_repository:
+        class: Application\Entity\CountyRepository
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    app.city_repository:
+        class: Application\Entity\CityRepository
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
     app.homepage.interactor:
         class: Application\Interactor\HomepageInteractor
         arguments:
             - @app.professional_repository
+            - @app.county_repository
+            - @app.city_repository
 
     app.professional.profile.interactor:
         class: Application\Interactor\ProfessionalProfileInteractor

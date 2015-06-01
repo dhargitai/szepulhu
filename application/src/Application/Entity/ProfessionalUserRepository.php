@@ -5,6 +5,7 @@ namespace Application\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * ProfessionalUserRepository
@@ -22,12 +23,26 @@ class ProfessionalUserRepository extends EntityRepository
         parent::__construct($em, $class);
     }
 
-    public function getFeaturedProfessionals()
+    public function getFeaturedProfessionalsOfCounty($countyName)
     {
         return $this->createQueryBuilder('p')
+            ->join('p.city', 'ci')
+            ->join('ci.county', 'co', Join::WITH, 'co.name = :countyName')
             ->andWhere(':now between p.featuredFrom and p.featuredTo')
             ->setParameter('now', new \DateTime('now'))
-            ->setMaxResults(5)
+            ->setParameter('countyName', $countyName)
+            ->setMaxResults(6)
+            ->getQuery()->getResult();
+    }
+
+    public function getFeaturedProfessionalsOfCity($cityName)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.city', 'ci', Join::WITH, 'ci.name like :cityName')
+            ->andWhere(':now between p.featuredFrom and p.featuredTo')
+            ->setParameter('now', new \DateTime('now'))
+            ->setParameter('cityName', $cityName . '%')
+            ->setMaxResults(6)
             ->getQuery()->getResult();
     }
 

@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\Entity\Professional\Salon;
 use Application\Entity\ProfessionalUserRepository;
+use Application\Interactor\FeaturedProfessionalsRequest;
 use Application\Interactor\HomepageInteractor;
 use Application\Interactor\HomepageRequest;
 use Application\Sonata\MediaBundle\Document\Media;
@@ -12,6 +13,7 @@ use Application\Entity\ClientUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -30,12 +32,32 @@ class DefaultController
 
     /**
      * @Route("/", name="home")
+     * @param Request $request
+     *
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $response = $this->interactor->createResponse(new HomepageRequest());
         return $this->templating->renderResponse(
             'index.html.twig',
+            (array)$response
+        );
+    }
+
+    /**
+     * @Route("/embedded_featured_professionals", name="embedded_featured_professionals")
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function embeddedFeaturedProfessionalsAction(Request $request)
+    {
+        $response = $this->interactor->createFeaturedProfessionalsResponse(
+            $this->createFeaturedProfessionalsRequest($request)
+        );
+        return $this->templating->renderResponse(
+            '_featuredProfessionals.html.twig',
             (array)$response
         );
     }
@@ -85,6 +107,24 @@ class DefaultController
         );
     }
 
+    private function createFeaturedProfessionalsRequest(Request $request)
+    {
+        $featuredProfessionalsRequestData = array();
+        $featuredProfessionalsRequestData += $this->determinePlaceToListFeaturedProfessionalsFrom($request);
+        return new FeaturedProfessionalsRequest($featuredProfessionalsRequestData);
+    }
+
+    private function determinePlaceToListFeaturedProfessionalsFrom(Request $request)
+    {
+        $place = array();
+        if ($county = $request->request->get('county', null)) {
+            $place['county'] = $county;
+        } else {
+            $place['city'] = $request->request->get('city', 'Budapest');
+        }
+        return $place;
+    }
+
     protected function sumFormData(array $formData = null)
     {
         $result = array();
@@ -115,9 +155,9 @@ class DefaultController
         return $this->render(
             'professional/photo.html.twig',
             array('photo'        => $photoRepository->find($photoId),
-                'professional' => $professionalRepository->findOneBy(
-                    array('slug' => $professionalSlug)
-                )
+                  'professional' => $professionalRepository->findOneBy(
+                      array('slug' => $professionalSlug)
+                  )
             )
         );
     }

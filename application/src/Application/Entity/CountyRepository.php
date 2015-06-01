@@ -2,6 +2,9 @@
 
 namespace Application\Entity;
 
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr\Join;
+
 /**
  * CountyRepository
  *
@@ -10,4 +13,22 @@ namespace Application\Entity;
  */
 class CountyRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function __construct($em)
+    {
+        $entityName = 'Application\Entity\County';
+        $class = new ClassMetadata($entityName);
+
+        parent::__construct($em, $class);
+    }
+
+    public function getCountiesWithActiveFeaturedProfessionals()
+    {
+        return $this->createQueryBuilder('co')
+            ->join('co.cities', 'ci')
+            ->join('ci.professionals', 'p', Join::WITH, ':now between p.featuredFrom and p.featuredTo')
+            ->setParameter('now', new \DateTime('now'))
+            ->distinct()
+            ->orderBy('co.name')
+            ->getQuery()->getResult();
+    }
 }

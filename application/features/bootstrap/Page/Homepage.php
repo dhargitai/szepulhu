@@ -44,6 +44,8 @@ class Homepage extends Page
     public function selectCounty($countyName)
     {
         $this->find('css', '#countySelector')->selectOption($countyName);
+        $timeToWaitInMs = 30000;
+        $this->getSession()->wait($timeToWaitInMs, '(0 === jQuery.active)');
     }
 
     public function hasFreeFeaturedProfessionalSlot()
