@@ -98,6 +98,16 @@ class City
      */
     private $salons;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isBigCity", type="boolean")
+     */
+    private $isBigCity;
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;
@@ -263,5 +273,21 @@ class City
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * @param int $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isBigCity()
+    {
+        return $this->isBigCity;
     }
 }

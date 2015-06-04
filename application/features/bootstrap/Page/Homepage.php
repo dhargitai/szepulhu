@@ -27,7 +27,7 @@ class Homepage extends Page
 
     public function getSlugOfTheFirstFeaturedProfessional()
     {
-        return $this->find('css', '.featuredProfessional:first-child a')->getAttribute('href');
+        return ltrim($this->find('css', '.featuredProfessional:first-child a')->getAttribute('href'), '/');
     }
 
     public function hasMenuItemInNavigation($label, $targetPath)

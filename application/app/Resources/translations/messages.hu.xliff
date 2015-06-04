@@ -150,6 +150,102 @@
                 <source>menuitem.listyourbusiness.text</source>
                 <target>Hirdesd a vállalkozásod</target>
             </trans-unit>
+            <trans-unit id="professionalProfile.message">
+                <source>professionalProfile.message</source>
+                <target>Üzenet</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.contactInfo">
+                <source>professionalProfile.contactInfo</source>
+                <target>Kapcsolati infó</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.bookMe">
+                <source>professionalProfile.bookMe</source>
+                <target>Időpontfoglalás</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.bookAnAppointment">
+                <source>professionalProfile.bookAnAppointment</source>
+                <target>Foglalj időpontot</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.serviceLengthInMinutes">
+                <source>professionalProfile.serviceLengthInMinutes</source>
+                <target>%serviceLength% perc</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.service.bookMe">
+                <source>professionalProfile.service.bookMe</source>
+                <target>Időpont</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.writeARecommendation">
+                <source>professionalProfile.writeARecommendation</source>
+                <target>Írj egy ajánlást</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.contactDetails">
+                <source>professionalProfile.contactDetails</source>
+                <target>Kapcsolat</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.viewContactInfo">
+                <source>professionalProfile.viewContactInfo</source>
+                <target>Kapcsolati adatok mutatása</target>
+            </trans-unit>
+            <trans-unit id="googleMap">
+                <source>googleMap</source>
+                <target>Google Térkép</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.businessHours">
+                <source>professionalProfile.businessHours</source>
+                <target>Nyitvatartás</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.otherLinks">
+                <source>professionalProfile.otherLinks</source>
+                <target>Egyéb linkek</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.website">
+                <source>professionalProfile.website</source>
+                <target>Weboldal</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.blog">
+                <source>professionalProfile.blog</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.professionalsCalendar">
+                <source>professionalProfile.professionalsCalendar</source>
+                <target>%lastname% %firstname% időbeosztása</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.verifiedRecommendations">
+                <source>professionalProfile.verifiedRecommendations</source>
+                <target>%numberOfRecommendations% Ellenőrzött ajánlás</target>
+            </trans-unit>
+            <trans-unit id="homepage.tagline">
+                <source>homepage.tagline</source>
+                <target>Foglalj időpontot szépség- és wellness szakembereknél a környékeden</target>
+            </trans-unit>
+            <trans-unit id="homepage.search">
+                <source>homepage.search</source>
+                <target>Keresés</target>
+            </trans-unit>
+            <trans-unit id="homepage.countyoption">
+                <source>homepage.countyoption</source>
+                <target>%countyName% megye</target>
+            </trans-unit>
+            <trans-unit id="homepage.asSeenHere">
+                <source>homepage.asSeenHere</source>
+                <target>Ahogy itt is láthattad...</target>
+            </trans-unit>
+            <trans-unit id="homepage.browseOffers">
+                <source>homepage.browseOffers</source>
+                <target>Böngéssz szakembereink ajánlataiból</target>
+            </trans-unit>
+            <trans-unit id="homepage.photoOfTheDay">
+                <source>homepage.photoOfTheDay</source>
+                <target>A nap fotója</target>
+            </trans-unit>
+            <trans-unit id="homepage.listYourselfHere">
+                <source>homepage.listYourselfHere</source>
+                <target>Hirdesd magad itt</target>
+            </trans-unit>
+            <trans-unit id="homepage.clickHere">
+                <source>homepage.clickHere</source>
+                <target>Kattints ide</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -25,6 +25,6 @@ class FeaturedProfessionalsRequestSpec extends ObjectBehavior
 
     public function it_holds_the_requested_county()
     {
-        $this->county->shouldReturn($this->requestedCounty);
+        $this->getCounty()->shouldReturn($this->requestedCounty);
     }
 }

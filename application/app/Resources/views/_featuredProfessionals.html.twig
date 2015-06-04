@@ -1,5 +1,5 @@
 <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-    {% for i in 0..5 %}
+    {% for i in 0..(numberOfFeaturedProfessionals-1) %}
         {% if featuredProfessionals[i] is defined %}
             {% set professional = featuredProfessionals[i] %}
             <li>
@@ -19,8 +19,8 @@
                         <img src="img/silhouette_{{ random(['male', 'female']) }}.jpg" alt=""/>
                     </a>
 
-                    <span class="professionalName">Hirdesd magad itt</span><br>
-                    <span class="professionalProfession"><a href="{{ path('professional_registration_flow') }}">Kattints ide</a></span>
+                    <span class="professionalName">{{ 'homepage.listYourselfHere'|trans }}</span><br>
+                    <span class="professionalProfession"><a href="{{ path('professional_registration_flow') }}">{{ 'homepage.clickHere'|trans }}</a></span>
                 </div>
             </li>
         {% endif %}

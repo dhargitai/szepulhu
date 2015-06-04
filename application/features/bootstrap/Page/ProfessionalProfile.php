@@ -20,6 +20,6 @@ class ProfessionalProfile extends CustomPage
 
     public function getSlugOfTheSalon()
     {
-        return $this->find('css', 'a.salonLink')->getAttribute('href');
+        return ltrim($this->find('css', 'a.salonLink')->getAttribute('href'), '/');
     }
 }

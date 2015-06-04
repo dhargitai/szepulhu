@@ -7,12 +7,12 @@
 
 namespace Application\Interactor;
 
-class HomepageResponse
+use Application\Model\ValueObject;
+
+class HomepageResponse extends ValueObject
 {
-    public function __construct(array $attributes)
+    public function getCountiesWithFeaturedProfessionals()
     {
-        foreach ($attributes as $name => $value) {
-            $this->$name = $value;
-        }
+        return $this->value['countiesWithFeaturedProfessionals'];
     }
 }

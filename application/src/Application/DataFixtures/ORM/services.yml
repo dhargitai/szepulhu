@@ -1,5 +1,5 @@
 Application\Entity\Professional\ServiceGroup:
-    service_group_{1..20}:
+    service_group_{1..21}:
         name: <serviceGroup()>
         professional: @professional_*
 

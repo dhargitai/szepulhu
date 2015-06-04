@@ -29,9 +29,13 @@ class HomepageInteractor
 
     public function createResponse(HomepageRequest $request)
     {
+        $capitalCity = $this->cityRepository->getCapital();
+        $cities = $this->cityRepository->getBigCitiesWithActiveFeaturedProfessionals();
         $counties = $this->countyRepository->getCountiesWithActiveFeaturedProfessionals();
         return new HomepageResponse(
             array(
+                'capitalCity' => $capitalCity,
+                'bigCitiesWithFeaturedProfessionals' => $cities,
                 'countiesWithFeaturedProfessionals' => $counties,
             )
         );
@@ -43,6 +47,7 @@ class HomepageInteractor
         return new FeaturedProfessionalsResponse(
             array(
                 'featuredProfessionals' => $featuredProfessionals,
+                'numberOfFeaturedProfessionals' => $request->getNumberOfFeaturedProfessionals(),
             )
         );
     }
@@ -50,8 +55,14 @@ class HomepageInteractor
     private function getFeaturedProfessionalsByRequest(FeaturedProfessionalsRequest $request)
     {
         if ($request->getCity()) {
-            return $this->professionalRepository->getFeaturedProfessionalsOfCity($request->city);
+            return $this->professionalRepository->getFeaturedProfessionalsOfCity(
+                $request->getCity(),
+                $request->getNumberOfFeaturedProfessionals()
+            );
         }
-        return $this->professionalRepository->getFeaturedProfessionalsOfCounty($request->county);
+        return $this->professionalRepository->getFeaturedProfessionalsOfCounty(
+            $request->getCounty(),
+            $request->getNumberOfFeaturedProfessionals()
+        );
     }
 }

@@ -23,26 +23,27 @@ class ProfessionalUserRepository extends EntityRepository
         parent::__construct($em, $class);
     }
 
-    public function getFeaturedProfessionalsOfCounty($countyName)
+    public function getFeaturedProfessionalsOfCounty($countyName, $limit = 0)
     {
         return $this->createQueryBuilder('p')
             ->join('p.city', 'ci')
             ->join('ci.county', 'co', Join::WITH, 'co.name = :countyName')
             ->andWhere(':now between p.featuredFrom and p.featuredTo')
+            ->andWhere('ci.isBigCity <> 1 and ci.isCapital <> 1')
             ->setParameter('now', new \DateTime('now'))
             ->setParameter('countyName', $countyName)
-            ->setMaxResults(6)
+            ->setMaxResults($limit)
             ->getQuery()->getResult();
     }
 
-    public function getFeaturedProfessionalsOfCity($cityName)
+    public function getFeaturedProfessionalsOfCity($cityName, $limit = 0)
     {
         return $this->createQueryBuilder('p')
             ->join('p.city', 'ci', Join::WITH, 'ci.name like :cityName')
             ->andWhere(':now between p.featuredFrom and p.featuredTo')
             ->setParameter('now', new \DateTime('now'))
             ->setParameter('cityName', $cityName . '%')
-            ->setMaxResults(6)
+            ->setMaxResults($limit)
             ->getQuery()->getResult();
     }
 

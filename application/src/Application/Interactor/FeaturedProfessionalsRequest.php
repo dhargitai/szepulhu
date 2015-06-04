@@ -2,24 +2,16 @@
 
 namespace Application\Interactor;
 
-class FeaturedProfessionalsRequest
+use Application\Model\ValueObject;
+
+class FeaturedProfessionalsRequest extends ValueObject
 {
-    public $county;
-    public $city;
-
-    public function __construct(array $attributes)
-    {
-        foreach ($attributes as $name => $value) {
-            $this->$name = $value;
-        }
-    }
-
     /**
      * @return string
      */
     public function getCounty()
     {
-        return $this->county;
+        return $this->value['county'];
     }
 
     /**
@@ -27,6 +19,14 @@ class FeaturedProfessionalsRequest
      */
     public function getCity()
     {
-        return $this->city;
+        return $this->value['city'];
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfFeaturedProfessionals()
+    {
+        return $this->value['numberOfFeaturedProfessionals'];
     }
 }

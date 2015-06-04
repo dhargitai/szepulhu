@@ -29,9 +29,14 @@ class HomepageInteractorSpec extends ObjectBehavior
         $professionalRepository,
         FeaturedProfessionalsRequest $request
     ) {
-        $request->getCounty()->willReturn('Pest');
+        $actualCounty = 'Pest';
+        $numberOfFeaturedProfessionals = 6;
+        $request->getCounty()->willReturn($actualCounty);
         $request->getCity()->willReturn(null);
-        $professionalRepository->getFeaturedProfessionalsOfCounty($request->county)->shouldBeCalled();
+        $request->getNumberOfFeaturedProfessionals()->willReturn($numberOfFeaturedProfessionals);
+        $professionalRepository
+            ->getFeaturedProfessionalsOfCounty($actualCounty, $numberOfFeaturedProfessionals)
+            ->shouldBeCalled();
         $this->createFeaturedProfessionalsResponse($request);
     }
 
@@ -39,9 +44,14 @@ class HomepageInteractorSpec extends ObjectBehavior
         $professionalRepository,
         FeaturedProfessionalsRequest $request
     ) {
-        $request->getCity()->willReturn('Budapest');
+        $actualCity = 'Budapest';
+        $numberOfFeaturedProfessionals = 6;
+        $request->getCity()->willReturn($actualCity);
         $request->getCounty()->willReturn(null);
-        $professionalRepository->getFeaturedProfessionalsOfCity($request->city)->shouldBeCalled();
+        $request->getNumberOfFeaturedProfessionals()->willReturn($numberOfFeaturedProfessionals);
+        $professionalRepository
+            ->getFeaturedProfessionalsOfCity($actualCity, $numberOfFeaturedProfessionals)
+            ->shouldBeCalled();
         $this->createFeaturedProfessionalsResponse($request);
     }
 
@@ -53,6 +63,13 @@ class HomepageInteractorSpec extends ObjectBehavior
     public function it_gathers_the_counties_with_featured_professionals($countyRepository, HomepageRequest $request)
     {
         $countyRepository->getCountiesWithActiveFeaturedProfessionals()->shouldBeCalled();
+        $this->createResponse($request);
+    }
+
+    public function it_gathers_the_big_cities_with_featured_professionals($cityRepository, HomepageRequest $request)
+    {
+        $cityRepository->getCapital()->shouldBeCalled();
+        $cityRepository->getBigCitiesWithActiveFeaturedProfessionals()->shouldBeCalled();
         $this->createResponse($request);
     }
 }

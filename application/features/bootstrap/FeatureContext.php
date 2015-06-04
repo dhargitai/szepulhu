@@ -63,7 +63,7 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     public function iVisitAProfessionalSProfilePage()
     {
         $this->iVisitTheHomepage();
-        $professionalSlug = trim($this->homepage->getSlugOfTheFirstFeaturedProfessional(), '/');
+        $professionalSlug = $this->homepage->getSlugOfTheFirstFeaturedProfessional();
         $this->professionalProfile->open(
             array('professionalSlug' => $professionalSlug)
         );
@@ -75,7 +75,7 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     public function iVisitAProfessionalSSalonPage()
     {
         $this->iVisitAProfessionalSProfilePage();
-        $salonSlug = trim($this->professionalProfile->getSlugOfTheSalon(), '/');
+        $salonSlug = $this->professionalProfile->getSlugOfTheSalon();
         $this->getPage('Salon')->open(
             array('slug' => $salonSlug)
         );

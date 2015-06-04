@@ -107,6 +107,102 @@
                 <source>menuitem.listyourbusiness.text</source>
                 <target>List your business</target>
             </trans-unit>
+            <trans-unit id="professionalProfile.message">
+                <source>professionalProfile.message</source>
+                <target>Message Me</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.contactInfo">
+                <source>professionalProfile.contactInfo</source>
+                <target>Contact Info</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.bookMe">
+                <source>professionalProfile.bookMe</source>
+                <target>Book Me</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.bookAnAppointment">
+                <source>professionalProfile.bookAnAppointment</source>
+                <target>Book an Appointment</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.serviceLengthInMinutes">
+                <source>professionalProfile.serviceLengthInMinutes</source>
+                <target>%serviceLength% min.</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.service.bookMe">
+                <source>professionalProfile.service.bookMe</source>
+                <target>Book Me</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.writeARecommendation">
+                <source>professionalProfile.writeARecommendation</source>
+                <target>Write a Recommendation</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.contactDetails">
+                <source>professionalProfile.contactDetails</source>
+                <target>Contact Details</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.viewContactInfo">
+                <source>professionalProfile.viewContactInfo</source>
+                <target>View Contact Info</target>
+            </trans-unit>
+            <trans-unit id="googleMap">
+                <source>googleMap</source>
+                <target>Google Map</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.businessHours">
+                <source>professionalProfile.businessHours</source>
+                <target>Business Hours</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.otherLinks">
+                <source>professionalProfile.otherLinks</source>
+                <target>Other Links</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.website">
+                <source>professionalProfile.website</source>
+                <target>Website</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.blog">
+                <source>professionalProfile.blog</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.professionalsCalendar">
+                <source>professionalProfile.professionalsCalendar</source>
+                <target>%lastname% %firstname%'s Calendar</target>
+            </trans-unit>
+            <trans-unit id="professionalProfile.verifiedRecommendations">
+                <source>professionalProfile.verifiedRecommendations</source>
+                <target>%numberOfRecommendations% Verified Recommendations</target>
+            </trans-unit>
+            <trans-unit id="homepage.tagline">
+                <source>homepage.tagline</source>
+                <target>Find and Book beauty and wellness professionals near you</target>
+            </trans-unit>
+            <trans-unit id="homepage.search">
+                <source>homepage.search</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="homepage.countyoption">
+                <source>homepage.countyoption</source>
+                <target>%countyName% county</target>
+            </trans-unit>
+            <trans-unit id="homepage.asSeenHere">
+                <source>homepage.asSeenHere</source>
+                <target>As Seen In...</target>
+            </trans-unit>
+            <trans-unit id="homepage.browseOffers">
+                <source>homepage.browseOffers</source>
+                <target>Browse Offers</target>
+            </trans-unit>
+            <trans-unit id="homepage.photoOfTheDay">
+                <source>homepage.photoOfTheDay</source>
+                <target>Photo of the Day</target>
+            </trans-unit>
+            <trans-unit id="homepage.listYourselfHere">
+                <source>homepage.listYourselfHere</source>
+                <target>List Yourself Here</target>
+            </trans-unit>
+            <trans-unit id="homepage.clickHere">
+                <source>homepage.clickHere</source>
+                <target>Click Here</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

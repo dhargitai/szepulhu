@@ -6,8 +6,8 @@
         <div class="large-3 columns">
             {% thumbnail profilePicture, 'medium' %}
             <div class="contact-buttons">
-                <a class="tiny secondary button" href="">Üzenet</a>
-                <a class="tiny secondary button" href="">Kapcsolati infó</a>
+                <a class="tiny secondary button" href="">{{ 'professionalProfile.message'|trans }}</a>
+                <a class="tiny secondary button" href="">{{ 'professionalProfile.contactInfo'|trans }}</a>
             </div>
         </div>
         <div class="large-5 columns">
@@ -16,7 +16,7 @@
             <p class="aboutMe">{{ biography }}</p>
         </div>
         <div class="large-4 columns">
-            <a class="large radius button" href="#booking">Időpontfoglalás</a>
+            <a class="large radius button" href="#booking">{{ 'professionalProfile.bookMe'|trans }}</a>
         </div>
 
     </div>
@@ -42,8 +42,8 @@
     <div class="row">
         <div class="large-8 columns">
             {% if (hasServices) %}
-            <h3>Foglalj időpontot</h3>
-            <a id="calendarLink" href="">{{ lastName }} {{ firstName }} időbeosztása</a>
+            <h3>{{ 'professionalProfile.bookAnAppointment'|trans }}</h3>
+            <a id="calendarLink" href="">{{ 'professionalProfile.professionalsCalendar'|trans({'%firstname%': firstName, '%lastname%': lastName}) }}</a>
 
             <div id="services">
             {% for serviceGroup in serviceGroups %}
@@ -57,9 +57,9 @@
                                 <h5>{{ service.name }}</h5>
                                 <p>{{ service.description }}</p>
                             </div>
-                            <div class="large-2 columns">{{ service.price }} Ft.</div>
-                            <div class="large-2 columns">{{ service.length }} perc</div>
-                            <div class="large-2 columns"><a class="tiny button" href="">Időpont</a></div>
+                            <div class="large-2 columns">{{ service.price|localizedcurrency('HUF') }}</div>
+                            <div class="large-2 columns">{{ 'professionalProfile.serviceLengthInMinutes'|trans({'%serviceLength%': service.length}) }}</div>
+                            <div class="large-2 columns"><a class="tiny button" href="">{{ 'professionalProfile.service.bookMe'|trans }}</a></div>
                         </li>
                         {% endfor %}
                     </ul>
@@ -69,8 +69,8 @@
             </div>
             {% endif %}
 
-            <h3>{{ recommendations|length }} Ellenőrzött ajánlás</h3>
-            <a id="recommendLink" href="">Írj egy ajánlást</a>
+            <h3>{{ 'professionalProfile.verifiedRecommendations'|trans({'%numberOfRecommendations%': recommendations|length}) }}</h3>
+            <a id="recommendLink" href="">{{ 'professionalProfile.writeARecommendation'|trans }}</a>
             {% if (recommendations|length > 0) %}
             <ul id="recommendations">
                 {% for recommendation in recommendations %}
@@ -84,10 +84,10 @@
         </div>
 
         <div class="large-4 columns">
-            <h3>Kapcsolat</h3>
+            <h3>{{ 'professionalProfile.contactDetails'|trans }}</h3>
 
             <h4>{{ salon.name }}</h4>
-            <a href="">Kapcsolati adatok mutatása</a>
+            <a href="">{{ 'professionalProfile.viewContactInfo'|trans }}</a>
             <div class="salon-contact-info hide">
                 {{ salon.address }}<br/>
                 {{ salon.addressAdditional }}<br/>
@@ -95,15 +95,15 @@
                 {{ salon.phone }}
             </div>
 
-            <a class="map" href="{{ salon.mapUrl }}" title="Google térkép" target="_blank">{% thumbnail salon.map, 'medium_square' %}</a>
+            <a class="map" href="{{ salon.mapUrl }}" title="{{ 'googleMap'|trans }}" target="_blank">{% thumbnail salon.map, 'medium_square' %}</a>
 
-            <h3>Nyitvatartás</h3>
+            <h3>{{ 'professionalProfile.businessHours'|trans }}</h3>
             ...
 
-            <h3>Egyéb linkek</h3>
+            <h3>{{ 'professionalProfile.otherLinks'|trans }}</h3>
             <ul>
-                <li><a href="{{ website }}">Weboldal</a></li>
-                <li><a href="{{ blogPage }}">Blog</a></li>
+                <li><a href="{{ website }}">{{ 'professionalProfile.website'|trans }}</a></li>
+                <li><a href="{{ blogPage }}">{{ 'professionalProfile.blog'|trans }}</a></li>
                 <li class="icon"><a href="{{ facebookPage }}" title="facebook"><i class="fi-social-facebook"></i></a></li>
                 <li class="icon"><a href="{{ twitterAccount }}" title="twitter"><i class="fi-social-twitter"></i></a></li>
             </ul>

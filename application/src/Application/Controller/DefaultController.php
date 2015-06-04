@@ -41,7 +41,7 @@ class DefaultController
         $response = $this->interactor->createResponse(new HomepageRequest());
         return $this->templating->renderResponse(
             'index.html.twig',
-            (array)$response
+            $response->asArray()
         );
     }
 
@@ -58,7 +58,7 @@ class DefaultController
         );
         return $this->templating->renderResponse(
             '_featuredProfessionals.html.twig',
-            (array)$response
+            $response->asArray()
         );
     }
 
@@ -109,7 +109,9 @@ class DefaultController
 
     private function createFeaturedProfessionalsRequest(Request $request)
     {
-        $featuredProfessionalsRequestData = array();
+        $featuredProfessionalsRequestData = array(
+            'numberOfFeaturedProfessionals' => $request->request->get('numberOfFeaturedProfessionals', 6)
+        );
         $featuredProfessionalsRequestData += $this->determinePlaceToListFeaturedProfessionalsFrom($request);
         return new FeaturedProfessionalsRequest($featuredProfessionalsRequestData);
     }

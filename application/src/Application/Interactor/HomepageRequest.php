@@ -7,12 +7,8 @@
 
 namespace Application\Interactor;
 
-class HomepageRequest
+use Application\Model\ValueObject;
+
+class HomepageRequest extends ValueObject
 {
-    public function __construct(array $attributes = array())
-    {
-        foreach ($attributes as $name => $value) {
-            $this->$name = $value;
-        }
-    }
 }

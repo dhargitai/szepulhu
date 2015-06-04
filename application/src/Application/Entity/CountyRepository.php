@@ -26,6 +26,7 @@ class CountyRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('co')
             ->join('co.cities', 'ci')
             ->join('ci.professionals', 'p', Join::WITH, ':now between p.featuredFrom and p.featuredTo')
+            ->andWhere('ci.isBigCity <> 1 and ci.isCapital <> 1')
             ->setParameter('now', new \DateTime('now'))
             ->distinct()
             ->orderBy('co.name')
