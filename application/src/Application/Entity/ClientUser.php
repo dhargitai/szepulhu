@@ -45,6 +45,14 @@ class ClientUser extends User
     protected $gender = UserInterface::GENDER_UNKNOWN;
 
     /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\City",
+     *  inversedBy="clients")
+     */
+    private $city;
+
+    /**
      * Get id
      *
      * @return integer
@@ -85,4 +93,29 @@ class ClientUser extends User
     {
         $this->gender = $gender;
     }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
 }

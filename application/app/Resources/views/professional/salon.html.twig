@@ -3,20 +3,20 @@
 {% block body %}
     <div class="row">
         <div class="large-3 columns">
-            {% thumbnail salon.picture, 'medium_square' %}
+            {% thumbnail picture, 'medium_square' %}
         </div>
         <div class="large-9 columns">
             <div class="panel">
                 <div class="row">
                     <div class="large-7 columns">
-                        <h1>{{ salon.name }}</h1>
+                        <h1>{{ name }}</h1>
                         <a class="tiny secondary button" href="">Üzenet</a>
-                        <p class="contactInfo">{{ salon.address }} {{ salon.addressAdditional }}<br/>
-                            {{ salon.city }} {{ salon.postCode }}<br/>
-                            {{ salon.phone }}</p>
+                        <p class="contactInfo">{{ address }} {{ addressAdditional }}<br/>
+                            {{ city }} {{ postCode }}<br/>
+                            {{ phone }}</p>
                     </div>
                     <div class="large-5 columns">
-                        <a href="{{ salon.mapUrl }}" target="_blank">{% thumbnail salon.map, 'medium_square' %}</a>
+                        <a href="{{ mapUrl }}" target="_blank">{% thumbnail map, 'medium_square' %}</a>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
 
     <div id="professionals" class="row">
         <h2>Szakemberek</h2>
-        {% for professional in salon.professionals %}
+        {% for professional in professionals %}
             <div class="large-6 columns">
                 <div class="panel">
                     <div class="row">

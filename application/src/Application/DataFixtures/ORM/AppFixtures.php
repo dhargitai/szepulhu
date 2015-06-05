@@ -23,6 +23,9 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
 
     public function load(ObjectManager $om)
     {
+        Fixtures::load(__DIR__.'/countries.yml', $om, array('providers' => array($this)));
+        Fixtures::load(__DIR__.'/counties.yml', $om, array('providers' => array($this)));
+        Fixtures::load(__DIR__.'/cities.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/tasks.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/salons.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/users.yml', $om, array('providers' => array($this)));
@@ -120,46 +123,6 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
             'Dajjer :)',
         );
         return $services[array_rand($services)];
-    }
-
-    public function hungarianCity()
-    {
-        $cities = array(
-            'Baja',
-            'Budapest',
-            'Cegléd',
-            'Debrecen',
-            'Eger',
-            'Esztergom',
-            'Gyöngyös',
-            'Győr',
-            'Gyula',
-            'Hajdúböszörmény',
-            'Hajdúnánás',
-            'Hajdúszoboszló',
-            'Hódmezővásárhely',
-            'Jászberény',
-            'Kaposvár',
-            'Karcag',
-            'Kecskemét',
-            'Kiskunfélegyháza',
-            'Kiskunhalas',
-            'Kisújszállás',
-            'Komárom',
-            'Kőszeg',
-            'Makó',
-            'Mezőtúr',
-            'Miskolc',
-            'Nagykanizsa',
-            'Nagykőrös',
-            'Nyíregyháza',
-            'Pápa',
-            'Pécs',
-            'Sopron',
-            'Szeged',
-            'Székesfehérvár',
-        );
-        return $cities[array_rand($cities)];
     }
 
     protected function createImageMediaFile($fileName)

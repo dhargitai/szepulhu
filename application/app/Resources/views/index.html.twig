@@ -5,7 +5,7 @@
     <div class="panel">
         <div class="row">
             <div class="big-search large-12 columns">
-                <h1>Foglalj időpontot szépség- és wellness szakembereknél a környékeden</h1>
+                <h1>{{ 'homepage.tagline'|trans }}</h1>
                 <form>
                     <div class="row">
                         <div class="small-12 medium-3 columns">
@@ -43,7 +43,7 @@
 
                         <div class="small-12 medium-3 columns">
                             <div class="row">
-                                <button type="submit" class="button">Keresés</button>
+                                <button type="submit" class="button">{{ 'homepage.search'|trans }}</button>
                             </div>
                         </div>
                     </div>
@@ -54,44 +54,67 @@
 
     <div class="row">
         <div class="large-8 columns">
+            <form action="">
+                <select name="countySelector" id="countySelector">
+                    <option value="{{ capitalCity.name }}" data-type="city">{{ capitalCity.name }}</option>
+                {% for city in bigCitiesWithFeaturedProfessionals %}
+                    <option value="{{ city.name }}" data-type="city">{{ city.name }}</option>
+                {% endfor %}
+                    <option value="" disabled>-----------------------</option>
+                {% for county in countiesWithFeaturedProfessionals %}
+                    <option value="{{ county.name }}" data-type="county">{{ 'homepage.countyoption'|trans({'%countyName%': county.name}) }}</option>
+                {% endfor %}
+                </select>
+            </form>
 
-            <article>
-                <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-                    {% for professional in featuredProfessionals %}
-                    <li>
-                        <div class="panel featuredProfessional">
-                            <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
-                                {% thumbnail professional.profilePicture, 'medium_square' %}
-                            </a>
-
-                            <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ professional.lastName }} {{ professional.firstName }} </a></span><br>
-                            <span class="professionalProfession">{{ professional.profession }}</span>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+            <article id="featuredProfessionals">
+                {{ render(controller('app.default_controller:embeddedFeaturedProfessionalsAction')) }}
             </article>
 
             <hr>
 
-            Ahogy itt is láthattad...
+            {{ 'homepage.asSeenHere'|trans }}
 
         </div>
 
         <aside class="large-4 columns">
 
             <div class="panel">
-                <a href="">Böngéssz szakembereink ajánlataiból</a>
+                <a href="">{{ 'homepage.browseOffers'|trans }}</a>
             </div>
 
             <div class="panel">
                 <a href="#">
                     <img src="" alt="">
-                    A nap fotója
+                    {{ 'homepage.photoOfTheDay'|trans }}
                 </a>
             </div>
 
         </aside>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        (function($) {
+            $(document).ready(function() {
+                var $countySelector = $('#countySelector');
+                $countySelector.change(function(){
+                    var data = {},
+                        type = $countySelector.find('option:selected').data('type');
+                    data[type] = $countySelector.val();
+                    $.ajax({
+                        url : '{{ path('embedded_featured_professionals') }}',
+                        type: 'post',
+                        data : data,
+                        success: function(html) {
+                            $('#featuredProfessionals ul').replaceWith($(html));
+                        }
+                    });
+                });
+            });
+        })(jQuery);
+    </script>
 {% endblock %}

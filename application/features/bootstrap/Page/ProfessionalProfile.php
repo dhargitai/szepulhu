@@ -16,15 +16,10 @@ class ProfessionalProfile extends CustomPage
     /**
      * @var string $path
      */
-    protected $path = '/{professoinalSlug}';
+    protected $path = '/{professionalSlug}';
 
-    public function openTheSalon()
+    public function getSlugOfTheSalon()
     {
-        $salonLinkSelector = 'a.salonLink';
-        $salonLink = $this->find('css', $salonLinkSelector);
-        if (!$salonLink) {
-            throw new ElementNotFoundException($this->getSession(), 'form', 'css', $salonLinkSelector);
-        }
-        $salonLink->click();
+        return ltrim($this->find('css', 'a.salonLink')->getAttribute('href'), '/');
     }
 }

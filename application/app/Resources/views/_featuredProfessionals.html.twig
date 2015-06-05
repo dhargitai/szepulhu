@@ -1,0 +1,28 @@
+<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+    {% for i in 0..(numberOfFeaturedProfessionals-1) %}
+        {% if featuredProfessionals[i] is defined %}
+            {% set professional = featuredProfessionals[i] %}
+            <li>
+                <div class="panel featuredProfessional">
+                    <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                        {% thumbnail professional.profilePicture, 'medium_square' %}
+                    </a>
+
+                    <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ professional.lastName }} {{ professional.firstName }} </a></span><br>
+                    <span class="professionalProfession">{{ professional.profession }}</span>
+                </div>
+            </li>
+        {% else %}
+            <li>
+                <div class="panel featuredProfessional free">
+                    <a href="{{ path('professional_registration_flow') }}">
+                        <img src="img/silhouette_{{ random(['male', 'female']) }}.jpg" alt=""/>
+                    </a>
+
+                    <span class="professionalName">{{ 'homepage.listYourselfHere'|trans }}</span><br>
+                    <span class="professionalProfession"><a href="{{ path('professional_registration_flow') }}">{{ 'homepage.clickHere'|trans }}</a></span>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>

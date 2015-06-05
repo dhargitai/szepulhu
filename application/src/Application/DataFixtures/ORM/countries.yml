@@ -1,0 +1,4 @@
+Application\Entity\Country:
+    country_hungary:
+        id: 1
+        name: Hungary

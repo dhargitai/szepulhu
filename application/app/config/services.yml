@@ -1,4 +1,59 @@
 services:
+    twig.extension.intl:
+            class: Twig_Extensions_Extension_Intl
+            tags:
+                - { name: twig.extension }
+
+    app.professional_repository:
+        class: Application\Entity\ProfessionalUserRepository
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    app.salon_repository:
+        class: Application\Entity\Professional\SalonRepository
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    app.county_repository:
+        class: Application\Entity\CountyRepository
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    app.city_repository:
+        class: Application\Entity\CityRepository
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+    app.homepage.interactor:
+        class: Application\Interactor\HomepageInteractor
+        arguments:
+            - @app.professional_repository
+            - @app.county_repository
+            - @app.city_repository
+
+    app.professional.profile.interactor:
+        class: Application\Interactor\ProfessionalProfileInteractor
+        arguments:
+            - @app.professional_repository
+
+    app.salon.interactor:
+        class: Application\Interactor\SalonInteractor
+        arguments:
+            - @app.salon_repository
+
+    app.default_controller:
+        class: Application\Controller\DefaultController
+        arguments:
+            - @templating
+            - @app.homepage.interactor
+
+    app.professional_controller:
+        class: Application\Controller\ProfessionalController
+        arguments:
+            - @templating
+            - @app.professional.profile.interactor
+            - @app.salon.interactor
+
     app.professional_registration:
         class: Application\EventListener\RegistrationSubscriber
         tags:

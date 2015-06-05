@@ -34,7 +34,15 @@ class Salon
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"name", "city"})
+     * @Gedmo\Slug(handlers={
+     *      @Gedmo\SlugHandler(class="Application\DoctrineExtension\Sluggable\Handler\PostfixerRelativeSlugHandler",
+     *          options={
+     *              @Gedmo\SlugHandlerOption(name="relationField", value="city"),
+     *              @Gedmo\SlugHandlerOption(name="relationSlugField", value="citySlug"),
+     *              @Gedmo\SlugHandlerOption(name="separator", value="-")
+     *          }
+     *      )
+     * }, separator="-", updatable=true, fields={"name"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true, nullable=true)
      */
     private $slug;
@@ -49,13 +57,6 @@ class Salon
     /**
      * @var string
      *
-     * @ORM\Column(name="country", type="string", length=255, nullable=true)
-     */
-    private $country;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="post_code", type="string", length=15, nullable=true)
      */
     private $postCode;
@@ -63,7 +64,8 @@ class Salon
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=100, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\City",
+     *  inversedBy="salons")
      */
     private $city;
 
@@ -117,7 +119,7 @@ class Salon
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -140,7 +142,7 @@ class Salon
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -163,7 +165,7 @@ class Salon
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -186,34 +188,11 @@ class Salon
     /**
      * Get mapUrl
      *
-     * @return string 
+     * @return string
      */
     public function getMapUrl()
     {
         return $this->mapUrl;
-    }
-
-    /**
-     * Set country
-     *
-     * @param string $country
-     * @return Salon
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return string 
-     */
-    public function getCountry()
-    {
-        return $this->country;
     }
 
     /**
@@ -232,7 +211,7 @@ class Salon
     /**
      * Get postCode
      *
-     * @return string 
+     * @return string
      */
     public function getPostCode()
     {
@@ -255,7 +234,7 @@ class Salon
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -279,7 +258,7 @@ class Salon
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -303,7 +282,7 @@ class Salon
     /**
      * Get addressAdditional
      *
-     * @return string 
+     * @return string
      */
     public function getAddressAdditional()
     {
@@ -326,7 +305,7 @@ class Salon
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
