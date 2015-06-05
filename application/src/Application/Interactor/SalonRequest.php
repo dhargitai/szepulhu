@@ -6,15 +6,14 @@
  */
 
 namespace Application\Interactor;
+use Application\Model\ValueObject;
 
-class SalonRequest
+/**
+ * Class SalonRequest
+ * @package Application\Interactor
+ *
+ * @property string $slug
+ */
+class SalonRequest extends ValueObject
 {
-    public $slug;
-
-    public function __construct(array $attributes)
-    {
-        foreach ($attributes as $name => $value) {
-            $this->$name = $value;
-        }
-    }
 }

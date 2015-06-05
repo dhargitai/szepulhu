@@ -47,22 +47,22 @@ class HomepageInteractor
         return new FeaturedProfessionalsResponse(
             array(
                 'featuredProfessionals' => $featuredProfessionals,
-                'numberOfFeaturedProfessionals' => $request->getNumberOfFeaturedProfessionals(),
+                'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
             )
         );
     }
 
     private function getFeaturedProfessionalsByRequest(FeaturedProfessionalsRequest $request)
     {
-        if ($request->getCity()) {
+        if ($request->city) {
             return $this->professionalRepository->getFeaturedProfessionalsOfCity(
-                $request->getCity(),
-                $request->getNumberOfFeaturedProfessionals()
+                $request->city,
+                $request->numberOfFeaturedProfessionals
             );
         }
         return $this->professionalRepository->getFeaturedProfessionalsOfCounty(
-            $request->getCounty(),
-            $request->getNumberOfFeaturedProfessionals()
+            $request->county,
+            $request->numberOfFeaturedProfessionals
         );
     }
 }

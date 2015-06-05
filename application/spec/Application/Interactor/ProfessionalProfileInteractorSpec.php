@@ -18,9 +18,9 @@ class ProfessionalProfileInteractorSpec extends ObjectBehavior
     private $repository;
     private $professional;
 
-    public function let(ProfessionalUserRepository $repository, ProfessionalProfileRequest $request, ProfessionalUser $professional)
+    public function let(ProfessionalUserRepository $repository, ProfessionalUser $professional)
     {
-        $this->request = $request;
+        $this->request = new ProfessionalProfileRequest(['slug' => '/peldabela-szalon']);
         $this->repository = $repository;
         $this->professional = $professional;
 

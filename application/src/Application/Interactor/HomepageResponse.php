@@ -9,10 +9,14 @@ namespace Application\Interactor;
 
 use Application\Model\ValueObject;
 
+/**
+ * Class HomepageResponse
+ * @package Application\Interactor
+ *
+ * @property string $capitalCity
+ * @property \Application\Entity\ProfessionalUser[] $bigCitiesWithFeaturedProfessionals
+ * @property \Application\Entity\ProfessionalUser[] $countiesWithFeaturedProfessionals
+ */
 class HomepageResponse extends ValueObject
 {
-    public function getCountiesWithFeaturedProfessionals()
-    {
-        return $this->value['countiesWithFeaturedProfessionals'];
-    }
 }

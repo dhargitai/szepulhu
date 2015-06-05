@@ -7,14 +7,14 @@
 
 namespace Application\Interactor;
 
-class ProfessionalProfileRequest
-{
-    public $slug;
+use Application\Model\ValueObject;
 
-    public function __construct(array $attributes)
-    {
-        foreach ($attributes as $name => $value) {
-            $this->$name = $value;
-        }
-    }
+/**
+ * Class ProfessionalProfileRequest
+ * @package Application\Interactor
+ *
+ * @property string $slug
+ */
+class ProfessionalProfileRequest extends ValueObject
+{
 }

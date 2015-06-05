@@ -4,30 +4,16 @@ namespace Application\Interactor;
 
 use Application\Model\ValueObject;
 
+/**
+ * Class FeaturedProfessionalsResponse
+ * @package Application\Interactor
+ *
+ * @property string slug
+ * @property string profilePicture
+ * @property string lastName
+ * @property string firstName
+ * @property string profession
+ */
 class FeaturedProfessionalsResponse extends ValueObject
 {
-    public function getSlug()
-    {
-        return $this->value['slug'];
-    }
-
-    public function getProfilePicture()
-    {
-        return $this->value['profilePicture'];
-    }
-
-    public function getLastName()
-    {
-        return $this->value['lastName'];
-    }
-
-    public function getFirstName()
-    {
-        return $this->value['firstName'];
-    }
-
-    public function getProfession()
-    {
-        return $this->value['profession'];
-    }
 }

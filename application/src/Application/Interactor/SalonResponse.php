@@ -7,12 +7,23 @@
 
 namespace Application\Interactor;
 
-class SalonResponse
+use Application\Model\ValueObject;
+
+/**
+ * Class SalonResponse
+ * @package Application\Interactor
+ *
+ * @property string $picture
+ * @property string $name
+ * @property string $address
+ * @property string $addressAdditional
+ * @property string $city
+ * @property string $postCode
+ * @property string $phone
+ * @property string $mapUrl
+ * @property string $map
+ * @property \Application\Entity\ProfessionalUser[] $professionals
+ */
+class SalonResponse extends ValueObject
 {
-    public function __construct(array $attributes)
-    {
-        foreach ($attributes as $name => $value) {
-            $this->$name = $value;
-        }
-    }
 }

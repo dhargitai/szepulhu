@@ -43,7 +43,7 @@ class ProfessionalController
         );
         return $this->templating->renderResponse(
             'professional/profile.html.twig',
-            (array)$response
+            $response->asArray()
         );
     }
 
@@ -60,7 +60,7 @@ class ProfessionalController
         );
         return $this->templating->renderResponse(
             'professional/salon.html.twig',
-            (array)$response
+            $response->asArray()
         );
     }
 }

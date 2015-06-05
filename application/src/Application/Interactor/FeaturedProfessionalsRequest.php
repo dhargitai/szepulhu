@@ -4,29 +4,14 @@ namespace Application\Interactor;
 
 use Application\Model\ValueObject;
 
+/**
+ * Class FeaturedProfessionalsRequest
+ * @package Application\Interactor
+ *
+ * @property string $county
+ * @property string $city
+ * @property string $numberOfFeaturedProfessionals
+ */
 class FeaturedProfessionalsRequest extends ValueObject
 {
-    /**
-     * @return string
-     */
-    public function getCounty()
-    {
-        return $this->value['county'];
-    }
-
-    /**
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->value['city'];
-    }
-
-    /**
-     * @return int
-     */
-    public function getNumberOfFeaturedProfessionals()
-    {
-        return $this->value['numberOfFeaturedProfessionals'];
-    }
 }

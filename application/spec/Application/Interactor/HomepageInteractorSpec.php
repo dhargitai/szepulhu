@@ -26,14 +26,18 @@ class HomepageInteractorSpec extends ObjectBehavior
     }
 
     public function it_gathers_the_featured_professionals_of_county(
-        $professionalRepository,
-        FeaturedProfessionalsRequest $request
+        $professionalRepository
     ) {
         $actualCounty = 'Pest';
         $numberOfFeaturedProfessionals = 6;
-        $request->getCounty()->willReturn($actualCounty);
-        $request->getCity()->willReturn(null);
-        $request->getNumberOfFeaturedProfessionals()->willReturn($numberOfFeaturedProfessionals);
+        $request = new FeaturedProfessionalsRequest(
+            [
+                'city' => '',
+                'county' => $actualCounty,
+                'numberOfFeaturedProfessionals' => $numberOfFeaturedProfessionals,
+            ]
+        );
+
         $professionalRepository
             ->getFeaturedProfessionalsOfCounty($actualCounty, $numberOfFeaturedProfessionals)
             ->shouldBeCalled();
@@ -41,14 +45,17 @@ class HomepageInteractorSpec extends ObjectBehavior
     }
 
     public function it_gathers_the_featured_professionals_of_city(
-        $professionalRepository,
-        FeaturedProfessionalsRequest $request
+        $professionalRepository
     ) {
         $actualCity = 'Budapest';
         $numberOfFeaturedProfessionals = 6;
-        $request->getCity()->willReturn($actualCity);
-        $request->getCounty()->willReturn(null);
-        $request->getNumberOfFeaturedProfessionals()->willReturn($numberOfFeaturedProfessionals);
+        $request = new FeaturedProfessionalsRequest(
+            [
+                'city' => $actualCity,
+                'county' => '',
+                'numberOfFeaturedProfessionals' => $numberOfFeaturedProfessionals,
+            ]
+        );
         $professionalRepository
             ->getFeaturedProfessionalsOfCity($actualCity, $numberOfFeaturedProfessionals)
             ->shouldBeCalled();

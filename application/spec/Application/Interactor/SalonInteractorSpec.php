@@ -14,9 +14,9 @@ class SalonInteractorSpec extends ObjectBehavior
     private $repository;
     private $salon;
 
-    public function let(SalonRequest $request, SalonRepository $repository, Salon $salon)
+    public function let(SalonRepository $repository, Salon $salon)
     {
-        $this->request = $request;
+        $this->request = new SalonRequest(['slug' => '/peldabela-szalon']);
         $this->repository = $repository;
         $this->salon = $salon;
 
