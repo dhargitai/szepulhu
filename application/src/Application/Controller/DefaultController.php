@@ -121,6 +121,7 @@ class DefaultController
         $place = array();
         if ($county = $request->request->get('county', null)) {
             $place['county'] = $county;
+            $place['city'] = null;
         } else {
             $place['city'] = $request->request->get('city', 'Budapest');
         }

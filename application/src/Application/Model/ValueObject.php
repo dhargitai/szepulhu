@@ -15,7 +15,7 @@ class ValueObject
 
     public function __get($key)
     {
-        if (isset($this->value[$key])) {
+        if (array_key_exists($key, $this->value)) {
             return $this->value[$key];
         }
 

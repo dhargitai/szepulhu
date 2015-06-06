@@ -56,7 +56,9 @@
         <div class="large-8 columns">
             <form action="">
                 <select name="countySelector" id="countySelector">
+                {% if capitalCity %}
                     <option value="{{ capitalCity.name }}" data-type="city">{{ capitalCity.name }}</option>
+                {% endif %}
                 {% for city in bigCitiesWithFeaturedProfessionals %}
                     <option value="{{ city.name }}" data-type="city">{{ city.name }}</option>
                 {% endfor %}

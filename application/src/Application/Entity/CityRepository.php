@@ -24,7 +24,7 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('ci')
             ->andWhere('ci.isBigCity = 1 and ci.isCapital = 1')
-            ->getQuery()->getSingleResult();
+            ->getQuery()->getOneOrNullResult();
     }
 
     public function getBigCitiesWithActiveFeaturedProfessionals()
