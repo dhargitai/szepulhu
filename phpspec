@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ARGUMENTS="$@"
+docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c "bin/phpspec $ARGUMENTS"
