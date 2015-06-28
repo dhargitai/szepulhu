@@ -246,6 +246,42 @@
                 <source>homepage.clickHere</source>
                 <target>Kattints ide</target>
             </trans-unit>
+            <trans-unit id="homepage.serviceName">
+                <source>homepage.serviceName</source>
+                <target>Szolgáltatás neve?</target>
+            </trans-unit>
+            <trans-unit id="homepage.serviceLocation">
+                <source>homepage.serviceLocation</source>
+                <target>Szolgáltatás helye?</target>
+            </trans-unit>
+            <trans-unit id="homepage.serviceDate">
+                <source>homepage.serviceDate</source>
+                <target>Időpont napja?</target>
+            </trans-unit>
+            <trans-unit id="homepage.serviceTime">
+                <source>homepage.serviceTime</source>
+                <target>Időpont napszaka?</target>
+            </trans-unit>
+            <trans-unit id="homepage.doSearch">
+                <source>homepage.doSearch</source>
+                <target>Keresés</target>
+            </trans-unit>
+            <trans-unit id="timeRange.morning">
+                <source>timeRange.morning</source>
+                <target>Reggel</target>
+            </trans-unit>
+            <trans-unit id="timeRange.noon">
+                <source>timeRange.noon</source>
+                <target>Dél</target>
+            </trans-unit>
+            <trans-unit id="timeRange.afternoon">
+                <source>timeRange.afternoon</source>
+                <target>Délután</target>
+            </trans-unit>
+            <trans-unit id="timeRange.evening">
+                <source>timeRange.evening</source>
+                <target>Este</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

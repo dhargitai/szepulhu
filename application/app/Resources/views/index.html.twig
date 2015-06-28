@@ -1,53 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme searchForm 'AppBundle:Form:service_search.html.twig' %}
+
 {% block body %}
 
     <div class="panel">
         <div class="row">
             <div class="big-search large-12 columns">
                 <h1>{{ 'homepage.tagline'|trans }}</h1>
-                <form>
-                    <div class="row">
-                        <div class="small-12 medium-3 columns">
-                            <div class="row">
-                                <div class="small-3 columns">
-                                    <label for="right-label" class="right inline">Label</label>
-                                </div>
-                                <div class="small-9 columns">
-                                    <input type="text" id="right-label" placeholder="Inline Text Input">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="small-12 medium-3 columns">
-                            <div class="row">
-                                <div class="small-3 columns">
-                                    <label for="right-label" class="right inline">Label</label>
-                                </div>
-                                <div class="small-9 columns">
-                                    <input type="text" id="right-label" placeholder="Inline Text Input">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="small-12 medium-3 columns">
-                            <div class="row">
-                                <div class="small-3 columns">
-                                    <label for="right-label" class="right inline">Label</label>
-                                </div>
-                                <div class="small-9 columns">
-                                    <input type="text" id="right-label" placeholder="Inline Text Input">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="small-12 medium-3 columns">
-                            <div class="row">
-                                <button type="submit" class="button">{{ 'homepage.search'|trans }}</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                {{ form(searchForm) }}
             </div>
         </div>
     </div>
@@ -95,28 +56,24 @@
         </aside>
     </div>
 
-{% endblock %}
-
-{% block scripts %}
-    {{ parent() }}
+    {% set script %}
     <script>
-        (function($) {
-            $(document).ready(function() {
-                var $countySelector = $('#countySelector');
-                $countySelector.change(function(){
-                    var data = {},
-                        type = $countySelector.find('option:selected').data('type');
-                    data[type] = $countySelector.val();
-                    $.ajax({
-                        url : '{{ path('embedded_featured_professionals') }}',
-                        type: 'post',
-                        data : data,
-                        success: function(html) {
-                            $('#featuredProfessionals ul').replaceWith($(html));
-                        }
-                    });
-                });
+        var $countySelector = $('#countySelector');
+        $countySelector.change(function(){
+            var data = {},
+                type = $countySelector.find('option:selected').data('type');
+            data[type] = $countySelector.val();
+            $.ajax({
+                url : '{{ path('embedded_featured_professionals') }}',
+                type: 'post',
+                data : data,
+                success: function(html) {
+                    $('#featuredProfessionals ul').replaceWith($(html));
+                }
             });
-        })(jQuery);
+        });
     </script>
+    {% endset %}
+
+    {{ scripts.add(script) }}
 {% endblock %}

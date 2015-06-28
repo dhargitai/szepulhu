@@ -7,17 +7,23 @@ use Application\Entity\CountyRepository;
 use Application\Entity\ProfessionalUserRepository;
 use Application\Interactor\FeaturedProfessionalsRequest;
 use Application\Interactor\HomepageRequest;
+use Application\Model\Professional\ServiceParameters;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactory;
 
 class HomepageInteractorSpec extends ObjectBehavior
 {
     public function let(
         ProfessionalUserRepository $professionalRepository,
         CountyRepository $countyRepository,
-        CityRepository $cityRepository
+        CityRepository $cityRepository,
+        FormFactory $formFactory,
+        Form $form
     ) {
-        $this->beConstructedWith($professionalRepository, $countyRepository, $cityRepository);
+        $this->createFormFactoryMock($formFactory, $form);
+        $this->beConstructedWith($professionalRepository, $countyRepository, $cityRepository, $formFactory);
     }
 
     function it_is_initializable()
@@ -78,5 +84,14 @@ class HomepageInteractorSpec extends ObjectBehavior
         $cityRepository->getCapital()->shouldBeCalled();
         $cityRepository->getBigCitiesWithActiveFeaturedProfessionals()->shouldBeCalled();
         $this->createResponse($request);
+    }
+
+    /**
+     * @param FormFactory $formFactory
+     * @param Form $form
+     */
+    protected function createFormFactoryMock(FormFactory $formFactory, Form $form)
+    {
+        $formFactory->create(Argument::cetera())->willReturn($form);
     }
 }

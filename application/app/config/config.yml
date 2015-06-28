@@ -32,6 +32,11 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        scripts: @twig.global.scripts
+        format_converter: @twig.global.format.converter
+    form_themes:
+        - 'form/global-theme/date_widget.html.twig'
 
 # Doctrine Configuration
 doctrine:

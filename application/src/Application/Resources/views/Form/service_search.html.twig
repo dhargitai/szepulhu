@@ -1,0 +1,20 @@
+{% form_theme searchForm _self %}
+
+{% block form_row %}
+<div class="small-12 medium-3 columns">
+  <div class="row">
+    {{ form_label(form) }}
+    {{ form_errors(form) }}
+    <div class="columns">
+      {{ form_widget(form) }}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block submit_widget %}
+<div class="text-center">
+  {% set type = type|default('submit') %}
+  {{ block('button_widget') }}
+</div>
+{% endblock submit_widget %}

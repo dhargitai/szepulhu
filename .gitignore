@@ -20,6 +20,7 @@ application/vendor
 application/web/bundles/
 application/web/uploads/*
 application/web/css/*.css
+application/web/css/images/
 application/web/js/*.js
 application/app/bootstrap.php.cache
 application/app/cache/*

@@ -10,6 +10,8 @@ namespace Application\Interactor;
 use Application\Entity\CityRepository;
 use Application\Entity\CountyRepository;
 use Application\Entity\ProfessionalUserRepository;
+use Application\Form\Type\Professional\ServiceSearch;
+use Symfony\Component\Form\FormFactory;
 
 class HomepageInteractor
 {
@@ -20,11 +22,13 @@ class HomepageInteractor
     public function __construct(
         ProfessionalUserRepository $professionalRepository,
         CountyRepository $countyRepository,
-        CityRepository $cityRepository
+        CityRepository $cityRepository,
+        FormFactory $formFactory
     ) {
         $this->professionalRepository = $professionalRepository;
         $this->countyRepository = $countyRepository;
         $this->cityRepository = $cityRepository;
+        $this->formFactory = $formFactory;
     }
 
     public function createResponse(HomepageRequest $request)
@@ -32,11 +36,13 @@ class HomepageInteractor
         $capitalCity = $this->cityRepository->getCapital();
         $cities = $this->cityRepository->getBigCitiesWithActiveFeaturedProfessionals();
         $counties = $this->countyRepository->getCountiesWithActiveFeaturedProfessionals();
+        $searchForm = $this->formFactory->create(new ServiceSearch(), $request->searchParameters);
         return new HomepageResponse(
             array(
                 'capitalCity' => $capitalCity,
                 'bigCitiesWithFeaturedProfessionals' => $cities,
                 'countiesWithFeaturedProfessionals' => $counties,
+                'searchForm' => $searchForm->createView()
             )
         );
     }
