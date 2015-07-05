@@ -20,17 +20,18 @@
 
     <div class="row">
         <div class="large-8 columns">
+            {% set savedLocation = app.request.cookies.get('location') | json_decode %}
             <form action="">
                 <select name="countySelector" id="countySelector">
                 {% if capitalCity %}
                     <option value="{{ capitalCity.name }}" data-type="city">{{ capitalCity.name }}</option>
                 {% endif %}
                 {% for city in bigCitiesWithFeaturedProfessionals %}
-                    <option value="{{ city.name }}" data-type="city">{{ city.name }}</option>
+                    <option value="{{ city.name }}" data-type="city"{% if savedLocation and savedLocation.type == 'city' and savedLocation.name == city.name %} selected="selected"{% endif %}>{{ city.name }}</option>
                 {% endfor %}
                     <option value="" disabled>-----------------------</option>
                 {% for county in countiesWithFeaturedProfessionals %}
-                    <option value="{{ county.name }}" data-type="county">{{ 'homepage.countyoption'|trans({'%countyName%': county.name}) }}</option>
+                    <option value="{{ county.name }}" data-type="county"{% if savedLocation and savedLocation.type == 'county' and savedLocation.name == county.name %} selected="selected"{% endif %}>{{ 'homepage.countyoption'|trans({'%countyName%': county.name}) }}</option>
                 {% endfor %}
                 </select>
             </form>
@@ -65,9 +66,12 @@
     <script>
         var $countySelector = $('#countySelector');
         $countySelector.change(function(){
-            var data = {},
-                type = $countySelector.find('option:selected').data('type');
-            data[type] = $countySelector.val();
+            var data = {
+                location: {
+                    type: $countySelector.find('option:selected').data('type'),
+                    name: $countySelector.val()
+                }
+            };
             $.ajax({
                 url : '{{ path('embedded_featured_professionals') }}',
                 type: 'post',
@@ -77,6 +81,36 @@
                 }
             });
         });
+
+        if (!Cookies.get('location') && geoPosition.init()) {
+            geoPosition.getCurrentPosition(
+                    function(location) {
+                        if (location.coords.latitude && location.coords.longitude) {
+                            $.ajax({
+                                url : '{{ path('get_closest_location') }}',
+                                type: 'post',
+                                data: {
+                                    latitude: location.coords.latitude,
+                                    longitude: location.coords.longitude
+                                },
+                                success: function(response) {
+                                    Cookies.set('location', response.location);
+                                    changeFeaturedProfessionalsBlockByLocation(response.location);
+                                }
+                            });
+                        }
+                    },
+                    function(error) {},
+                    {enableHighAccuracy: true}
+            );
+        }
+
+        function changeFeaturedProfessionalsBlockByLocation(location)
+        {
+            if ($countySelector.val() != location.name) {
+                $countySelector.val(location.name).trigger('change');
+            }
+        }
     </script>
     {% endset %}
 

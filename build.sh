@@ -30,11 +30,10 @@ docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
     composer install --ansi --prefer-dist --no-interaction && \
     php app/console doctrine:database:drop --force && \
     php app/console doctrine:database:create && \
-    php app/console doctrine:schema:create && \
     wget https://www.dropbox.com/s/ty3soyfivprjcp4/szepul.hu.fixtures.files.tar.gz?dl=0 -O /tmp/fixtures.tar.gz && \
     tar -xzf /tmp/fixtures.tar.gz --no-same-owner -C src/Application/DataFixtures/ && \
     mkdir -p web/uploads/media && \
-    php app/console doctrine:fixtures:load --no-interaction
+    php app/console szepulhu:fixtures:load
 '
 
 cd application/app/Resources/public && \

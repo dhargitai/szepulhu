@@ -2,6 +2,7 @@
 
 namespace Application\Entity\Professional;
 
+use Application\Entity\City;
 use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -38,7 +39,7 @@ class Salon
      *      @Gedmo\SlugHandler(class="Application\DoctrineExtension\Sluggable\Handler\PostfixerRelativeSlugHandler",
      *          options={
      *              @Gedmo\SlugHandlerOption(name="relationField", value="city"),
-     *              @Gedmo\SlugHandlerOption(name="relationSlugField", value="citySlug"),
+     *              @Gedmo\SlugHandlerOption(name="relationSlugField", value="slug"),
      *              @Gedmo\SlugHandlerOption(name="separator", value="-")
      *          }
      *      )
@@ -53,13 +54,6 @@ class Salon
      * @ORM\Column(name="map_url", type="string", length=500, nullable=true)
      */
     private $mapUrl;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="post_code", type="string", length=15, nullable=true)
-     */
-    private $postCode;
 
     /**
      * @var string
@@ -196,35 +190,22 @@ class Salon
     }
 
     /**
-     * Set postCode
-     *
-     * @param string $postCode
-     * @return Salon
-     */
-    public function setPostCode($postCode)
-    {
-        $this->postCode = $postCode;
-
-        return $this;
-    }
-
-    /**
      * Get postCode
      *
      * @return string
      */
     public function getPostCode()
     {
-        return $this->postCode;
+        return $this->city->getPostCode();
     }
 
     /**
      * Set city
      *
-     * @param string $city
+     * @param City $city
      * @return Salon
      */
-    public function setCity($city)
+    public function setCity(City $city)
     {
         $this->city = $city;
 

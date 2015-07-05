@@ -8,8 +8,7 @@ use Application\Model\ValueObject;
  * Class FeaturedProfessionalsRequest
  * @package Application\Interactor
  *
- * @property string $county
- * @property string $city
+ * @property LocationRequest $locationRequest
  * @property string $numberOfFeaturedProfessionals
  */
 class FeaturedProfessionalsRequest extends ValueObject

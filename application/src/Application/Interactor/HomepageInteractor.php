@@ -11,6 +11,7 @@ namespace Application\Interactor;
 use Application\Entity\CityRepository;
 use Application\Entity\CountyRepository;
 use Application\Entity\ProfessionalUserRepository;
+use Application\Model\Locator;
 use Application\Form\Type\Professional\ServiceSearch;
 use Symfony\Component\Form\FormFactory;
 
@@ -28,19 +29,33 @@ class HomepageInteractor
     private $professionalRepository;
     private $countyRepository;
     private $cityRepository;
+    private $locator;
 
+    /**
+     * @param ProfessionalUserRepository $professionalRepository
+     * @param CountyRepository           $countyRepository
+     * @param CityRepository             $cityRepository
+     * @param Locator                    $locator
+     * @param FormFactory                $formFactory
+     */
     public function __construct(
         ProfessionalUserRepository $professionalRepository,
         CountyRepository $countyRepository,
         CityRepository $cityRepository,
+        Locator $locator,
         FormFactory $formFactory
     ) {
         $this->professionalRepository = $professionalRepository;
         $this->countyRepository = $countyRepository;
         $this->cityRepository = $cityRepository;
-        $this->formFactory = $formFactory;
+        $this->locator = $locator;
     }
 
+    /**
+     * @param HomepageRequest $request
+     *
+     * @return HomepageResponse
+     */
     public function createResponse(HomepageRequest $request)
     {
         $capitalCity = $this->cityRepository->getCapital();
@@ -52,8 +67,8 @@ class HomepageInteractor
             ['validation_groups' => ['search']]
         );
         return new HomepageResponse(
-            array(
-                'capitalCity' => $capitalCity,
+            [
+                'capitalCity'                        => $capitalCity,
                 'bigCitiesWithFeaturedProfessionals' => $cities,
                 'countiesWithFeaturedProfessionals' => $counties,
                 'searchForm' => $searchForm->createView()
@@ -61,28 +76,30 @@ class HomepageInteractor
         );
     }
 
+    /**
+     * @param FeaturedProfessionalsRequest $request
+     *
+     * @return FeaturedProfessionalsResponse
+     */
     public function createFeaturedProfessionalsResponse(FeaturedProfessionalsRequest $request)
     {
-        $featuredProfessionals = $this->getFeaturedProfessionalsByRequest($request);
-        return new FeaturedProfessionalsResponse(
-            array(
-                'featuredProfessionals' => $featuredProfessionals,
-                'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
-            )
-        );
-    }
-
-    private function getFeaturedProfessionalsByRequest(FeaturedProfessionalsRequest $request)
-    {
-        if ($request->city) {
-            return $this->professionalRepository->getFeaturedProfessionalsOfCity(
-                $request->city,
-                $request->numberOfFeaturedProfessionals
-            );
-        }
-        return $this->professionalRepository->getFeaturedProfessionalsOfCounty(
-            $request->county,
+        $featuredProfessionals = $this->professionalRepository->getFeaturedProfessionalsByLocation(
+            $this->locator->getLocationByRequest($request->locationRequest),
             $request->numberOfFeaturedProfessionals
         );
+        return new FeaturedProfessionalsResponse([
+            'featuredProfessionals'         => $featuredProfessionals,
+            'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
+        ]);
+    }
+
+    /**
+     * @param LocationRequest $request
+     *
+     * @return Location
+     */
+    public function createClosestFeaturedProfessionalsLocationResponse(LocationRequest $request)
+    {
+        return $this->locator->findClosestFeaturedProfessionals($request);
     }
 }

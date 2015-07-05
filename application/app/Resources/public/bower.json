@@ -5,7 +5,8 @@
   "dependencies": {
     "foundation": "5.5.1",
     "jquery": "2.1.0",
-    "jquery-ui": "1.11.4"
+    "jquery-ui": "1.11.4",
+    "js-cookie": "2.0.2"
   },
   "install" : {
     "path"  : {

@@ -2,6 +2,7 @@
 
 namespace Application\Entity;
 
+use Application\Interactor\Location;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -15,6 +16,9 @@ use Doctrine\ORM\Query\Expr\Join;
  */
 class ProfessionalUserRepository extends EntityRepository
 {
+    /**
+     * @param \Doctrine\ORM\EntityManager $em
+     */
     public function __construct($em)
     {
         $entityName = 'Application\Entity\ProfessionalUser';
@@ -23,7 +27,21 @@ class ProfessionalUserRepository extends EntityRepository
         parent::__construct($em, $class);
     }
 
-    public function getFeaturedProfessionalsOfCounty($countyName, $limit = 0)
+    /**
+     * @param Location $location
+     * @param int      $limit
+     *
+     * @return array
+     */
+    public function getFeaturedProfessionalsByLocation(Location $location, $limit = 0)
+    {
+        if ($location->type == Location::TYPE_COUNTY) {
+            return $this->getFeaturedProfessionalsOfCounty($location->name, $limit);
+        }
+        return $this->getFeaturedProfessionalsOfCity($location->name, $limit);
+    }
+
+    private function getFeaturedProfessionalsOfCounty($countyName, $limit)
     {
         return $this->createQueryBuilder('p')
             ->join('p.city', 'ci')
@@ -36,7 +54,7 @@ class ProfessionalUserRepository extends EntityRepository
             ->getQuery()->getResult();
     }
 
-    public function getFeaturedProfessionalsOfCity($cityName, $limit = 0)
+    private function getFeaturedProfessionalsOfCity($cityName, $limit)
     {
         return $this->createQueryBuilder('p')
             ->join('p.city', 'ci', Join::WITH, 'ci.name like :cityName')

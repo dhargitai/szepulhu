@@ -40,9 +40,9 @@ class City
      *          @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
      *      })
      * }, fields={"name"})
-     * @ORM\Column(name="citySlug", type="string", length=255)
+     * @ORM\Column(type="string", length=255)
      */
-    private $citySlug;
+    private $slug;
 
     /**
      * @var integer
@@ -60,6 +60,20 @@ class City
      *  inversedBy="cities")
      */
     private $country;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="latitude", type="decimal", precision=10, scale=8)
+     */
+    private $latitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longitude", type="decimal", precision=11, scale=8)
+     */
+    private $longitude;
 
     /**
      * @var boolean
@@ -289,5 +303,53 @@ class City
     public function isBigCity()
     {
         return $this->isBigCity;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param float $latitude
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param float $longitude
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
     }
 }

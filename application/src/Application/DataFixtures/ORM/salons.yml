@@ -3,8 +3,7 @@ Application\Entity\Professional\Salon:
         name: <lastName()>slon
         mapUrl: https://www.google.hu/maps/place/Tisza+Lajos+krt.+21,+Szeged,+6721/@46.2563789,20.1535365,17z/data=!4m2!3m1!1s0x4744880d59654327:0x73bbca5718b3e6b4?hl=en
         map: <newImage('maps')>
-        postCode: <numberBetween(1000,9000)>
-        city: @city_*
+        city: <numberBetween(1,369)>
         address: <streetAddress()>
         addressAdditional: <streetName()>
         phone: <phoneNumber()>

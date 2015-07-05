@@ -23,9 +23,6 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
 
     public function load(ObjectManager $om)
     {
-        Fixtures::load(__DIR__.'/countries.yml', $om, array('providers' => array($this)));
-        Fixtures::load(__DIR__.'/counties.yml', $om, array('providers' => array($this)));
-        Fixtures::load(__DIR__.'/cities.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/tasks.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/salons.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/users.yml', $om, array('providers' => array($this)));

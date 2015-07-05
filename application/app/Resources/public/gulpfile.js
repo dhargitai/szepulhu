@@ -34,18 +34,15 @@ gulp.task('css', function() {
         .pipe(gulp.dest('../../../web/css'));
 });
 
-gulp.task('images', function() {
-    return gulp.src('bower_components/jquery-ui/themes/smoothness/images/*')
-        .pipe(gulp.dest('../../../web/css/images'));
-});
-
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src([
             'js/jquery/jquery.js',
             'bower_components/jquery-ui/jquery-ui.js',
             'bower_components/jquery-ui/ui/i18n/datepicker-hu.js',
+            'bower_components/js-cookie/src/js.cookie.js',
             'js/foundation/foundation.min.js',
+            'js/geoposition/geoPosition.js',
             'js/app.js'
         ])
         .pipe(concat('scripts.js'))

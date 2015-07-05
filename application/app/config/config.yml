@@ -71,6 +71,15 @@ doctrine:
                     ApplicationSonataMediaBundle: ~
                     SonataMediaBundle: ~
 
+                dql:
+                    numeric_functions:
+                        acos: DoctrineExtensions\Query\Mysql\Acos
+                        cos: DoctrineExtensions\Query\Mysql\Cos
+                        sin: DoctrineExtensions\Query\Mysql\Sin
+
+                    string_functions:
+                        radians: DoctrineExtensions\Query\Mysql\Radians
+
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
