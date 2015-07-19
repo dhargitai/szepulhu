@@ -1,8 +1,9 @@
 <?php
 /**
- * @author    Hargitai Dávid <div@diatigrah.hu>
- * @copyright Hargitai Dávid, 2015.05.25.
- * @package   szepulhu_interactors
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Application\Interactor;
@@ -13,6 +14,15 @@ use Application\Entity\ProfessionalUserRepository;
 use Application\Form\Type\Professional\ServiceSearch;
 use Symfony\Component\Form\FormFactory;
 
+/**
+ * Class HomepageInteractor
+ *
+ * This class represents all the actions that can be made on the homepage.
+ *
+ * @package Application\Interactor
+ * @author Dávid Hargitai <div@diatigrah.hu>
+ * @author Geza Buza <bghome@gmail.com>
+ */
 class HomepageInteractor
 {
     private $professionalRepository;
@@ -36,7 +46,11 @@ class HomepageInteractor
         $capitalCity = $this->cityRepository->getCapital();
         $cities = $this->cityRepository->getBigCitiesWithActiveFeaturedProfessionals();
         $counties = $this->countyRepository->getCountiesWithActiveFeaturedProfessionals();
-        $searchForm = $this->formFactory->create(new ServiceSearch(), $request->searchParameters);
+        $searchForm = $this->formFactory->create(
+            new ServiceSearch(),
+            $request->searchParameters,
+            ['validation_groups' => ['search']]
+        );
         return new HomepageResponse(
             array(
                 'capitalCity' => $capitalCity,

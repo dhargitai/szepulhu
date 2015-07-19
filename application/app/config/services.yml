@@ -78,6 +78,8 @@ services:
             - @templating
             - @app.professional.profile.interactor
             - @app.salon.interactor
+        calls:
+            - [ setContainer, [@service_container] ]
 
     app.professional_registration:
         class: Application\EventListener\RegistrationSubscriber
@@ -88,3 +90,17 @@ services:
         class: Application\Form\RegisterProfessionalFlow
         parent: craue.form.flow
         scope: request
+
+    app.router:
+        class: Application\Symfony\Component\Routing\Router
+        public: false
+        decorates: router.default
+        arguments:
+            - @app.router.inner
+
+    app.form.type.location:
+        class: Application\Form\Type\Professional\LocationType
+        arguments:
+            - @doctrine.orm.default_entity_manager
+        tags:
+            - { name: form.type, alias: location }

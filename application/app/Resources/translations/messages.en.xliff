@@ -239,6 +239,14 @@
                 <source>timeRange.evening</source>
                 <target>Evening</target>
             </trans-unit>
+            <trans-unit id="professional.name">
+                <source>professional.name</source>
+                <target>%firstname% %lastname%</target>
+            </trans-unit>
+            <trans-unit id="professionals.search.number_of_results">
+                <source>professionals.search.number_of_results</source>
+                <target>Total %count% number of matches.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

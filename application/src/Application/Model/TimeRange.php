@@ -23,7 +23,7 @@ class TimeRange
     const AFTERNOON = 'afternoon';
     const EVENING = 'evening';
 
-    public function getChoices()
+    public static function getChoices()
     {
         return [
             self::MORNING => 'timeRange.morning',

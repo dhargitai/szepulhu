@@ -282,6 +282,14 @@
                 <source>timeRange.evening</source>
                 <target>Este</target>
             </trans-unit>
+            <trans-unit id="professional.name">
+                <source>professional.name</source>
+                <target>%lastname% %firstname%</target>
+            </trans-unit>
+            <trans-unit id="professionals.search.number_of_results">
+                <source>professionals.search.number_of_results</source>
+                <target>Összesen %count% találat van.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

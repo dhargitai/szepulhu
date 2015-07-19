@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme searchForm 'AppBundle:Form:service_search.html.twig' %}
+
+{% block body %}
+
+<div class="panel">
+    <div class="row">
+        <div class="big-search large-12 columns">
+            <h1>{{ 'homepage.tagline'|trans }}</h1>
+            {{ form(searchForm, {'action': path('service_search')}) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-8 columns">
+        {# total items count #}
+        <div class="count">
+            {{ 'professionals.search.number_of_results'|trans({'%count%':pagination.getTotalItemCount}) }}
+        </div>
+        <table>
+            <tr>
+                {# sorting of properties based on query components #}
+                <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+                <th{% if pagination.isSorted('a.Name') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Profession', 'a.profession') }}</th>
+            </tr>
+
+            {# table body #}
+            {% for professional in pagination %}
+                <tr {% if loop.index is odd %}class="color"{% endif %}>
+                    <td>{{ professional.id }}</td>
+                    <td>
+                        <div class="panel professional">
+                            <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                                {% thumbnail professional.profilePicture, 'medium_square' %}
+                            </a>
+
+                            <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ 'professional.name'|trans(professional.name) }} </a></span><br>
+                        </div>
+                    </td>
+                    <td>{{ professional.profession }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

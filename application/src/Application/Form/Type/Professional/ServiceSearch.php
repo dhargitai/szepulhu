@@ -1,13 +1,22 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Application\Form\Type\Professional;
 
+use Application\Form\SeoRequestHandler;
 use Application\Form\Type\DateType;
 use Application\Model\TimeRange;
 use Doctrine\ORM\EntityRepository;
 use IntlDateFormatter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\NativeRequestHandler;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ServiceSearch
@@ -15,6 +24,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * This class represents the search for service filtering.
  *
  * @package Application\Form\Type\Professional
+ * @author Geza Buza <bghome@gmail.com>
  */
 class ServiceSearch extends AbstractType
 {
@@ -39,17 +49,11 @@ class ServiceSearch extends AbstractType
                 'required' => false,
                 'label' => false,
             ])
-            ->add('location', 'entity', [
+            ->add('location', 'location', [
                 'attr' => [
                     'title' => 'homepage.serviceLocation',
                 ],
                 'placeholder' => 'homepage.serviceLocation',
-                'class' => 'AppBundle:City',
-                'query_builder' => function (EntityRepository $entityRepository) {
-                    return $entityRepository->createQueryBuilder('c')
-                        ->innerJoin('c.salons', 's')
-                        ->orderBy('c.name', 'ASC');
-                },
                 'required' => false,
                 'label' => false,
             ])
@@ -75,6 +79,12 @@ class ServiceSearch extends AbstractType
             ])
             ->add('search', 'submit', [
                 'label' => 'homepage.doSearch',
-            ]);
+            ])
+            ->setRequestHandler(new SeoRequestHandler(new NativeRequestHandler()));
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefault('csrf_protection', false);
     }
 }

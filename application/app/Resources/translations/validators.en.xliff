@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="validator.constraints.not_blank">
+                <source>validator.constraints.not_blank</source>
+                <target>At least one field must not be blank.</target>
+            </trans-unit>
+            <trans-unit id="app.city.invalid_location">
+                <source>app.city.invalid_location</source>
+                <target>That is not a valid location.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

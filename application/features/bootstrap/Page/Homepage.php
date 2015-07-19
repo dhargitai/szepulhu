@@ -1,16 +1,24 @@
 <?php
 /**
+ * This file is part of the szepul.hu application.
  *
- *
- * @author    Hargitai Dávid <div@diatigrah.hu>
- * @copyright Hargitai Dávid, 2015.05.23.
- * @package   szepulhu_functional_tests
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Page;
 
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 
+/**
+ * Class Homepage
+ *
+ * This is the start page of the application.
+ *
+ * @package Page
+ * @author Dávid Hargitai <div@diatigrah.hu>
+ * @author Geza Buza <bghome@gmail.com>
+ */
 class Homepage extends Page
 {
     /**
@@ -68,6 +76,25 @@ class Homepage extends Page
         $xpathSelector = sprintf("//a[contains(@href, '%s')]", $href);
         $link = $freeSlot->find('xpath', $xpathSelector);
         return !is_null($link);
+    }
+
+    public function fillSearchField($label, $value)
+    {
+        $this->getSearchForm()->fillField($label, $value);
+    }
+
+    public function pressSearchFormButton($title)
+    {
+        $this->getSearchForm()->clickOnButton($title);
+        return $this->getPage('Professionals\Search result');
+    }
+
+    /**
+     * @return \Page\Element\Professionals\SearchForm
+     */
+    protected function getSearchForm()
+    {
+        return $this->getElement('Professionals\Search form');
     }
 
     private function getFreeFeaturedProfessionalSlot()
