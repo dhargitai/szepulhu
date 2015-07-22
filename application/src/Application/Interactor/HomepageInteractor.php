@@ -21,8 +21,8 @@ use Symfony\Component\Form\FormFactory;
  * This class represents all the actions that can be made on the homepage.
  *
  * @package Application\Interactor
- * @author Dávid Hargitai <div@diatigrah.hu>
- * @author Geza Buza <bghome@gmail.com>
+ * @author  Dávid Hargitai <div@diatigrah.hu>
+ * @author  Geza Buza <bghome@gmail.com>
  */
 class HomepageInteractor
 {
@@ -30,6 +30,7 @@ class HomepageInteractor
     private $countyRepository;
     private $cityRepository;
     private $locator;
+    private $formFactory;
 
     /**
      * @param ProfessionalUserRepository $professionalRepository
@@ -49,6 +50,7 @@ class HomepageInteractor
         $this->countyRepository = $countyRepository;
         $this->cityRepository = $cityRepository;
         $this->locator = $locator;
+        $this->formFactory = $formFactory;
     }
 
     /**
@@ -70,9 +72,9 @@ class HomepageInteractor
             [
                 'capitalCity'                        => $capitalCity,
                 'bigCitiesWithFeaturedProfessionals' => $cities,
-                'countiesWithFeaturedProfessionals' => $counties,
-                'searchForm' => $searchForm->createView()
-            )
+                'countiesWithFeaturedProfessionals'  => $counties,
+                'searchForm'                         => $searchForm->createView()
+            ]
         );
     }
 
@@ -87,10 +89,12 @@ class HomepageInteractor
             $this->locator->getLocationByRequest($request->locationRequest),
             $request->numberOfFeaturedProfessionals
         );
-        return new FeaturedProfessionalsResponse([
-            'featuredProfessionals'         => $featuredProfessionals,
-            'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
-        ]);
+        return new FeaturedProfessionalsResponse(
+            [
+                'featuredProfessionals'         => $featuredProfessionals,
+                'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
+            ]
+        );
     }
 
     /**

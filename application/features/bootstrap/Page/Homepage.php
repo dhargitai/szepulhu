@@ -49,10 +49,14 @@ class Homepage extends Page
         return !is_null($menuItem);
     }
 
-    public function selectCounty($countyName)
+    public function selectLocation($locationName)
     {
-        $this->find('css', '#countySelector')->selectOption($countyName);
-        $timeToWaitInMs = 30000;
+        $this->find('css', '#locationSelector')->selectOption($locationName);
+        $this->waitForAjax();
+    }
+
+    public function waitForAjax($timeToWaitInMs = 30000)
+    {
         $this->getSession()->wait($timeToWaitInMs, '(0 === jQuery.active)');
     }
 
@@ -103,6 +107,16 @@ class Homepage extends Page
             $this->freeFeaturedProfessionalSlot = $this->find('css', '.featuredProfessional.free:first-child');
         }
         return $this->freeFeaturedProfessionalSlot;
+    }
+
+    public function isLocationSelected($locationName)
+    {
+        return $this->getSelectedLocation() === $locationName;
+    }
+
+    public function getSelectedLocation()
+    {
+        return $this->find('css', '#locationSelector')->getValue();
     }
 
     public function clearSearchForm()

@@ -39,8 +39,7 @@ class SeoRequestHandlerSpec extends ObjectBehavior
 
     function it_decorates_native_request_handler_object(
         NativeRequestHandler $nativeRequestHandler, FormInterface $form, Request $request
-    )
-    {
+    ) {
         $request->getMethod()->willReturn('GET');
         $nativeRequestHandler->handleRequest(Argument::cetera())->shouldNotBeCalled();
 
@@ -54,8 +53,7 @@ class SeoRequestHandlerSpec extends ObjectBehavior
 
     function it_parses_seo_friendly_url(
         FormInterface $form, Request $request, Form $color, Form $houseNumber, SubmitButton $button
-    )
-    {
+    ) {
         $request->getPathInfo()->willReturn('/do-something/color/vivid%20green/house_number/10/submit/true');
         $form->all()->willReturn([
             'color' => $color,

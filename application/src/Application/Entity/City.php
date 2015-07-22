@@ -274,14 +274,6 @@ class City
     }
 
     /**
-     * @return string
-     */
-    public function getCitySlug()
-    {
-        return $this->citySlug;
-    }
-
-    /**
      * @return int
      */
     public function getCountry()

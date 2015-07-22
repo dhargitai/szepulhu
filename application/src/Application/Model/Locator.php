@@ -40,7 +40,7 @@ class Locator
         try {
             $closestCity = $this->cityRepository->getClosestBigCityWithActiveFeaturedProfessionals($request);
             return new Location([
-                'name' => $closestCity['name'],
+                'name' => $closestCity->getName(),
                 'type' => Location::TYPE_CITY,
             ]);
         } catch (\DomainException $e) {

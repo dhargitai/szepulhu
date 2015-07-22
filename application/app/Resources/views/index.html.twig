@@ -22,7 +22,7 @@
         <div class="large-8 columns">
             {% set savedLocation = app.request.cookies.get('location') | json_decode %}
             <form action="">
-                <select name="countySelector" id="countySelector">
+                <select name="locationSelector" id="locationSelector">
                 {% if capitalCity %}
                     <option value="{{ capitalCity.name }}" data-type="city">{{ capitalCity.name }}</option>
                 {% endif %}
@@ -64,12 +64,12 @@
 
     {% set script %}
     <script>
-        var $countySelector = $('#countySelector');
-        $countySelector.change(function(){
+        var $locationSelector = $('#locationSelector');
+        $locationSelector.change(function(){
             var data = {
                 location: {
-                    type: $countySelector.find('option:selected').data('type'),
-                    name: $countySelector.val()
+                    type: $locationSelector.find('option:selected').data('type'),
+                    name: $locationSelector.val()
                 }
             };
             $.ajax({
@@ -84,31 +84,31 @@
 
         if (!Cookies.get('location') && geoPosition.init()) {
             geoPosition.getCurrentPosition(
-                    function(location) {
-                        if (location.coords.latitude && location.coords.longitude) {
-                            $.ajax({
-                                url : '{{ path('get_closest_location') }}',
-                                type: 'post',
-                                data: {
-                                    latitude: location.coords.latitude,
-                                    longitude: location.coords.longitude
-                                },
-                                success: function(response) {
-                                    Cookies.set('location', response.location);
-                                    changeFeaturedProfessionalsBlockByLocation(response.location);
-                                }
-                            });
-                        }
-                    },
-                    function(error) {},
-                    {enableHighAccuracy: true}
+                function(location) {
+                    if (location.coords.latitude && location.coords.longitude) {
+                        $.ajax({
+                            url : '{{ path('get_closest_location') }}',
+                            type: 'post',
+                            data: {
+                                latitude: location.coords.latitude,
+                                longitude: location.coords.longitude
+                            },
+                            success: function(response) {
+                                Cookies.set('location', response.location);
+                                changeFeaturedProfessionalsBlockByLocation(response.location);
+                            }
+                        });
+                    }
+                },
+                function(error) {},
+                {enableHighAccuracy: true}
             );
         }
 
         function changeFeaturedProfessionalsBlockByLocation(location)
         {
-            if ($countySelector.val() != location.name) {
-                $countySelector.val(location.name).trigger('change');
+            if ($locationSelector.val() != location.name) {
+                $locationSelector.val(location.name).trigger('change');
             }
         }
     </script>

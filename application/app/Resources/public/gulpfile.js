@@ -34,6 +34,11 @@ gulp.task('css', function() {
         .pipe(gulp.dest('../../../web/css'));
 });
 
+gulp.task('images', function() {
+    return gulp.src('bower_components/jquery-ui/themes/smoothness/images/*')
+        .pipe(gulp.dest('../../../web/css/images'));
+});
+
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
     return gulp.src([

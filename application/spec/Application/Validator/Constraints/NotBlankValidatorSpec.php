@@ -47,8 +47,7 @@ class NotBlankValidatorSpec extends ObjectBehavior
 
     function it_does_not_raise_error_when_object_is_valid(
         ExecutionContextInterface $context, ConstraintViolationBuilder $builder
-    )
-    {
+    ) {
         $constraint = new NotBlank([
             'fields' => ['a', 'b']
         ]);
@@ -61,8 +60,7 @@ class NotBlankValidatorSpec extends ObjectBehavior
 
     function it_raises_an_error_when_object_is_invalid(
         ExecutionContextInterface $context, ConstraintViolationBuilder $builder
-    )
-    {
+    ) {
         $constraint = new NotBlank([
             'fields' => ['a', 'b']
         ]);
