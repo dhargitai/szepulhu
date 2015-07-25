@@ -19,5 +19,12 @@
         {% endblock %}
 
         {% block scripts %}<script type="text/javascript" src="/js/scripts.min.js"></script>{% endblock %}
+        {% if not scripts.isEmpty() %}
+            <script>
+                $(document).ready(function() {
+                    {{ scripts|raw }}
+                });
+            </script>
+        {% endif  %}
     </body>
 </html>

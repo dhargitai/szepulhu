@@ -14,3 +14,11 @@ Feature: Homepage
       | Regisztráció            | Registration        |
       | Belépés                 | Login               |
       | Hirdesd a vállalkozásod | List Your Business  |
+
+  Scenario: Search for professionals
+    Given I fill the search fields with the following properties
+      | Name of the service?  | Service location? | Appointment date? | Appointment time? |
+      | hajfestés             | hodmezovasarhely  |                   |                   |
+    When I press the "Search" button
+    Then I should see the search result page
+    And I should see the list of matching professionals

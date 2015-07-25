@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Application\Entity;
 
@@ -12,7 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 
 /**
- * ProfessionalUser
+ * Class ProfessionalUser
+ *
+ * @package Application\Entity
+ * @author Dávid Hargitai <div@diatigrah.hu>
+ * @author Geza Buza <bghome@gmail.com>
  *
  * @ORM\Table(name="user_professional")
  * @ORM\Entity(repositoryClass="Application\Entity\ProfessionalUserRepository")
@@ -1185,6 +1195,14 @@ class ProfessionalUser extends User implements Professional
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+    }
+
+    /**
+     * @return array Translation parameters
+     */
+    public function getName()
+    {
+        return ['%firstname%' => $this->getFirstName(), '%lastname%' => $this->getLastName()];
     }
 
     /**

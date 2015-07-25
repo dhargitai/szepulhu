@@ -11,4 +11,5 @@ use Application\Model\ValueObject;
 
 class HomepageRequest extends ValueObject
 {
+    protected $value = ['searchParameters' => ''];
 }

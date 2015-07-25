@@ -1,3 +1,4 @@
 #!/bin/bash
 
-docker exec -it szepulhu_web_1 /var/www/szepul.hu/app/console "$@"
+ARGUMENTS="$@"
+docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c "/var/www/szepul.hu/app/console $ARGUMENTS"

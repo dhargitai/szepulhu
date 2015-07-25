@@ -11,8 +11,6 @@ ADD docker/services/nginx/sites /etc/nginx/sites-enabled
 ADD application /var/www/szepul.hu
 ADD docker/run.sh /root/run.sh
 
-RUN echo '127.0.0.1 szepul.hu.dev' >> /etc/hosts
-
 ADD application/bin/wait-for-db.sh /wait-for-db.sh
 RUN chmod a+x /wait-for-db.sh
 

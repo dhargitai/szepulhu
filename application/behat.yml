@@ -2,7 +2,12 @@ default:
   suites:
     default:
       contexts:
+        - Behat\MinkExtension\Context\RawMinkContext
         - FeatureContext
+        - DebugContext:
+          - screenshots
+          - 1920x1080
+        - ProfessionalsContext
 
 #   domain:
 #     contexts: [ DomainContext ]
@@ -21,7 +26,7 @@ default:
     SensioLabs\Behat\PageObjectExtension: ~
     Behat\TeamCityFormatter\TeamCityFormatterExtension: ~
     Behat\MinkExtension:
-      base_url: 'http://szepul.hu.dev/'
+      base_url: 'http://szepul.hu.test/'
       selenium2:
         wd_host: http://localhost:4444/wd/hub
         browser: phantomjs

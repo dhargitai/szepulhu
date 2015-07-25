@@ -12,9 +12,9 @@ if [ "$APP_ENV" = "dev" ] ; then
     COMPOSER_INSTALL_MODE=""
 
     cd /
-    wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2
-    tar -xjf phantomjs-1.9.7-linux-x86_64.tar.bz2
-    mv phantomjs-1.9.7-linux-x86_64 phantomjs
+    wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2
+    tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2
+    mv phantomjs-1.9.8-linux-x86_64 phantomjs
     /phantomjs/bin/phantomjs --webdriver=4444 &
 fi
 sed -i "s|\${NGINX_INDEX_SCRIPT}|${NGINX_INDEX_SCRIPT}|" /etc/nginx/sites-enabled/default

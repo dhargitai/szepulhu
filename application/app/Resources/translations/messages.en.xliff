@@ -203,6 +203,50 @@
                 <source>homepage.clickHere</source>
                 <target>Click Here</target>
             </trans-unit>
+            <trans-unit id="homepage.serviceName">
+                <source>homepage.serviceName</source>
+                <target>Name of the service?</target>
+            </trans-unit>
+            <trans-unit id="homepage.serviceLocation">
+                <source>homepage.serviceLocation</source>
+                <target>Service location?</target>
+            </trans-unit>
+            <trans-unit id="homepage.serviceDate">
+                <source>homepage.serviceDate</source>
+                <target>Appointment date?</target>
+            </trans-unit>
+            <trans-unit id="homepage.serviceTime">
+                <source>homepage.serviceTime</source>
+                <target>Appointment time?</target>
+            </trans-unit>
+            <trans-unit id="homepage.doSearch">
+                <source>homepage.doSearch</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="timeRange.morning">
+                <source>timeRange.morning</source>
+                <target>Morning</target>
+            </trans-unit>
+            <trans-unit id="timeRange.noon">
+                <source>timeRange.noon</source>
+                <target>Noon</target>
+            </trans-unit>
+            <trans-unit id="timeRange.afternoon">
+                <source>timeRange.afternoon</source>
+                <target>Afternoon</target>
+            </trans-unit>
+            <trans-unit id="timeRange.evening">
+                <source>timeRange.evening</source>
+                <target>Evening</target>
+            </trans-unit>
+            <trans-unit id="professional.name">
+                <source>professional.name</source>
+                <target>%firstname% %lastname%</target>
+            </trans-unit>
+            <trans-unit id="professionals.search.number_of_results">
+                <source>professionals.search.number_of_results</source>
+                <target>Total %count% number of matches.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

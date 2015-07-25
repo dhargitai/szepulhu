@@ -7,6 +7,7 @@ use Application\Entity\ProfessionalUserRepository;
 use Application\Interactor\FeaturedProfessionalsRequest;
 use Application\Interactor\HomepageInteractor;
 use Application\Interactor\HomepageRequest;
+use Application\Model\Professional\ServiceSearchParameters;
 use Application\Sonata\MediaBundle\Document\Media;
 use Application\Entity\ProfessionalUser;
 use Application\Entity\ClientUser;
@@ -38,7 +39,8 @@ class DefaultController
      */
     public function indexAction(Request $request)
     {
-        $response = $this->interactor->createResponse(new HomepageRequest());
+        $searchParameters = new ServiceSearchParameters();
+        $response = $this->interactor->createResponse(new HomepageRequest(['searchParameters' => $searchParameters]));
         return $this->templating->renderResponse(
             'index.html.twig',
             $response->asArray()

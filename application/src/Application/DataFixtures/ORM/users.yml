@@ -129,7 +129,7 @@ Application\Entity\ProfessionalUser:
         userType: professional
         acceptedTos: <numberBetween(0,1)>
         profilePicture: <newImage()>
-        profession: <randomElement(array('Gyógymasszőr', 'Kozmetikus', 'Stylist', 'Csontkovács', 'Fodrász'))>
+        profession: <randomElement(array('Fodrász'))>
         slug: <lexify('???????????????')>
         role: <randomElement(array('Alkalmazott', 'Tulajdonos', 'Gyakornok'))>
         priceCategory: <numberBetween(1,5)>
