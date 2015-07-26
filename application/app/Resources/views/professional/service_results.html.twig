@@ -15,6 +15,7 @@
 
 <div class="row">
     <div class="large-8 columns">
+        {% if searchForm.vars.valid %}
         {# total items count #}
         <div class="count">
             {{ 'professionals.search.number_of_results'|trans({'%count%':pagination.getTotalItemCount}) }}
@@ -48,6 +49,9 @@
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>
+        {% else %}
+            <p class="align-center">{{ 'professionals.search.no_results'|trans }}</p>
+        {% endif %}
     </div>
 </div>
 

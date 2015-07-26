@@ -104,4 +104,9 @@ class Homepage extends Page
         }
         return $this->freeFeaturedProfessionalSlot;
     }
+
+    public function clearSearchForm()
+    {
+        $this->getSearchForm()->clear();
+    }
 }

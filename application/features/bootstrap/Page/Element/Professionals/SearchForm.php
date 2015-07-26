@@ -46,4 +46,12 @@ class SearchForm extends Element
             'css', sprintf('input[title="%1$s"],select[title="%1$s"],textarea[title="%1$s"]', addslashes($locator))
         );
     }
+
+    public function clear()
+    {
+        /** @var NodeElement $element */
+        foreach ($this->findAll('css', 'input,select') as $element) {
+            $element->setValue('');
+        }
+    }
 }

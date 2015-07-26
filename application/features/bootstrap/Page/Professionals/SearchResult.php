@@ -7,6 +7,7 @@
  */
 
 namespace Page\Professionals;
+use Exception\ElementFoundException;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 
 
@@ -25,5 +26,12 @@ class SearchResult extends Page
     public function getItems()
     {
         return $this->getElement('Professionals\Result item');
+    }
+
+    public function hasNoItems()
+    {
+        if ($this->hasElement('Professionals\Result item')) {
+            throw new ElementFoundException($this->getSession(), 'Result item');
+        }
     }
 }

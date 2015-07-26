@@ -22,3 +22,9 @@ Feature: Homepage
     When I press the "Search" button
     Then I should see the search result page
     And I should see the list of matching professionals
+
+  Scenario: Validation error when searching for professionals
+    Given I leave the search form empty
+    When I press the "Search" button
+    Then I should see the message "Alter search parameters to get results."
+    And I should not see any result

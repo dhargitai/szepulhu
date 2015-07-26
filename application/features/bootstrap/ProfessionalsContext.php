@@ -56,7 +56,7 @@ class ProfessionalsContext implements Context
      */
     public function iShouldSeeTheSearchResultPage()
     {
-        $this->currentPage->open();
+        $this->currentPage->isOpen();
     }
 
     /**
@@ -67,5 +67,31 @@ class ProfessionalsContext implements Context
         /** @var \Page\Professionals\SearchResult $currentPage  */
         $currentPage = $this->currentPage;
         $currentPage->getItems();
+    }
+
+    /**
+     * @Given /^I leave the search form empty$/
+     */
+    public function iLeaveTheSearchFormEmpty()
+    {
+        $this->homepage->clearSearchForm();
+    }
+
+    /**
+     * @Then /^I should see the message "([^"]*)"$/
+     */
+    public function iShouldSeeTheMessage($message)
+    {
+        $this->currentPage->hasContent($message);
+    }
+
+    /**
+     * @Given /^I should not see any result$/
+     */
+    public function iShouldNotSeeAnyResult()
+    {
+        /** @var \Page\Professionals\SearchResult $currentPage  */
+        $currentPage = $this->currentPage;
+        $currentPage->hasNoItems();
     }
 }
