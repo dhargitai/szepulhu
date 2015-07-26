@@ -19,11 +19,16 @@ use Behat\Testwork\Tester\Result\TestResult;
  * This class is responsible for providing debug information to the developer about the running Behat tests.
  * It also can help configuring the web browser used for testing.
  *
+ * When you need to debug a scenario step by step, then add the "@debug_step" tag to the feature file. This will
+ * take a screenshot after every step.
+ *
  * @author Geza Buza <bghome@gmail.com>
  */
 class DebugContext implements Context
 {
     use KernelDictionary;
+
+    const TAG_TAKE_SCREENSHOT_AFTER_EVERY_STEP = 'debug_step';
 
     /** @var \Behat\MinkExtension\Context\MinkContext */
     private $minkContext;
@@ -69,6 +74,15 @@ class DebugContext implements Context
     {
         if (TestResult::FAILED === $scope->getTestResult()->getResultCode()) {
             $this->takeScreenshot($scope->getScenario()->getTitle());
+        }
+    }
+    /**
+     * @AfterStep
+     */
+    public function takeScreenshotAfterStep(\Behat\Behat\Hook\Scope\AfterStepScope $scope)
+    {
+        if (in_array(self::TAG_TAKE_SCREENSHOT_AFTER_EVERY_STEP, $scope->getFeature()->getTags())) {
+            $this->takeScreenshot($scope->getStep()->getText());
         }
     }
 
