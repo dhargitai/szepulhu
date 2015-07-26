@@ -10,7 +10,7 @@ namespace Application\Entity;
 
 use Application\Entity\Professional\Salon;
 use Application\Model\Professional;
-use Application\UserBundle\Entity\User;
+use UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Application\Sonata\MediaBundle\Entity\Gallery;
@@ -27,11 +27,11 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="user_professional")
  * @ORM\Entity(repositoryClass="Application\Entity\ProfessionalUserRepository")
  * @UniqueEntity(fields = "username",
- *  targetClass = "Application\UserBundle\Entity\User",
+ *  targetClass = "UserBundle\Entity\User",
  *  message="fos_user.username.already_used",
  *  groups={"flow_registerProfessionalFlow_step1"})
  * @UniqueEntity(fields = "email",
- *  targetClass = "Application\UserBundle\Entity\User",
+ *  targetClass = "UserBundle\Entity\User",
  *  message="fos_user.email.already_used",
  *  groups={"flow_registerProfessionalFlow_step1"})
  */

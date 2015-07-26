@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\UserBundle\Controller;
+namespace UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as FOSRegistrationController;
 use Symfony\Component\HttpFoundation\Request;

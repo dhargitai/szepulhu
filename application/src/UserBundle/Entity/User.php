@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\UserBundle\Entity;
+namespace UserBundle\Entity;
 
 use Application\Sonata\MediaBundle\Entity\Media;
 use Gedmo\Mapping\Annotation as Gedmo;
