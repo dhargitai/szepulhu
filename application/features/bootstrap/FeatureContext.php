@@ -8,6 +8,7 @@ use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Page\Homepage;
 use Page\ProfessionalProfile;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
  * Defines application features from the specific context.
@@ -26,10 +27,19 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     private $professionalProfile;
 
-    public function __construct(Homepage $homepage, ProfessionalProfile $professionalProfile)
-    {
+    /**
+     * @var EngineInterface
+     */
+    private $templating;
+
+    public function __construct(
+        Homepage $homepage,
+        ProfessionalProfile $professionalProfile,
+        EngineInterface $templating
+    ) {
         $this->homepage = $homepage;
         $this->professionalProfile = $professionalProfile;
+        $this->templating = $templating;
     }
 
     /**
@@ -133,15 +143,29 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     public function theUserSharedHisLocationSCoordinates($latitude, $longitude)
     {
-//        $this->homepage->getSession()->setCookie('location', json_encode(['name' => 'Szeged', 'type' => 'city']));
-        $javascript = <<<"JS"
-navigator.geolocation =
-{
-    getCurrentPosition: function(callback) {
-        callback({ coords: { latitude: "$latitude", longitude: "$longitude" } });
+        $javascript = '
+            navigator.geolocation = {
+                getCurrentPosition: function(callback) {
+                    callback({ coords: { latitude: "' . $latitude . '", longitude: "' . $longitude . '" } });
+                }
+            }
+        ';
+        $this->homepage->getSession()->executeScript($javascript);
     }
-}
-JS;
+
+    /**
+     * @Given we stored :locationName :locationType as nearest featured professional location earlier
+     */
+    public function weStoredAsNearestFeaturedProfessionalLocationEarlier($locationName, $locationType)
+    {
+        $location = json_encode(
+            [
+                'name' => $locationName,
+                'type' => $locationType,
+            ],
+            15 // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+        );
+        $javascript = 'Cookies.set("location", ' . $location . ');';
         $this->homepage->getSession()->executeScript($javascript);
     }
 
@@ -150,38 +174,8 @@ JS;
      */
     public function iWaitForTheFeaturedProfessionalsBlockSChanging()
     {
-        $javascript = <<<'JS'
-$(document).ready(function() {
-    var $locationSelector = $('#locationSelector');
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(location){
-            if (location.coords.latitude && location.coords.longitude) {
-                $.ajax({
-                    url : '/get_closest_location',
-                    type: 'post',
-                    data: {
-                        latitude: location.coords.latitude,
-                        longitude: location.coords.longitude
-                    },
-                    success: function(response) {
-                        Cookies.set('location', response.location);
-                        changeFeaturedProfessionalsBlockByLocation(response.location);
-                    }
-                });
-            }
-        });
-    }
-    function changeFeaturedProfessionalsBlockByLocation(location)
-    {
-        if ($locationSelector.val() != location.name) {
-            $locationSelector.val(location.name).trigger('change');
-        }
-    }
-});
-JS;
+        $javascript = $this->templating->render('::_geolocatingClosestFeaturedProfessionals.html.twig');
         $this->homepage->getSession()->executeScript($javascript);
-
-        $this->homepage->getSession()->wait(10000);
         $this->homepage->waitForAjax();
     }
 

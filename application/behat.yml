@@ -1,13 +1,14 @@
 default:
-  suites:
-    default:
-      contexts:
-        - Behat\MinkExtension\Context\RawMinkContext
-        - FeatureContext
-        - DebugContext:
-          - screenshots
-          - 1920x1080
-        - ProfessionalsContext
+    suites:
+        default:
+            contexts:
+                - Behat\MinkExtension\Context\RawMinkContext
+                - FeatureContext:
+                    templating: '@templating'
+                - DebugContext:
+                    - screenshots
+                    - 1920x1080
+                - ProfessionalsContext
 
 #   domain:
 #     contexts: [ DomainContext ]
@@ -21,14 +22,14 @@ default:
 #     filters:
 #       tags: @critical
 
-  extensions:
-    Behat\Symfony2Extension: ~
-    SensioLabs\Behat\PageObjectExtension: ~
-    Behat\TeamCityFormatter\TeamCityFormatterExtension: ~
-    Behat\MinkExtension:
-      base_url: 'http://szepul.hu.test/'
-      selenium2:
-        wd_host: http://localhost:4444/wd/hub
-        browser: phantomjs
-      show_cmd: echo '%s'
-      show_tmp_dir: ./tmp/
+    extensions:
+        Behat\Symfony2Extension: ~
+        SensioLabs\Behat\PageObjectExtension: ~
+        Behat\TeamCityFormatter\TeamCityFormatterExtension: ~
+        Behat\MinkExtension:
+            base_url: 'http://szepul.hu.test/'
+            selenium2:
+                wd_host: http://localhost:4444/wd/hub
+                browser: phantomjs
+            show_cmd: echo '%s'
+            show_tmp_dir: ./tmp/

@@ -73,7 +73,7 @@ class LocationType extends AbstractType
         $query = $this->entityManager->createQueryBuilder('city')
                 ->select(['city.slug', 'city.name'])
                 ->from('AppBundle:City', 'city')
-                ->innerJoin('city.salons', 'salons')
+                ->innerJoin('city.professionals', 'professionals')
                 ->orderBy('city.name', 'ASC')
                 ->getQuery();
 

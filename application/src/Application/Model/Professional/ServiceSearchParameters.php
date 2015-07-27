@@ -123,7 +123,7 @@ class ServiceSearchParameters implements Iterator
         $property = current($this->traversableProperties);
         $value = $this->$property;
         if ($value instanceof City) {
-            return $value->getCitySlug();
+            return $value->getSlug();
         }
         return $value;
     }

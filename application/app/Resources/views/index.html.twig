@@ -82,35 +82,7 @@
             });
         });
 
-        if (!Cookies.get('location') && geoPosition.init()) {
-            geoPosition.getCurrentPosition(
-                function(location) {
-                    if (location.coords.latitude && location.coords.longitude) {
-                        $.ajax({
-                            url : '{{ path('get_closest_location') }}',
-                            type: 'post',
-                            data: {
-                                latitude: location.coords.latitude,
-                                longitude: location.coords.longitude
-                            },
-                            success: function(response) {
-                                Cookies.set('location', response.location);
-                                changeFeaturedProfessionalsBlockByLocation(response.location);
-                            }
-                        });
-                    }
-                },
-                function(error) {},
-                {enableHighAccuracy: true}
-            );
-        }
-
-        function changeFeaturedProfessionalsBlockByLocation(location)
-        {
-            if ($locationSelector.val() != location.name) {
-                $locationSelector.val(location.name).trigger('change');
-            }
-        }
+        {% include '::_geolocatingClosestFeaturedProfessionals.html.twig' %}
     </script>
     {% endset %}
 
