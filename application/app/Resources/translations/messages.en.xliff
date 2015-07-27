@@ -247,6 +247,10 @@
                 <source>professionals.search.number_of_results</source>
                 <target>Total %count% number of matches.</target>
             </trans-unit>
+            <trans-unit id="professionals.search.no_results">
+                <source>professionals.search.no_results</source>
+                <target>Alter search parameters to get results.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

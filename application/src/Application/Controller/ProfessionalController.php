@@ -117,6 +117,8 @@ class ProfessionalController extends Controller
 
         $form->handleRequest($request);
 
+        $templateParameters = ['searchForm' => $form->createView()];
+
         if ($request->getMethod() === 'POST' && $form->isValid()) {
             $url = $this->generateUrl(
                 'app.professional_controller:search', iterator_to_array($searchParameters),
@@ -125,15 +127,17 @@ class ProfessionalController extends Controller
             return $this->redirect($url);
         }
 
-        $professionals = (new ProfessionalSearchInteractor($this->get('app.professional_repository')))
-            ->createSearchQuery($searchParameters);
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $professionals, $request->query->getInt('page', 1), self::NUMBER_OF_PROFESSIONALS_PER_PAGE
-        );
+        if ($form->isValid()) {
+            $professionals = (new ProfessionalSearchInteractor($this->get('app.professional_repository')))
+                ->createSearchQuery($searchParameters);
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate(
+                $professionals, $request->query->getInt('page', 1), self::NUMBER_OF_PROFESSIONALS_PER_PAGE
+            );
 
-        return $this->render(
-            ':professional:service_results.html.twig', ['pagination' => $pagination, 'searchForm' => $form->createView()]
-        );
+            $templateParameters['pagination'] = $pagination;
+        }
+
+        return $this->render(':professional:service_results.html.twig', $templateParameters);
     }
 }
