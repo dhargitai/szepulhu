@@ -3,8 +3,7 @@ default:
         default:
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
-                - FeatureContext:
-                    templating: '@templating'
+                - FeatureContext
                 - DebugContext:
                     - screenshots
                     - 1920x1080

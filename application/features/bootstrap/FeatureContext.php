@@ -8,7 +8,6 @@ use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Page\Homepage;
 use Page\ProfessionalProfile;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
  * Defines application features from the specific context.
@@ -27,19 +26,10 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     private $professionalProfile;
 
-    /**
-     * @var EngineInterface
-     */
-    private $templating;
-
-    public function __construct(
-        Homepage $homepage,
-        ProfessionalProfile $professionalProfile,
-        EngineInterface $templating
-    ) {
+    public function __construct(Homepage $homepage, ProfessionalProfile $professionalProfile)
+    {
         $this->homepage = $homepage;
         $this->professionalProfile = $professionalProfile;
-        $this->templating = $templating;
     }
 
     /**
@@ -163,7 +153,7 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
                 'name' => $locationName,
                 'type' => $locationType,
             ],
-            15 // 15 === JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
         );
         $javascript = 'Cookies.set("location", ' . $location . ');';
         $this->homepage->getSession()->executeScript($javascript);
@@ -174,8 +164,7 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     public function iWaitForTheFeaturedProfessionalsBlockSChanging()
     {
-        $javascript = $this->templating->render('::_geolocatingClosestFeaturedProfessionals.html.twig');
-        $this->homepage->getSession()->executeScript($javascript);
+        $this->homepage->getSession()->executeScript('Application.geolocateClosestFeaturedProfessionals();');
         $this->homepage->waitForAjax();
     }
 

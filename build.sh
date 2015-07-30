@@ -12,8 +12,7 @@ fi
 if [ $(docker ps -a | grep szepulhu_dataonly_mysql | wc -l) -eq 0 ]; then
   docker create --name szepulhu_dataonly_mysql arungupta/mysql-data-container
 fi
-rm -rf  application/app/Resources/public/css/foundation \
-        application/web/uploads/media/* \
+rm -rf  application/web/uploads/media/* \
         application/web/css/* \
         application/web/js/* \
         application/src/Application/DataFixtures/data
@@ -33,14 +32,13 @@ docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
     wget https://www.dropbox.com/s/ty3soyfivprjcp4/szepul.hu.fixtures.files.tar.gz?dl=0 -O /tmp/fixtures.tar.gz && \
     tar -xzf /tmp/fixtures.tar.gz --no-same-owner -C src/Application/DataFixtures/ && \
     mkdir -p web/uploads/media && \
-    php app/console szepulhu:fixtures:load
+    php app/console szepulhu:fixtures:load && \
+    php app/console fos:js-routing:dump
 '
 
 cd application/app/Resources/public && \
     npm install && \
     node_modules/.bin/bower --config.interactive=false --allow-root install && \
-    cp -R bower_components/foundation/scss css/foundation && \
-    mv css/foundation/normalize.scss css/foundation/_normalize.scss && \
     node_modules/.bin/gulp build && \
 cd ../../../../
 

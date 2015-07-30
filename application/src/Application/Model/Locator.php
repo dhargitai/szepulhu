@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Application\Model;
 
@@ -7,6 +13,15 @@ use Application\Entity\CountyRepository;
 use Application\Interactor\LocationRequest;
 use Application\Interactor\Location;
 
+/**
+ * Class Locator
+ *
+ * This class finds best known locations (from the application's point of view)
+ * based on different criteria like coordinates of a place or its name and type.
+ *
+ * @package Application\Model
+ * @author Hargitai Dávid <div@diatigrah.hu>
+ */
 class Locator
 {
     /**

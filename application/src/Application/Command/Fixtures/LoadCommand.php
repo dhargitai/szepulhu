@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Application\Command\Fixtures;
 
@@ -7,6 +13,17 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class LoadCommand
+ *
+ * This class provides a single command to do the following things in one step:
+ * - drop and recreate database schema
+ * - import the required existing data into the database
+ * - generate fixtures data
+ *
+ * @package Application\Command
+ * @author Hargitai Dávid <div@diatigrah.hu>
+ */
 class LoadCommand extends Command
 {
     private $output;

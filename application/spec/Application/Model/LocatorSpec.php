@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace spec\Application\Model;
 
@@ -10,6 +16,12 @@ use Application\Interactor\LocationRequest;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class LocatorSpec
+ *
+ * @package spec\Application\Model
+ * @author Hargitai Dávid <div@diatigrah.hu>
+ */
 class LocatorSpec extends ObjectBehavior
 {
     private $location;
@@ -38,7 +50,7 @@ class LocatorSpec extends ObjectBehavior
         $capital->getName()->shouldBeCalled()->willReturn($this->locationName);
         $cityRepository->getCapital()->shouldBeCalled()->willReturn($capital);
 
-        $this->getLocationByRequest($request);
+        $this->getLocationByRequest($request)->shouldBeLike($this->location);
     }
 
     public function it_returns_the_location_object_if_the_correct_request_data_is_available(LocationRequest $request)
@@ -67,7 +79,7 @@ class LocatorSpec extends ObjectBehavior
             ->willThrow('\DomainException');
         $cityRepository->getCapital()->shouldBeCalled()->willReturn($capital);
 
-        $this->findClosestFeaturedProfessionals($request);
+        $this->findClosestFeaturedProfessionals($request)->shouldBeLike($this->location);
     }
 
     public function it_returns_the_closest_city_location_object(

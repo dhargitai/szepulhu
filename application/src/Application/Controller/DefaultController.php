@@ -78,7 +78,7 @@ class DefaultController
     }
 
     /**
-     * @Route("/get_closest_location", name="get_closest_location")
+     * @Route("/get_closest_location", name="get_closest_location", options={"expose"=true})
      * @param Request $request
      *
      * @return JsonResponse

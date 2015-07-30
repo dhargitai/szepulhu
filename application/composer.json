@@ -35,7 +35,8 @@
         "sonata-project/admin-bundle": "^2.3",
         "sonata-project/doctrine-orm-admin-bundle": "^2.3",
         "knplabs/knp-paginator-bundle": "^2.4",
-        "beberlei/DoctrineExtensions": "^1.0"
+        "beberlei/DoctrineExtensions": "^1.0",
+        "friendsofsymfony/jsrouting-bundle": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

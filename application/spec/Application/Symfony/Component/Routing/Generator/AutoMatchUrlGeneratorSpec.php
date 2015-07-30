@@ -22,7 +22,7 @@ use Symfony\Component\Routing\RouteCollection;
  * Class AutoMatchUrlGeneratorSpec
  *
  * @package spec\Application\Symfony\Component\Routing\Generator
- * @author  Geza Buza <bghome@gmail.com>
+ * @author Geza Buza <bghome@gmail.com>
  */
 class AutoMatchUrlGeneratorSpec extends ObjectBehavior
 {
