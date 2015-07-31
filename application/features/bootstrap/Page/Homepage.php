@@ -8,8 +8,6 @@
 
 namespace Page;
 
-use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
-
 /**
  * Class Homepage
  *
@@ -19,7 +17,7 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
  * @author Dávid Hargitai <div@diatigrah.hu>
  * @author Geza Buza <bghome@gmail.com>
  */
-class Homepage extends Page
+class Homepage extends CustomPage
 {
     /**
      * @var string $path
@@ -53,11 +51,6 @@ class Homepage extends Page
     {
         $this->find('css', '#locationSelector')->selectOption($locationName);
         $this->waitForAjax();
-    }
-
-    public function waitForAjax($timeToWaitInMs = 30000)
-    {
-        $this->getSession()->wait($timeToWaitInMs, '(0 === jQuery.active)');
     }
 
     public function hasFreeFeaturedProfessionalSlot()

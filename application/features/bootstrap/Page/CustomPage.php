@@ -21,4 +21,9 @@ abstract class CustomPage extends Page
     {
         return $this->path;
     }
+
+    public function waitForAjax($timeToWaitInMs = 30000)
+    {
+        $this->getSession()->wait($timeToWaitInMs, '(0 === jQuery.active)');
+    }
 }
