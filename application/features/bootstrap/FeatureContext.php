@@ -133,13 +133,11 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     public function theUserSharedHisLocationSCoordinates($latitude, $longitude)
     {
-        $javascript = '
-            navigator.geolocation = {
-                getCurrentPosition: function(callback) {
-                    callback({ coords: { latitude: "' . $latitude . '", longitude: "' . $longitude . '" } });
-                }
-            }
-        ';
+        $javascript = "
+            Application.init({
+                geolocationAdapter: new Application.Geolocation.DummyAdapter('$latitude', '$longitude')
+            })
+        ";
         $this->homepage->getSession()->executeScript($javascript);
     }
 
