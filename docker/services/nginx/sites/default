@@ -11,8 +11,18 @@ server {
     fastcgi_read_timeout 1800;
 
     location / {
-        # Redirect everything that isn't a real file to index.php
-        try_files $uri $uri/ /${NGINX_INDEX_SCRIPT}?$args;
+        # try to serve file directly, fallback to app.php
+        try_files $uri /${NGINX_INDEX_SCRIPT}$is_args$args;
+    }
+
+    # Other environments than production
+    # This rule should only be placed on your development environment
+    # In production, don't include this and don't deploy app_dev.php or config.php
+    location ~ ^/(app_dev|app_test|config)\.php(/|$) {
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 
     # uncomment to avoid processing of calls to non-existing static files by Yii
@@ -20,11 +30,16 @@ server {
         try_files $uri =404;
     }
 
-    location ~ \.php$ {
-        include /etc/nginx/fastcgi_params;
+    # Production environment
+    location ~ ^/app\.php(/|$) {
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_pass  unix:/var/run/php5-fpm.sock;
-        try_files $uri =404;
+        # Prevents URIs that include the front controller. This will 404:
+        # http://domain.tld/app.php/some-path
+        # Remove the internal directive to allow URIs like this
+        internal;
     }
 
     location ~ /\.(ht|svn|git) {
