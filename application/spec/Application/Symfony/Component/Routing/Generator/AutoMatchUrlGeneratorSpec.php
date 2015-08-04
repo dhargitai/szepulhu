@@ -7,6 +7,7 @@
  */
 
 namespace spec\Application\Symfony\Component\Routing\Generator;
+
 use Application\Symfony\Component\Routing\Generator\AutoMatchUrlGenerator;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -27,8 +28,7 @@ class AutoMatchUrlGeneratorSpec extends ObjectBehavior
 {
     function let(
         UrlGenerator $decoratedGenerator, RouteCollection $routes, Route $route, CompiledRoute $compiledRoute
-    )
-    {
+    ) {
         $this->initRouteCollectionDouble($routes, $route, $compiledRoute);
         $this->initGeneratorDouble($decoratedGenerator);
         $this->beConstructedWith($decoratedGenerator, $routes);
@@ -67,8 +67,7 @@ class AutoMatchUrlGeneratorSpec extends ObjectBehavior
     function it_should_find_route_with_matching_parameters(
         UrlGenerator $decoratedGenerator, RouteCollection $routes, Route $route1, Route $route2, Route $route3,
         CompiledRoute $compiledRoute1, CompiledRoute $compiledRoute2, CompiledRoute $compiledRoute3
-    )
-    {
+    ) {
         $compiledRoute1->getVariables()->willReturn(['location']);
         $compiledRoute2->getVariables()->willReturn(['location', 'service_name']);
         $compiledRoute3->getVariables()->willReturn(['location', 'service_name', 'time']);

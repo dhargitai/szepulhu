@@ -48,12 +48,19 @@ services:
         arguments:
             - @doctrine.orm.default_entity_manager
 
+    app.locator:
+        class: Application\Model\Locator
+        arguments:
+            - @app.city_repository
+            - @app.county_repository
+
     app.homepage.interactor:
         class: Application\Interactor\HomepageInteractor
         arguments:
             - @app.professional_repository
             - @app.county_repository
             - @app.city_repository
+            - @app.locator
             - @form.factory
 
     app.professional.profile.interactor:
@@ -90,6 +97,13 @@ services:
         class: Application\Form\RegisterProfessionalFlow
         parent: craue.form.flow
         scope: request
+
+    app.twig.extension:
+        class: Application\Twig\Extension\SzepulhuExtension
+        arguments:
+            - @service_container
+        tags:
+            - { name: twig.extension }
 
     app.router:
         class: Application\Symfony\Component\Routing\Router

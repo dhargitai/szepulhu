@@ -6,7 +6,11 @@ use Application\Entity\CityRepository;
 use Application\Entity\CountyRepository;
 use Application\Entity\ProfessionalUserRepository;
 use Application\Interactor\FeaturedProfessionalsRequest;
+use Application\Interactor\FeaturedProfessionalsResponse;
 use Application\Interactor\HomepageRequest;
+use Application\Interactor\Location;
+use Application\Interactor\LocationRequest;
+use Application\Model\Locator;
 use Application\Model\Professional\ServiceParameters;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -19,11 +23,12 @@ class HomepageInteractorSpec extends ObjectBehavior
         ProfessionalUserRepository $professionalRepository,
         CountyRepository $countyRepository,
         CityRepository $cityRepository,
+        Locator $locator,
         FormFactory $formFactory,
         Form $form
     ) {
         $this->createFormFactoryMock($formFactory, $form);
-        $this->beConstructedWith($professionalRepository, $countyRepository, $cityRepository, $formFactory);
+        $this->beConstructedWith($professionalRepository, $countyRepository, $cityRepository, $locator, $formFactory);
     }
 
     function it_is_initializable()
@@ -31,41 +36,31 @@ class HomepageInteractorSpec extends ObjectBehavior
         $this->shouldHaveType('Application\Interactor\HomepageInteractor');
     }
 
-    public function it_gathers_the_featured_professionals_of_county(
-        $professionalRepository
+    public function it_gathers_the_featured_professionals_of_location(
+        ProfessionalUserRepository $professionalRepository,
+        FeaturedProfessionalsRequest $featuredProfessionalsRequest,
+        LocationRequest $locationRequest,
+        Location $location,
+        Locator $locator
     ) {
-        $actualCounty = 'Pest';
         $numberOfFeaturedProfessionals = 6;
-        $request = new FeaturedProfessionalsRequest(
+        $featuredProfessionalsRequest->locationRequest = $locationRequest;
+        $featuredProfessionalsRequest->numberOfFeaturedProfessionals = $numberOfFeaturedProfessionals;
+        $featuredProfessionals = [];
+        $featuredProfessionalsResponse = new FeaturedProfessionalsResponse(
             [
-                'city' => '',
-                'county' => $actualCounty,
+                'featuredProfessionals'         => $featuredProfessionals,
                 'numberOfFeaturedProfessionals' => $numberOfFeaturedProfessionals,
             ]
         );
 
-        $professionalRepository
-            ->getFeaturedProfessionalsOfCounty($actualCounty, $numberOfFeaturedProfessionals)
-            ->shouldBeCalled();
-        $this->createFeaturedProfessionalsResponse($request);
-    }
+        $locator->getLocationByRequest($locationRequest)->shouldBeCalled()->willReturn($location);
+        $professionalRepository->getFeaturedProfessionalsByLocation($location, $numberOfFeaturedProfessionals)
+            ->shouldBeCalled()->willReturn($featuredProfessionals);
 
-    public function it_gathers_the_featured_professionals_of_city(
-        $professionalRepository
-    ) {
-        $actualCity = 'Budapest';
-        $numberOfFeaturedProfessionals = 6;
-        $request = new FeaturedProfessionalsRequest(
-            [
-                'city' => $actualCity,
-                'county' => '',
-                'numberOfFeaturedProfessionals' => $numberOfFeaturedProfessionals,
-            ]
-        );
-        $professionalRepository
-            ->getFeaturedProfessionalsOfCity($actualCity, $numberOfFeaturedProfessionals)
-            ->shouldBeCalled();
-        $this->createFeaturedProfessionalsResponse($request);
+
+        $this->createFeaturedProfessionalsResponse($featuredProfessionalsRequest)
+            ->shouldBeLike($featuredProfessionalsResponse);
     }
 
     public function it_creates_homepage_response(HomepageRequest $request)

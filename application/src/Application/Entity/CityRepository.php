@@ -1,6 +1,7 @@
 <?php
 
 namespace Application\Entity;
+use Application\Interactor\LocationRequest;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr\Join;
 
@@ -23,7 +24,7 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
     public function getCapital()
     {
         return $this->createQueryBuilder('ci')
-            ->andWhere('ci.isBigCity = 1 and ci.isCapital = 1')
+            ->andWhere('ci.isBigCity = 1 and ci.isCapital = 1 and ci.isDistrict = 0')
             ->getQuery()->getOneOrNullResult();
     }
 
@@ -31,11 +32,30 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('ci')
             ->join('ci.professionals', 'p', Join::WITH, ':now between p.featuredFrom and p.featuredTo')
-            ->andWhere('ci.isBigCity = 1 or ci.isCapital = 1')
+            ->andWhere('ci.isBigCity = 1')
             ->setParameter('now', new \DateTime('now'))
             ->distinct()
             ->orderBy('ci.isCapital', 'desc')
             ->addOrderBy('ci.name')
             ->getQuery()->getResult();
+    }
+
+    public function getClosestBigCityWithActiveFeaturedProfessionals(LocationRequest $request)
+    {
+        return $this->createQueryBuilder('ci')
+            ->join('ci.professionals', 'p', Join::WITH, ':now between p.featuredFrom and p.featuredTo')
+            ->setParameter('now', new \DateTime('now'))
+            ->setParameter('latitude', $request->latitude)
+            ->setParameter('longitude', $request->longitude)
+            ->andWhere('ci.isBigCity = 1')
+            ->orderBy('acos(
+                  cos(radians( :latitude ))
+                * cos(radians( ci.latitude ))
+                * cos(radians( :longitude ) - radians( ci.longitude ))
+                + sin(radians( :latitude ))
+                * sin(radians( ci.latitude ))
+              )')
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
     }
 }

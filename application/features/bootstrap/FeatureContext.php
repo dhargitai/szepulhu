@@ -82,11 +82,11 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     }
 
     /**
-     * @When I select :countyName county in the county selector
+     * @When I select :countyName county in the location selector
      */
-    public function iSelectCountyInTheCountySelector($countyName)
+    public function iSelectCountyInTheLocationSelector($countyName)
     {
-        $this->homepage->selectCounty($countyName);
+        $this->homepage->selectLocation($countyName);
     }
 
     /**
@@ -118,68 +118,65 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
     }
 
     /**
-     * @When my location is in one of the country's county
-     */
-    public function myLocationIsInOneOfTheCountrySCounty()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When there are featured professionals in the current county
-     */
-    public function thereAreFeaturedProfessionalsInTheCurrentCounty()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should see featured professionals from my location's county
-     */
-    public function iShouldSeeFeaturedProfessionalsFromMyLocationSCounty()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then the county selector should be on the county of :arg1
-     */
-    public function theCountySelectorShouldBeOnTheCountyOf($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When my location is outside of the current country
-     */
-    public function myLocationIsOutsideOfTheCurrentCountry()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When there are featured professionals in the capital's county
-     */
-    public function thereAreFeaturedProfessionalsInTheCapitalSCounty()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then I should see featured professionals from the capital's county
-     */
-    public function iShouldSeeFeaturedProfessionalsFromTheCapitalSCounty()
-    {
-        throw new PendingException();
-    }
-
-    /**
      * @Then I shouldn't see any free featured professional slot
      */
     public function iShouldnTSeeAnyFreeFeaturedProfessionalSlot()
     {
         if ($this->homepage->hasFreeFeaturedProfessionalSlot()) {
             $message = "There's a free featured professional slot under the county where it shouldn't be.";
+            throw new LogicException($message);
+        }
+    }
+
+    /**
+     * @Given the user shared his location's coordinates :latitude as latitude and :longitude as longitude
+     */
+    public function theUserSharedHisLocationSCoordinates($latitude, $longitude)
+    {
+        $javascript = "
+            Application.init({
+                geolocationAdapter: new Application.Geolocation.DummyAdapter('$latitude', '$longitude')
+            })
+        ";
+        $this->homepage->getSession()->executeScript($javascript);
+    }
+
+    /**
+     * @Given we stored :locationName :locationType as nearest featured professional location earlier
+     */
+    public function weStoredAsNearestFeaturedProfessionalLocationEarlier($locationName, $locationType)
+    {
+        $location = json_encode(
+            [
+                'name' => $locationName,
+                'type' => $locationType,
+            ],
+            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+        );
+        $javascript = 'Cookies.set("location", ' . $location . ');';
+        $this->homepage->getSession()->executeScript($javascript);
+    }
+
+    /**
+     * @When I wait for the featured professionals block's changing
+     */
+    public function iWaitForTheFeaturedProfessionalsBlockSChanging()
+    {
+        $this->homepage->getSession()->executeScript('Application.geolocateClosestFeaturedProfessionals();');
+        $this->homepage->waitForAjax();
+    }
+
+    /**
+     * @Then I should see :location in the location selector as nearest location
+     */
+    public function iShouldSeeInTheLocationSelectorAsNearestLocation($location)
+    {
+        if (!$this->homepage->isLocationSelected($location)) {
+            $message = sprintf(
+                "The '%s' location is expected in the location selector, but '%s' is selected instead.",
+                $location,
+                $this->homepage->getSelectedLocation()
+            );
             throw new LogicException($message);
         }
     }

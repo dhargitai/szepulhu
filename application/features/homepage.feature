@@ -8,12 +8,12 @@ Feature: Homepage
 
   Scenario: Navigation
     Then I should see the following navigation links:
-      | label                   | target page         |
-      | Fotók                   | Photos              |
-      | Hogy működik?           | How It Works        |
-      | Regisztráció            | Registration        |
-      | Belépés                 | Login               |
-      | Hirdesd a vállalkozásod | List Your Business  |
+      | label              | target page        |
+      | Browse photos      | Photos             |
+      | How it works       | How It Works       |
+      | Sign up            | Registration       |
+      | Log in             | Login              |
+      | List your business | List Your Business |
 
   Scenario: Search for professionals
     Given I fill the search fields with the following properties

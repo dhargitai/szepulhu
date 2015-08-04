@@ -8,8 +8,6 @@
 
 namespace Page;
 
-use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
-
 /**
  * Class Homepage
  *
@@ -19,7 +17,7 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
  * @author Dávid Hargitai <div@diatigrah.hu>
  * @author Geza Buza <bghome@gmail.com>
  */
-class Homepage extends Page
+class Homepage extends CustomPage
 {
     /**
      * @var string $path
@@ -49,11 +47,10 @@ class Homepage extends Page
         return !is_null($menuItem);
     }
 
-    public function selectCounty($countyName)
+    public function selectLocation($locationName)
     {
-        $this->find('css', '#countySelector')->selectOption($countyName);
-        $timeToWaitInMs = 30000;
-        $this->getSession()->wait($timeToWaitInMs, '(0 === jQuery.active)');
+        $this->find('css', '#locationSelector')->selectOption($locationName);
+        $this->waitForAjax();
     }
 
     public function hasFreeFeaturedProfessionalSlot()
@@ -103,6 +100,16 @@ class Homepage extends Page
             $this->freeFeaturedProfessionalSlot = $this->find('css', '.featuredProfessional.free:first-child');
         }
         return $this->freeFeaturedProfessionalSlot;
+    }
+
+    public function isLocationSelected($locationName)
+    {
+        return $this->getSelectedLocation() === $locationName;
+    }
+
+    public function getSelectedLocation()
+    {
+        return $this->find('css', '#locationSelector')->getValue();
     }
 
     public function clearSearchForm()

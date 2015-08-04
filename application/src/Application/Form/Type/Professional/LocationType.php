@@ -65,21 +65,21 @@ class LocationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addModelTransformer(new EntityTransformer($this->entityManager, $options['class'], 'citySlug'));
+        $builder->addModelTransformer(new EntityTransformer($this->entityManager, $options['class'], 'slug'));
     }
 
     private function getChoices()
     {
         $query = $this->entityManager->createQueryBuilder('city')
-                ->select(['city.citySlug', 'city.name'])
+                ->select(['city.slug', 'city.name'])
                 ->from('AppBundle:City', 'city')
-                ->innerJoin('city.salons', 'salons')
+                ->innerJoin('city.professionals', 'professionals')
                 ->orderBy('city.name', 'ASC')
                 ->getQuery();
 
         $choices = [];
         foreach ($query->getArrayResult() as $value) {
-            $choices[$value['citySlug']] = $value['name'];
+            $choices[$value['slug']] = $value['name'];
         }
         return $choices;
     }

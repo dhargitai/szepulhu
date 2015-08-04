@@ -97,11 +97,11 @@ class ClientUser extends User
     /**
      * Set city
      *
-     * @param string $city
+     * @param City $city
      *
      * @return User
      */
-    public function setCity($city)
+    public function setCity(City $city)
     {
         $this->city = $city;
 

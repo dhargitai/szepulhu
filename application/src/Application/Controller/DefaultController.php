@@ -4,6 +4,8 @@ namespace Application\Controller;
 
 use Application\Entity\Professional\Salon;
 use Application\Entity\ProfessionalUserRepository;
+use Application\Interactor\Location;
+use Application\Interactor\LocationRequest;
 use Application\Interactor\FeaturedProfessionalsRequest;
 use Application\Interactor\HomepageInteractor;
 use Application\Interactor\HomepageRequest;
@@ -14,6 +16,7 @@ use Application\Entity\ClientUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,11 +36,10 @@ class DefaultController
 
     /**
      * @Route("/", name="home")
-     * @param Request $request
      *
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $searchParameters = new ServiceSearchParameters();
         $response = $this->interactor->createResponse(new HomepageRequest(['searchParameters' => $searchParameters]));
@@ -62,6 +64,42 @@ class DefaultController
             '_featuredProfessionals.html.twig',
             $response->asArray()
         );
+    }
+
+    private function createFeaturedProfessionalsRequest(Request $request)
+    {
+        $locationData = $request->request->get('location') ?: (array)json_decode($request->cookies->get('location'));
+        return new FeaturedProfessionalsRequest(
+            [
+                'numberOfFeaturedProfessionals' => $request->request->get('numberOfFeaturedProfessionals', 6),
+                'locationRequest'               => new LocationRequest($locationData),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/get_closest_location", name="get_closest_location", options={"expose"=true})
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function getCurrentLocationAction(Request $request)
+    {
+        $response = new JsonResponse();
+        $response->setData(
+            [
+                'location' => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
+                    new LocationRequest(
+                        [
+                            'latitude'  => $request->get('latitude'),
+                            'longitude' => $request->get('longitude'),
+                            'ip'        => $request->getClientIp(),
+                        ]
+                    )
+                )->asArray()
+            ]
+        );
+        return $response;
     }
 
     /**
@@ -107,27 +145,6 @@ class DefaultController
                 'result' => $result,
             )
         );
-    }
-
-    private function createFeaturedProfessionalsRequest(Request $request)
-    {
-        $featuredProfessionalsRequestData = array(
-            'numberOfFeaturedProfessionals' => $request->request->get('numberOfFeaturedProfessionals', 6)
-        );
-        $featuredProfessionalsRequestData += $this->determinePlaceToListFeaturedProfessionalsFrom($request);
-        return new FeaturedProfessionalsRequest($featuredProfessionalsRequestData);
-    }
-
-    private function determinePlaceToListFeaturedProfessionalsFrom(Request $request)
-    {
-        $place = array();
-        if ($county = $request->request->get('county', null)) {
-            $place['county'] = $county;
-            $place['city'] = null;
-        } else {
-            $place['city'] = $request->request->get('city', 'Budapest');
-        }
-        return $place;
     }
 
     protected function sumFormData(array $formData = null)

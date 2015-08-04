@@ -23,7 +23,11 @@ gulp.task('css', function() {
         'bower_components/jquery-ui/themes/smoothness/jquery-ui.css',
         'bower_components/jquery-ui/themes/smoothness/theme.css'
     ]);
-    var appFiles = gulp.src('css/*.scss')
+    var appFiles = gulp.src([
+        'bower_components/foundation/scss/normalize.scss',
+        'css/*.scss'
+    ])
+        .pipe(sass({errLogToConsole: true}))
         .pipe(sass({ style: 'compressed' }));
 
     return es.concat(vendorFiles, appFiles)
@@ -41,11 +45,24 @@ gulp.task('images', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
+    gulp.src([
+        'bower_components/modernizr/modernizr.js'
+    ])
+        .pipe(concat('head_scripts.js'))
+        .pipe(gulp.dest('../../../web/js'))
+        .pipe(rename('head_scripts.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('../../../web/js'));
+
     return gulp.src([
             'js/jquery/jquery.js',
             'bower_components/jquery-ui/jquery-ui.js',
             'bower_components/jquery-ui/ui/i18n/datepicker-hu.js',
+            'bower_components/js-cookie/src/js.cookie.js',
             'js/foundation/foundation.min.js',
+            'js/geoposition/geoPosition.js',
+            '../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.js',
+            '../../../web/js/fos_js_routes.js',
             'js/app.js'
         ])
         .pipe(concat('scripts.js'))
