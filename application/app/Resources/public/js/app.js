@@ -89,7 +89,7 @@ Application.Geolocation = {
                     geoPosition.getCurrentPosition(resultCallback);
                 }
             }
-        }
+        };
     },
 
     /**
@@ -116,7 +116,7 @@ Application.Geolocation = {
             getCurrentPosition: function (resultCallback) {
                 resultCallback.call(this, resultLocation);
             }
-        }
+        };
     }
 };
 

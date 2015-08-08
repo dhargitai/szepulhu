@@ -1,4 +1,4 @@
-FROM diatigrah/php-nginx-projectbase:0.2.1
+FROM diatigrah/php-nginx-projectbase:0.2.3
 
 RUN apt-get install -y ant && \
     apt-get clean && \
