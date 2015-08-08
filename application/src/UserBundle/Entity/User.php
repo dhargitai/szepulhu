@@ -6,6 +6,7 @@ use Application\Sonata\MediaBundle\Entity\Media;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -31,9 +32,20 @@ abstract class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=128, nullable=true)
+     * @ORM\Column(name="firstName", type="string", length=64)
+     * @Assert\NotBlank(message="user.first_name.constraints.not_blank")
+     * @Assert\Length(max=64)
      */
-    private $name;
+    private $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lastName", type="string", length=64)
+     * @Assert\NotBlank(message="user.last_name.constraints.not_blank")
+     * @Assert\Length(max=64)
+     */
+    private $lastName;
 
     /**
      * @var string
@@ -326,22 +338,6 @@ abstract class User extends BaseUser
     /**
      * @return string
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
     public function getBiography()
     {
         return $this->biography;
@@ -565,5 +561,37 @@ abstract class User extends BaseUser
     {
         $this->emailCanonical = $emailCanonical;
         $this->usernameCanonical = $emailCanonical;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
     }
 }

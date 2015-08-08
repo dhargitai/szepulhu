@@ -20,12 +20,12 @@ class StepBasicData extends AbstractType
             ->add(
                 'lastName',
                 'text',
-                array('label' => 'form.professional.last_name', 'translation_domain' => 'Application')
+                array('label' => 'form.last_name', 'translation_domain' => 'Application')
             )
             ->add(
                 'firstName',
                 'text',
-                array('label' => 'form.professional.first_name', 'translation_domain' => 'Application')
+                array('label' => 'form.first_name', 'translation_domain' => 'Application')
             )
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add(

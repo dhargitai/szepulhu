@@ -8,6 +8,7 @@ default:
                     - screenshots
                     - 1920x1080
                 - ProfessionalsContext
+                - ClientsContext
 
 #   domain:
 #     contexts: [ DomainContext ]

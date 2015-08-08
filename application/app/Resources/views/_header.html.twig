@@ -1,15 +1,18 @@
-<nav class="top-bar row" data-topbar role="navigation">
-    <ul class="title-area">
-        <li class="name">
-            <h1><a href="/">Szépül.hu</a></h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-    </ul>
+<header class="top-bar row" data-topbar role="navigation">
+    <nav>
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="/">Szépül.hu</a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+        </ul>
+    </nav>
 
-    <section class="top-bar-section">
+    <div class="top-bar-section">
         <!-- Right Nav Section -->
-        <ul class="right">
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <nav id="client-menu">
+            <ul class="right">
                 <li class="has-dropdown">
                     <a href="#">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a>
                     <ul class="dropdown">
@@ -22,18 +25,26 @@
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                 </a>
                 </li>
-            {% else %}
-            <li><a href="{{ path('client_user_registration') }}">{{ 'menuitem.signup.text'|trans }}</a></li>
-            <li><a href="{{ path('fos_user_security_login') }}">{{ 'menuitem.login.text'|trans }}</a></li>
-            <li class="highlight"><a href="{{ path('professional_registration_flow') }}">{{ 'menuitem.listyourbusiness.text'|trans }}</a></li>
-            {% endif %}
-        </ul>
+            </ul>
+        </nav>
+        {% else %}
+        <nav id="visitor-menu">
+            <ul class="right">
+                <li><a href="{{ path('client_user_registration') }}">{{ 'menuitem.signup.text'|trans }}</a></li>
+                <li><a href="{{ path('fos_user_security_login') }}">{{ 'menuitem.login.text'|trans }}</a></li>
+                <li class="highlight"><a href="{{ path('professional_registration_flow') }}">{{ 'menuitem.listyourbusiness.text'|trans }}</a></li>
+            </ul>
+        </nav>
+        {% endif %}
+
 
         <!-- Left Nav Section -->
-        <ul class="left">
-            <li><a href="/fotok">{{ 'menuitem.photos.text'|trans }}</a></li>
-            <li><a href="/hogy-mukodik">{{ 'menuitem.howitworks.text'|trans }}</a></li>
-        </ul>
-    </section>
-</nav>
+        <nav>
+            <ul class="left">
+                <li><a href="/fotok">{{ 'menuitem.photos.text'|trans }}</a></li>
+                <li><a href="/hogy-mukodik">{{ 'menuitem.howitworks.text'|trans }}</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 

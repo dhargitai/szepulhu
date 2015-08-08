@@ -3,7 +3,7 @@
 {% block fos_user_content %}
     {% trans_default_domain 'FOSUserBundle' %}
 
-    <form action="{{ path('client_user_registration') }}" {{ form_enctype(form) }} method="POST">
+    <form action="{{ path('client_user_registration') }}" {{ form_enctype(form) }} method="POST" name="registration">
         {{ form_widget(form) }}
         <div>
             <input type="submit" value="{{ 'registration.submit'|trans }}" />

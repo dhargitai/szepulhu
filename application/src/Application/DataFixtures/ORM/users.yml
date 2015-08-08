@@ -175,7 +175,8 @@ Application\Entity\ClientUser:
         enabled: 1
         roles: [ROLE_SUPER_ADMIN]
         dateOfBirth: <dateTimeBetween('-70 years', '-18 years')>
-        name: Admin Juzer
+        firstName: Admin
+        lastName: Juzer
         biography: <paragraph(5)>
         gender: <gender()>
         locale: <randomElement(array('hu', 'en'))>
@@ -194,7 +195,28 @@ Application\Entity\ClientUser:
         plainPassword: <userName()>
         enabled: <numberBetween(0,1)>
         dateOfBirth: <dateTimeBetween('-70 years', '-18 years')>
-        name: <firstName()> <lastName()>
+        firstName: <firstName()>
+        lastName: <lastName()>
+        biography: <paragraph(5)>
+        gender: <gender()>
+        locale: <randomElement(array('hu', 'en'))>
+        timezone: <timezone()>
+        phone: <phoneNumber()>
+        address: <streetAddress()>
+        addressAdditional: <streetName()>
+        city: <numberBetween(1,369)>
+        userType: client
+        acceptedTos: <numberBetween(0,1)>
+        profilePicture: <newImage()>
+
+    registration_test_client:
+        username: 'foobar'
+        email: 'foo.bar@server.com'
+        plainPassword: 'asdf1234'
+        enabled: 1
+        dateOfBirth: <dateTimeBetween('-70 years', '-18 years')>
+        firstName: Pista
+        lastName: Kiss
         biography: <paragraph(5)>
         gender: <gender()>
         locale: <randomElement(array('hu', 'en'))>

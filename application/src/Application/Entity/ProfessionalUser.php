@@ -56,20 +56,6 @@ class ProfessionalUser extends User implements Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=64)
-     */
-    private $firstName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="last_name", type="string", length=64)
-     */
-    private $lastName;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="profession", type="string", length=128, nullable=true)
      */
     private $profession;
@@ -1182,43 +1168,11 @@ class ProfessionalUser extends User implements Professional
     }
 
     /**
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
      * @return array Translation parameters
      */
     public function getName()
     {
         return ['%firstname%' => $this->getFirstName(), '%lastname%' => $this->getLastName()];
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
     }
 
     /**
