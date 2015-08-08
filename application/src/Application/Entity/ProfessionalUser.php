@@ -361,6 +361,15 @@ class ProfessionalUser extends User implements Professional
      */
     private $city;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Application\Entity\Professional\Booking",
+     *  mappedBy="professional",
+     *  cascade={"remove"})
+     */
+    private $bookings;
+
     public function __construct()
     {
         parent::__construct();
@@ -368,6 +377,7 @@ class ProfessionalUser extends User implements Professional
         $this->serviceGroups = new ArrayCollection();
         $this->recommendations = new ArrayCollection();
         $this->tasks = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
     public static function getSalonRoles()
@@ -1307,6 +1317,22 @@ class ProfessionalUser extends User implements Professional
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBookings()
+    {
+        return $this->bookings;
+    }
+
+    /**
+     * @param ArrayCollection $bookings
+     */
+    public function setBookings($bookings)
+    {
+        $this->bookings = $bookings;
     }
 
 }
