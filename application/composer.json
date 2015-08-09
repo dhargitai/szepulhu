@@ -58,6 +58,7 @@
         "pdepend/pdepend": "2.*",
         "phploc/phploc": "2.*",
         "theseer/phpdox": "0.7.*",
+        "jakoch/phantomjs-installer": "~1.9.8",
         "phpunit/phpunit": "3.7.*",
         "covex-nn/phpcb": "1.*",
         "coduo/php-matcher": "~1.0",
@@ -76,7 +77,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "PhantomInstaller\\Installer::installPhantomJS"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -84,7 +86,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
+            "PhantomInstaller\\Installer::installPhantomJS"
         ]
     },
     "config": {

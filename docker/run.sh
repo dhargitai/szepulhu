@@ -10,12 +10,6 @@ COMPOSER_INSTALL_MODE="--no-dev"
 if [ "$APP_ENV" = "dev" ] ; then
     NGINX_INDEX_SCRIPT="app_dev.php"
     COMPOSER_INSTALL_MODE=""
-
-    cd /
-    wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2
-    tar -xjf phantomjs-1.9.8-linux-x86_64.tar.bz2
-    mv phantomjs-1.9.8-linux-x86_64 phantomjs
-    /phantomjs/bin/phantomjs --webdriver=4444 &
 fi
 sed -i "s|\${NGINX_INDEX_SCRIPT}|${NGINX_INDEX_SCRIPT}|" /etc/nginx/sites-enabled/default
 
@@ -24,6 +18,10 @@ sed -i "s|;clear_env = no|clear_env = no|" /etc/php5/fpm/pool.d/www.conf
 chown -R www-data: . && \
 /wait-for-db.sh && \
 rm -rf app/cache/* app/logs/* && \
-composer run-script post-install-cmd
+su www-data -s /bin/bash -c "composer run-script post-install-cmd"
+
+if [ "$APP_ENV" = "dev" ] && [[ -x "bin/phantomjs" ]]; then
+    bin/phantomjs --webdriver=4444 &
+fi
 
 /sbin/my_init
