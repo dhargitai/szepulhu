@@ -1,3 +1,4 @@
+@core
 Feature: Homepage
   In order to get information about professionals in my area
   as a user
@@ -8,12 +9,12 @@ Feature: Homepage
 
   Scenario: Navigation
     Then I should see the following navigation links:
-      | label              | target page        |
-      | Browse photos      | Photos             |
-      | How it works       | How It Works       |
-      | Sign up            | Registration       |
-      | Log in             | Login              |
-      | List your business | List Your Business |
+      | label              | target page          |
+      | Browse photos      | Photos               |
+      | How it works       | How It Works         |
+      | Sign up            | Clients\Registration |
+      | Log in             | Clients\Login        |
+      | List your business | List Your Business   |
 
   Scenario: Search for professionals
     Given I fill the search fields with the following properties

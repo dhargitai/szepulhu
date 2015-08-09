@@ -1,3 +1,4 @@
+@core
 Feature: Accessible pages
   In order to use the application
   As a website visitor

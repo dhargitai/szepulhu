@@ -7,7 +7,10 @@
  */
 
 use Behat\Behat\Context\Context;
+use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\RawMinkContext;
+use Page\Clients\Login;
 use Page\Clients\Registration;
 use Page\Clients\Registration\Confirmation;
 use Page\Homepage;
@@ -32,11 +35,28 @@ class ClientsContext implements Context
     /** @var Confirmation $confirmationPage */
     private $confirmationPage;
 
-    public function __construct(Registration $registrationPage, Homepage $homepage, Confirmation $confirmationPage)
-    {
+    /** @var Login $loginPage */
+    private $loginPage;
+
+    /** @var RawMinkContext $minkContext */
+    private $minkContext;
+
+    public function __construct(
+        Registration $registrationPage, Homepage $homepage, Confirmation $confirmationPage, Login $loginPage
+    ) {
         $this->registrationPage = $registrationPage;
         $this->homepage = $homepage;
         $this->confirmationPage = $confirmationPage;
+        $this->loginPage = $loginPage;
+    }
+
+    /**
+     * @BeforeScenario
+     */
+    public function gatherMinkContext(BeforeScenarioScope $scope)
+    {
+        $environment = $scope->getEnvironment();
+        $this->minkContext = $environment->getContext('Behat\MinkExtension\Context\RawMinkContext');
     }
 
     /**
@@ -108,5 +128,58 @@ class ClientsContext implements Context
     public function iShouldSeeTheNavigationMenuForRegisteredClients()
     {
         $this->homepage->ensureClientNavigationMenuPresent();
+    }
+
+    /**
+     * @Given /^I am on the client login page$/
+     */
+    public function iAmOnTheClientLoginPage()
+    {
+        $this->minkContext->getMink()->resetSessions();
+
+        $this->loginPage->open();
+    }
+
+    /**
+     * @When /^I log in with "([^"]*)" and "([^"]*)"$/
+     */
+    public function iLogInWith($email, $password)
+    {
+        $this->loginPage->fillUsername($email);
+        $this->loginPage->fillPassword($password);
+        $this->loginPage->doLogin();
+    }
+
+    /**
+     * @Then /^I should see the message "([^"]*)"$/
+     */
+    public function iShouldSeeTheMessage($message)
+    {
+        $this->homepage->hasContent($message);
+    }
+
+    /**
+     * @Given /^I am logged in as "([^"]*)" and "([^"]*)"$/
+     */
+    public function iAmLoggedInAs($email, $password)
+    {
+        $this->iAmOnTheClientLoginPage();
+        $this->iLogInWith($email, $password);
+    }
+
+    /**
+     * @When /^I click on the "([^"]*)" link$/
+     */
+    public function iClickOnTheLink($href)
+    {
+        $this->homepage->clickLink($href);
+    }
+
+    /**
+     * @Then /^I should see the "([^"]*)" link$/
+     */
+    public function iShouldSeeTheLink($href)
+    {
+        $this->homepage->findLink($href);
     }
 }

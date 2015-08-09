@@ -554,13 +554,11 @@ abstract class User extends BaseUser
     public function setEmail($email)
     {
         $this->email = $email;
-        $this->username = $email;
     }
 
     public function setEmailCanonical($emailCanonical)
     {
         $this->emailCanonical = $emailCanonical;
-        $this->usernameCanonical = $emailCanonical;
     }
 
     /**

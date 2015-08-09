@@ -14,7 +14,7 @@
         <nav id="client-menu">
             <ul class="right">
                 <li class="has-dropdown">
-                    <a href="#">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</a>
+                    <a href="#">{{ 'layout.logged_in_as'|trans({'%firstname%': app.user.firstName, '%lastname%': app.user.lastName}) }}</a>
                     <ul class="dropdown">
                         <li><strong>User ID:</strong> {{ app.user.id }}</li>
                         <li><strong>User type:</strong> {{ app.user.userType }}</li>
