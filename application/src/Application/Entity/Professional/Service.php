@@ -47,7 +47,7 @@ class Service
     /**
      * @var integer
      *
-     * @ORM\Column(name="duration", type="smallint")
+     * @ORM\Column(name="duration", type="dateinterval")
      */
     private $duration;
 

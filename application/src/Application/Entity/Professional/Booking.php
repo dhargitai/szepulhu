@@ -8,6 +8,7 @@
 
 namespace Application\Entity\Professional;
 
+use Application\Model\Reminder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,9 +36,9 @@ class Booking
     private $id;
 
     /**
-     * @var integer
+     * @var Reminder
      *
-     * @ORM\Column(name="reminder_preference", type="integer")
+     * @ORM\Column(name="reminder_preference", type="object")
      */
     private $reminderPreference;
 

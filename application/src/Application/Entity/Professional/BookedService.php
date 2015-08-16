@@ -54,13 +54,13 @@ class BookedService
     /**
      * @var integer
      *
-     * @ORM\Column(name="duration", type="integer")
+     * @ORM\Column(name="duration", type="dateinterval")
      */
     private $duration;
 
     /**
      * @Gedmo\SortablePosition
-     * @ORM\Column(name="position", type="integer")
+     * @ORM\Column(name="position", type="smallint")
      */
     private $position;
 
