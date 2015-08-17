@@ -107,6 +107,14 @@ class City
     /**
      * @var ArrayCollection
      *
+     * @ORM\OneToMany(targetEntity="Application\Entity\ClientUser",
+     *  mappedBy="city")
+     */
+    private $clients;
+
+    /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="Application\Entity\Professional\Salon",
      *  mappedBy="city")
      */
@@ -343,5 +351,13 @@ class City
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getClients()
+    {
+        return $this->clients;
     }
 }

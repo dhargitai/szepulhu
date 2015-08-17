@@ -187,7 +187,6 @@ Application\Entity\ClientUser:
         userType: client
         acceptedTos: <numberBetween(0,1)>
         profilePicture: <newImage()>
-
     client_{1..10}:
         username: <userName()>
         email: <email()>

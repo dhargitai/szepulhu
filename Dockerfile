@@ -1,9 +1,5 @@
 FROM diatigrah/php-nginx-projectbase:0.2.3
 
-RUN apt-get install -y ant && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 ADD docker/services/php5-fpm/php.ini /etc/php5/fpm/conf.d/40-custom.ini
 ADD docker/services/php5-fpm/php.ini /etc/php5/cli/conf.d/40-custom.ini
 ADD docker/services/nginx/sites /etc/nginx/sites-enabled

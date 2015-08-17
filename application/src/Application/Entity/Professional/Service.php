@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Application\Entity\Professional;
 
@@ -10,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ *
+ * @package Application\Entity
  */
 class Service
 {
@@ -39,9 +47,9 @@ class Service
     /**
      * @var integer
      *
-     * @ORM\Column(name="length", type="smallint")
+     * @ORM\Column(name="duration", type="dateinterval")
      */
-    private $length;
+    private $duration;
 
     /**
      * @var string
@@ -92,7 +100,6 @@ class Service
      */
     private $position;
 
-
     /**
      * Get id
      *
@@ -129,12 +136,12 @@ class Service
     /**
      * Set length
      *
-     * @param integer $length
+     * @param integer $duration
      * @return Service
      */
-    public function setLength($length)
+    public function setDuration($duration)
     {
-        $this->length = $length;
+        $this->duration = $duration;
 
         return $this;
     }
@@ -144,9 +151,9 @@ class Service
      *
      * @return integer 
      */
-    public function getLength()
+    public function getDuration()
     {
-        return $this->length;
+        return $this->duration;
     }
 
     /**
@@ -297,7 +304,7 @@ class Service
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getPosition()
     {
@@ -305,7 +312,7 @@ class Service
     }
 
     /**
-     * @param mixed $position
+     * @param integer $position
      */
     public function setPosition($position)
     {
