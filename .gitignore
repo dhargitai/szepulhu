@@ -29,3 +29,6 @@ application/app/logs/*
 !application/app/cache/.gitkeep
 !application/app/logs/.gitkeep
 application/src/Application/DataFixtures/data/*
+
+# Build artifacts
+application/app/build/
