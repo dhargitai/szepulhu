@@ -10,6 +10,7 @@ namespace spec\Application\Model;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Application\Model\Reminder;
 
 /**
  * Class ReminderSpec
@@ -27,6 +28,6 @@ class ReminderSpec extends ObjectBehavior
 
     public function let()
     {
-        $this->beConstructedWith(['type' => 1]);
+        $this->beConstructedWith(['type' => Reminder::TYPE_EMAIL]);
     }
 }
