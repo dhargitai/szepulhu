@@ -45,6 +45,7 @@ fi
 if [ $(docker ps -a | grep szepulhu_web_1 | wc -l) -eq 1 ] && $(docker inspect szepulhu_web_1 | grep -q APP_ENV="$environment")
 then
   docker start szepulhu_web_1
+  docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c 'composer run-script post-update-cmd'
 else
   if [ $(docker ps -a | grep szepulhu_web_1 | wc -l) -eq 1 ]; then
     docker rm -f szepulhu_web_1
