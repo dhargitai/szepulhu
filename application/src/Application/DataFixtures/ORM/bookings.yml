@@ -48,20 +48,20 @@ Application\Entity\Professional\BookedService:
     bookedservice_1:
         booking: @booking_1
         name: <service()>
-        duration: 15
+        duration: <(new \DateInterval('PT15M'))>
         price: <numberBetween(1100,13400)>
     bookedservice_2:
         booking: @booking_2
         name: <service()>
-        duration: 30
+        duration: <(new \DateInterval('PT30M'))>
         price: <numberBetween(1100,13400)>
     bookedservice_3:
         booking: @booking_2
         name: <service()>
-        duration: 270
+        duration: <(new \DateInterval('PT3H30M'))>
         price: <numberBetween(1100,13400)>
     bookedservice_4:
         booking: @booking_3
         name: <service()>
-        duration: 165
+        duration: <(new \DateInterval('PT2H45M'))>
         price: <numberBetween(1100,13400)>
