@@ -10,6 +10,10 @@
                 <source>app.city.invalid_location</source>
                 <target>That is not a valid location.</target>
             </trans-unit>
+            <trans-unit id="user.password.constraints.length.min">
+                <source>user.password.constraints.length.min</source>
+                <target>The password must be at least {{ limit }} characters long</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

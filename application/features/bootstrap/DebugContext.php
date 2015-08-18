@@ -30,6 +30,8 @@ class DebugContext implements Context
 
     const TAG_TAKE_SCREENSHOT_AFTER_EVERY_STEP = 'debug_step';
 
+    const MAX_FILENAME_LENGTH = 255;
+
     /** @var \Behat\MinkExtension\Context\MinkContext */
     private $minkContext;
 
@@ -73,7 +75,7 @@ class DebugContext implements Context
     public function takeScreenshotAfterFailedScenario(AfterScenarioScope $scope)
     {
         if (TestResult::FAILED === $scope->getTestResult()->getResultCode()) {
-            $this->takeScreenshot($scope->getScenario()->getTitle());
+            $this->takeScreenshot($scope->getScenario()->getTitle(), $scope->getScenario()->getLine());
         }
     }
     /**
@@ -82,20 +84,22 @@ class DebugContext implements Context
     public function takeScreenshotAfterStep(\Behat\Behat\Hook\Scope\AfterStepScope $scope)
     {
         if (in_array(self::TAG_TAKE_SCREENSHOT_AFTER_EVERY_STEP, $scope->getFeature()->getTags())) {
-            $this->takeScreenshot($scope->getStep()->getText());
+            $this->takeScreenshot($scope->getStep()->getText(), $scope->getStep()->getLine());
         }
     }
 
     /**
      * @param string $scenarioName
+     * @param integer|null $line
      */
-    private function takeScreenshot($scenarioName)
+    private function takeScreenshot($scenarioName, $line = null)
     {
         $driver = $this->minkContext->getSession()->getDriver();
         if (!$driver instanceof Selenium2Driver) {
             return;
         }
-        $fileName = $scenarioName . '.png';
+        $fileName = $scenarioName . ($line ? "-$line" : '') . '.png';
+        $fileName = strlen($fileName) > self::MAX_FILENAME_LENGTH ? "scenario-$line.png" : $fileName;
         $filePath = $this->getKernel()->getLogDir() . DIRECTORY_SEPARATOR . $this->screenshotDirectoryName;
 
         $this->ensureDirectoryExists($filePath);

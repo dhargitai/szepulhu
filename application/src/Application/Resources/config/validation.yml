@@ -1,0 +1,8 @@
+UserBundle\Entity\User:
+  properties:
+    plainPassword:
+      - Length:
+          min: 8
+          max: 255
+          minMessage: user.password.constraints.length.min
+          groups: [Registration, Profile, ResetPassword, ChangePassword]

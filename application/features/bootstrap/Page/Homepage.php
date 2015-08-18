@@ -8,6 +8,9 @@
 
 namespace Page;
 
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
+
 /**
  * Class Homepage
  *
@@ -39,7 +42,7 @@ class Homepage extends CustomPage
     public function hasMenuItemInNavigation($label, $targetPath)
     {
         $xpathSelector = sprintf(
-            "//nav[@role='navigation']//a[contains(text(),'%s') and contains(@href,'%s')]",
+            "//header[@role='navigation']//a[contains(text(),'%s') and contains(@href,'%s')]",
             $label,
             $targetPath
         );
@@ -115,5 +118,12 @@ class Homepage extends CustomPage
     public function clearSearchForm()
     {
         $this->getSearchForm()->clear();
+    }
+
+    public function ensureClientNavigationMenuPresent()
+    {
+        if (!$this->getElement('Clients\Navigation\Top menu')->isValid()) {
+            throw new ElementNotFoundException('Client top menu on current page does not found.');
+        }
     }
 }

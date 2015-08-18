@@ -14,7 +14,7 @@ fos_user_profile:
 
 fos_user_register:
      resource: "@AppUserBundle/Resources/config/routing/registration.xml"
-     prefix: /regisztracio
+     prefix: /registration
 
 fos_user_change_password:
      resource: "@AppUserBundle/Resources/config/routing/change_password.xml"
