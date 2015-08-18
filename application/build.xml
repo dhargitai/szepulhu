@@ -1,161 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<project name="szepul.hu" basedir="." default="build:main">
+    <!-- Properties -->
+    <property name="dir.app" value="${project.basedir}/app" />
+    <property name="dir.bin" value="${project.basedir}/bin" />
+    <property name="dir.src" value="${project.basedir}/src" />
+    <property name="dir.build" value="${project.basedir}/app/build" />
+    <property name="dir.docs" value="${dir.build}/docs" />
+    <property name="dir.docs.phpdoc" value="${dir.docs}/phpdoc" />
+    <property name="dir.reports" value="${dir.build}/logs" />
+    <property name="dir.reports.pdepend" value="${dir.reports}/pdepend" />
+    <property name="dir.reports.coverage" value="${dir.reports}/coverage" />
+    <property name="threads" value="4" />
 
-<project name="szepul.hu" default="build">
-  <property name="srcDir" value="${basedir}/src" />
-  <target name="build"
-  depends="prepare,clean,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb,phpspec,behat"/>
+    <!-- Filesets -->
+    <fileset id="sourcecode" dir="${project.basedir}">
+        <include name="src/**/*.php" />
+        <include name="app/Resources/**/*.php" />
+    </fileset>
+    <fileset id="javascript_code" dir="${project.basedir}">
+        <include name="src/**/*.js" />
+        <include name="app/Resources/**/*.js" />
+    </fileset>
 
-  <target name="build-parallel"
-  depends="prepare,lint,tools-parallel,phpunit,phpcb"/>
+    <!-- Default target -->
+    <target name="build:main"
+            depends="build:clean, build:check, build:test, build:doc"
+            description="Run all test and build everything" />
 
-  <target name="tools-parallel" description="Run tools in parallel">
-    <parallel threadCount="2">
-      <sequential>
-        <antcall target="pdepend"/>
-        <antcall target="phpmd-ci"/>
-      </sequential>
-      <antcall target="phpcpd"/>
-      <antcall target="phpcs-ci"/>
-      <antcall target="phploc"/>
-      <antcall target="phpdox"/>
-    </parallel>
-  </target>
+    <!-- Doc target -->
+    <target name="build:doc"
+            depends="build:prepare, doc:phpdoc"
+            description="Generates app API documentation." />
 
-  <target name="clean" description="Cleanup build artifacts">
-    <delete dir="${basedir}/build/api"/>
-    <delete dir="${basedir}/build/code-browser"/>
-    <delete dir="${basedir}/build/coverage"/>
-    <delete dir="${basedir}/build/logs"/>
-    <delete dir="${basedir}/build/pdepend"/>
-    <delete dir="${basedir}/build/phpdox"/>
-  </target>
+    <!-- Check target -->
+    <target name="build:check"
+            depends="build:prepare"
+            description="Analyzes app code.">
+        <parallel threadCount="${threads}">
+            <phingcall target="check:cs"/>
+            <phingcall target="check:md"/>
+            <phingcall target="check:cpd"/>
+            <phingcall target="check:depend"/>
+            <phingcall target="check:jshint"/>
+        </parallel>
+    </target>
 
-  <target name="prepare" depends="clean" description="Prepare for build">
-    <mkdir dir="${basedir}/build/api"/>
-    <mkdir dir="${basedir}/build/code-browser"/>
-    <mkdir dir="${basedir}/build/coverage"/>
-    <mkdir dir="${basedir}/build/logs"/>
-    <mkdir dir="${basedir}/build/pdepend"/>
-    <mkdir dir="${basedir}/build/phpdox"/>
-  </target>
+    <!-- Test target -->
+    <target name="build:test"
+            depends="build:prepare"
+            description="Executes all tests..">
+        <parallel threadCount="${threads}">
+            <phingcall target="test:unit"/>
+            <phingcall target="test:acceptance"/>
+        </parallel>
+    </target>
 
-  <target name="install" description="Install dependencies">
-    <mkdir dir="${basedir}/bin"/>
-    <exec executable="sh" dir="${basedir}/bin">
-      <arg value="-c" />
-      <arg value="test -f composer.phar || (curl -sS https://getcomposer.org/installer | php)" />
-    </exec>
-    <exec executable="sh" dir="${basedir}" failonerror="true">
-      <arg value="-c" />
-      <arg value="php bin/composer.phar --dev install"/>
-    </exec>
-  </target>
+    <!-- Project build clean -->
+    <target name="build:clean" description="Clean up build directories.">
+        <echo msg="Cleaning build directories ..." />
+        <delete dir="${dir.build}" verbose="true" />
+    </target>
 
-  <target name="lint" description="Perform syntax check of sourcecode files">
-    <apply executable="php" failonerror="true">
-      <arg value="-l" />
+    <!-- Project build prepare -->
+    <target name="build:prepare" description="Create build directories." hidden="true">
+        <echo msg="Creating build directories ..." />
+        <mkdir dir="${dir.build}" />
+        <mkdir dir="${dir.docs}" />
+        <mkdir dir="${dir.docs.phpdoc}" />
+        <mkdir dir="${dir.reports}" />
+        <mkdir dir="${dir.reports.coverage}" />
+        <mkdir dir="${dir.reports.pdepend}" />
+    </target>
 
-      <fileset dir="${srcDir}">
-        <include name="**/*.php" />
-        <modified />
-      </fileset>
+    <!-- PHPDOC API documentation target -->
+    <target name="doc:phpdoc" description="Generate API documentation.">
+        <echo msg="Generating API documentation with PHPDoc..." />
+        <phpdoc2 title="${phing.project.name} :: API Documentation"
+                destdir="${dir.docs.phpdoc}"
+                defaultPackageName="${phing.project.name}">
+            <fileset refid="sourcecode" />
+        </phpdoc2>
+    </target>
 
-      <fileset dir="${basedir}/spec">
-        <include name="**/*.php" />
-        <modified />
-      </fileset>
-    </apply>
-  </target>
 
-  <target name="phploc" description="Measure project size using PHPLOC">
-    <exec executable="bin/phploc">
-      <arg value="--log-csv" />
-      <arg value="${basedir}/build/logs/phploc.csv" />
-      <arg path="${srcDir}" />
-    </exec>
-  </target>
+    <!-- Symfony2 code sniffer -->
+    <target name="check:cs" description="Checks coding standard.">
+        <echo msg="Checking coding standard ..." />
+        <phpcodesniffer standard="Symfony2"
+                        showSniffs="true"
+                        showWarnings="true"
+                        haltonerror="false">
+            <config name="installed_paths" value="vendor/escapestudios/symfony2-coding-standard"/>
+            <fileset refid="sourcecode" />
+            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle.xml" />
+        </phpcodesniffer>
+    </target>
 
-  <target name="pdepend" description="Calculate software metrics using PHP_Depend">
-    <exec executable="bin/pdepend">
-      <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
-      <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
-      <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
-      <arg path="${srcDir}" />
-    </exec>
-  </target>
+    <!-- copy/paste detector -->
+    <target name="check:cpd" description="Checks similar code blocks.">
+        <echo msg="Checking similar code blocks ..." />
+        <phpcpd>
+            <fileset refid="sourcecode" />
+            <formatter type="pmd" outfile="${dir.reports}/pmd-cpd.xml" />
+        </phpcpd>
+    </target>
 
-  <target name="phpmd"
-     description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-    <exec executable="bin/phpmd">
-      <arg path="${srcDir}" />
-      <arg value="text" />
-      <arg value="${basedir}/phpmd.xml" />
-    </exec>
-  </target>
+    <!-- Mess detector -->
+    <target name="check:md" description="Generate code metrics.">
+        <echo msg="Generating code metrics ..." />
+        <phpmd rulesets="codesize,unusedcode">
+            <fileset refid="sourcecode" />
+            <formatter type="xml" outfile="${dir.reports}/pmd.xml" />
+        </phpmd>
+    </target>
 
-  <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-    <exec executable="bin/phpmd">
-      <arg path="${srcDir}" />
-      <arg value="xml" />
-      <arg value="${basedir}/phpmd.xml" />
-      <arg value="--reportfile" />
-      <arg value="${basedir}/build/logs/pmd.xml" />
-    </exec>
-  </target>
+    <!-- Code dependency -->
+    <target name="check:depend" description="Checks coupling and dependency.">
+        <echo msg="Checking coupling and dependency ..." />
+        <phpdepend>
+            <fileset refid="sourcecode" />
+            <logger type="jdepend-xml" outfile="${dir.reports.pdepend}/jdepend.xml" />
+            <logger type="jdepend-chart" outfile="${dir.reports.pdepend}/dependencies.svg" />
+            <logger type="overview-pyramid" outfile="${dir.reports.pdepend}/overview-pyramid.svg" />
+        </phpdepend>
+    </target>
 
-  <target name="phpcs"
-     description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
-    <exec executable="bin/phpcs">
-      <arg value="--standard=PSR2" />
-      <arg path="${srcDir}" />
-    </exec>
-  </target>
+    <target name="check:jshint" description="Check the syntax on JavaScript source code files.">
+        <echo msg="Checking syntax errors in JavaScript source code ..." />
+        <jshint haltOnError="true" reporter="jshint" checkStyleReportPath="${dir.reports}/jshint.xml">
+            <fileset refid="javascript_code"/>
+        </jshint>
+    </target>
 
-  <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
-    <exec executable="bin/phpcs">
-      <arg value="--report=checkstyle" />
-      <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
-      <arg value="--standard=PSR2" />
-      <arg path="${srcDir}" />
-    </exec>
-  </target>
+    <!-- Unit tests -->
+    <target name="test:unit" description="Executes unit tests.">
+        <echo msg="Running unit tests ..." />
+        <exec command="${dir.bin}/phpspec -n run --format=pretty --stop-on-failure --no-code-generation | tee ${dir.reports}/phpspec.log" checkreturn="true" outputProperty="output.phpspec"/>
+        <echo msg="Results: ${output.phpspec}"/>
+    </target>
 
-  <target name="phpcpd" description="Find duplicate code using PHPCPD">
-    <exec executable="bin/phpcpd">
-      <arg value="--log-pmd" />
-      <arg value="${basedir}/build/logs/pmd-cpd.xml" />
-      <arg path="${srcDir}" />
-    </exec>
-  </target>
+    <!-- Acceptance tests -->
+    <target name="test:acceptance" description="Executes acceptance tests.">
+        <echo msg="Running acceptance tests ..." />
+        <exec command="${dir.bin}/behat --format=teamcity --no-snippets --strict --no-interaction --stop-on-failure | tee ${dir.reports}/behat.log" checkreturn="true" outputProperty="output.behat"/>
+        <echo msg="Results: ${output.behat}"/>
+    </target>
 
-  <target name="phpdox" description="Generate API documentation using phpDox">
-    <exec executable="bin/phpdox"/>
-  </target>
-
-  <target name="phpunit" description="Run unit tests with PHPUnit">
-    <exec executable="bin/phpunit" failonerror="true"/>
-  </target>
-
-  <target name="phpspec">
-    <exec executable="bin/phpspec" failonerror="true" output="${basedir}/build/logs/phpspec.out.log" error="${basedir}/build/logs/phpspec.err.log">
-      <arg value="-fpretty" />
-    </exec>
-  </target>
-
-  <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-    <exec executable="bin/phpcb">
-      <arg value="--log" />
-      <arg path="${basedir}/build/logs" />
-      <arg value="--source" />
-      <arg path="${srcDir}" />
-      <arg value="--output" />
-      <arg path="${basedir}/build/code-browser" />
-    </exec>
-  </target>
-
-  <target name="behat" description="Run behat">
-      <exec executable="bin/behat">
-          <arg value="-fteamcity" />
-      </exec>
-  </target>
 </project>

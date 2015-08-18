@@ -53,7 +53,7 @@
         "bossa/phpspec2-expect": "~1.0",
         "fabpot/goutte": "2.0.*@dev",
         "sensiolabs/behat-page-object-extension": "2.0.*@dev",
-        "squizlabs/php_codesniffer": "1.*",
+        "squizlabs/php_codesniffer": "^2.3.3",
         "phpmd/phpmd": "2.*",
         "sebastian/phpcpd": "2.*",
         "pdepend/pdepend": "2.*",
@@ -66,7 +66,10 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "pawel-grzona/teamcity-phpspec-extension": "2.0.6",
         "anho/behat-formatter-teamcity": "dev-master",
-        "hautelook/alice-bundle": "0.2.*"
+        "hautelook/alice-bundle": "0.2.*",
+        "phing/phing": "^2.11",
+        "escapestudios/symfony2-coding-standard": "~2.0",
+        "phpdocumentor/phpdocumentor": "2.*"
     },
     "scripts": {
         "post-root-package-install": [
