@@ -19,7 +19,8 @@ rm -rf  application/web/uploads/media/* \
 
 docker build -t szepulhu_web .
 
-./start.sh
+# Start the application in build environment
+./start.sh -e build
 
 echo ""
 echo "For the first time we also have to generate fixtures, so we need even more patience..."
@@ -41,6 +42,10 @@ cd application/app/Resources/public && \
     node_modules/.bin/bower --config.interactive=false --allow-root install && \
     node_modules/.bin/gulp build && \
 cd ../../../../
+
+# Start the application in the default environment
+./stop.sh
+./start.sh
 
 echo ""
 echo "Ok, done! Let's work!"

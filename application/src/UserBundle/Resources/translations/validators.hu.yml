@@ -1,0 +1,7 @@
+user:
+    first_name:
+        constraints:
+            not_blank: Kérjük, adja meg a keresztnevét
+    last_name:
+        constraints:
+            not_blank: Kérjük, adja meg a vezetéknevét

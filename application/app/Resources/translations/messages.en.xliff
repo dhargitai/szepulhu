@@ -251,6 +251,10 @@
                 <source>professionals.search.no_results</source>
                 <target>Alter search parameters to get results.</target>
             </trans-unit>
+            <trans-unit id="layout.logged_in_as">
+                <source>layout.logged_in_as</source>
+                <target>Welcome %firstname% %lastname%!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

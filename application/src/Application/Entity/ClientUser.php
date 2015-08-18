@@ -3,7 +3,7 @@
 namespace Application\Entity;
 
 use Application\Model\User as UserInterface;
-use Application\UserBundle\Entity\User;
+use UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
@@ -14,10 +14,10 @@ use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="user_client")
  * @ORM\Entity(repositoryClass="Application\Entity\ClientUserRepository")
  * @UniqueEntity(fields = "username",
- *  targetClass = "Application\UserBundle\Entity\User",
+ *  targetClass = "UserBundle\Entity\User",
  *  message="fos_user.username.already_used")
  * @UniqueEntity(fields = "email",
- *  targetClass = "Application\UserBundle\Entity\User",
+ *  targetClass = "UserBundle\Entity\User",
  *  message="fos_user.email.already_used")
  */
 class ClientUser extends User

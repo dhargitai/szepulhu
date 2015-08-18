@@ -1,13 +1,33 @@
 default:
     suites:
-        default:
+        core_features:
+            paths: [ %paths.base%/features ]
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
-                - FeatureContext
                 - DebugContext:
                     - screenshots
                     - 1920x1080
+                - FeatureContext
                 - ProfessionalsContext
+            filters:
+                tags: @core
+        professional_features:
+            paths: [ %paths.base%/features/professionals ]
+            contexts:
+                - Behat\MinkExtension\Context\RawMinkContext
+                - DebugContext:
+                    - screenshots
+                    - 1920x1080
+                - FeatureContext
+                - ProfessionalsContext
+        client_features:
+            paths: [ %paths.base%/features/clients ]
+            contexts:
+                - Behat\MinkExtension\Context\RawMinkContext
+                - DebugContext:
+                    - screenshots
+                    - 1920x1080
+                - ClientsContext
 
 #   domain:
 #     contexts: [ DomainContext ]

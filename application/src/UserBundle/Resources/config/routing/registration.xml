@@ -26,7 +26,7 @@
         <requirement key="_method">GET</requirement>
     </route>
 
-    <route id="fos_user_registration_confirmed" pattern="/visszaigazolva">
+    <route id="fos_user_registration_confirmed" pattern="/confirmed">
         <default key="_controller">FOSUserBundle:Registration:confirmed</default>
         <requirement key="_method">GET</requirement>
     </route>

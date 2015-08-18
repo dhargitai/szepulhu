@@ -58,12 +58,12 @@
                 <source>form.name</source>
                 <target>Név</target>
             </trans-unit>
-            <trans-unit id="form.professional.last_name">
-                <source>form.professional.last_name</source>
+            <trans-unit id="form.last_name">
+                <source>form.last_name</source>
                 <target>Vezetéknév</target>
             </trans-unit>
-            <trans-unit id="form.professional.first_name">
-                <source>form.professional.first_name</source>
+            <trans-unit id="form.first_name">
+                <source>form.first_name</source>
                 <target>Keresztnév</target>
             </trans-unit>
             <trans-unit id="button.next">
@@ -293,6 +293,10 @@
             <trans-unit id="professionals.search.no_results">
                 <source>professionals.search.no_results</source>
                 <target>A találatok megjelenítéséhez módosítsa a keresési feltételeket.</target>
+            </trans-unit>
+            <trans-unit id="layout.logged_in_as">
+                <source>layout.logged_in_as</source>
+                <target>Üdvözöljük %lastname% %firstname%!</target>
             </trans-unit>
         </body>
     </file>
