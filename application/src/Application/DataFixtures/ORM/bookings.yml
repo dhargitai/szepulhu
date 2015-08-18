@@ -1,0 +1,67 @@
+Application\Entity\Professional\Booking:
+    booking_1:
+        client: @client_*
+        professional: @professional_21
+        reminderPreference: <numberBetween(1,4)>
+        email: <email()>
+        phone: <phoneNumber()>
+        isRecurring: 0
+        recurringFrequencyInWeeks: 0
+        startAt: <(new \DateTime('tomorrow 08:30'))>
+        isNoReminder: <numberBetween(0,1)>
+        isLateArrival: <numberBetween(0,1)>
+    booking_2:
+        client: @client_*
+        professional: @professional_21
+        reminderPreference: <numberBetween(1,4)>
+        email: <email()>
+        phone: <phoneNumber()>
+        isRecurring: 0
+        recurringFrequencyInWeeks: 0
+        startAt: <(new \DateTime('tomorrow 09:30'))>
+        isNoReminder: <numberBetween(0,1)>
+        isLateArrival: <numberBetween(0,1)>
+    booking_3:
+        client: @client_*
+        professional: @professional_21
+        reminderPreference: <numberBetween(1,4)>
+        email: <email()>
+        phone: <phoneNumber()>
+        isRecurring: 0
+        recurringFrequencyInWeeks: 0
+        startAt: <(new \DateTime('tomorrow 14:30'))>
+        isNoReminder: <numberBetween(0,1)>
+        isLateArrival: <numberBetween(0,1)>
+    booking_4:
+        client: @client_*
+        professional: @professional_21
+        reminderPreference: <numberBetween(1,4)>
+        email: <email()>
+        phone: <phoneNumber()>
+        isRecurring: 0
+        recurringFrequencyInWeeks: 0
+        startAt: <(new \DateTime('tomorrow 15:15'))>
+        isNoReminder: <numberBetween(0,1)>
+        isLateArrival: <numberBetween(0,1)>
+
+Application\Entity\Professional\BookedService:
+    bookedservice_1:
+        booking: @booking_1
+        name: <service()>
+        duration: 15
+        price: <numberBetween(1100,13400)>
+    bookedservice_2:
+        booking: @booking_2
+        name: <service()>
+        duration: 30
+        price: <numberBetween(1100,13400)>
+    bookedservice_3:
+        booking: @booking_2
+        name: <service()>
+        duration: 270
+        price: <numberBetween(1100,13400)>
+    bookedservice_4:
+        booking: @booking_3
+        name: <service()>
+        duration: 165
+        price: <numberBetween(1100,13400)>

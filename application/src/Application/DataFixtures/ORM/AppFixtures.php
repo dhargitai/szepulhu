@@ -26,6 +26,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         Fixtures::load(__DIR__.'/tasks.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/salons.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/users.yml', $om, array('providers' => array($this)));
+        Fixtures::load(__DIR__.'/bookings.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/services.yml', $om, array('providers' => array($this)));
         Fixtures::load(__DIR__.'/recommendations.yml', $om, array('providers' => array($this)));
     }

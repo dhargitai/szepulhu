@@ -4,6 +4,7 @@ namespace Application\Entity;
 
 use Application\Model\User as UserInterface;
 use UserBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use PUGX\MultiUserBundle\Validator\Constraints\UniqueEntity;
 
@@ -51,6 +52,22 @@ class ClientUser extends User
      *  inversedBy="clients")
      */
     private $city;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Application\Entity\Professional\Booking",
+     *  mappedBy="client",
+     *  cascade={"remove"})
+     */
+    private $bookings;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->bookings = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -116,6 +133,22 @@ class ClientUser extends User
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBookings()
+    {
+        return $this->bookings;
+    }
+
+    /**
+     * @param ArrayCollection $bookings
+     */
+    public function setBookings($bookings)
+    {
+        $this->bookings = $bookings;
     }
 
 }
