@@ -42,20 +42,26 @@ class CityRepository extends \Doctrine\ORM\EntityRepository
 
     public function getClosestBigCityWithActiveFeaturedProfessionals(LocationRequest $request)
     {
-        return $this->createQueryBuilder('ci')
-            ->join('ci.professionals', 'p', Join::WITH, ':now between p.featuredFrom and p.featuredTo')
-            ->setParameter('now', new \DateTime('now'))
-            ->setParameter('latitude', $request->latitude)
-            ->setParameter('longitude', $request->longitude)
-            ->andWhere('ci.isBigCity = 1')
-            ->orderBy('acos(
+        $closestCity = $this->createQueryBuilder('ci')
+            ->addSelect('acos(
                   cos(radians( :latitude ))
                 * cos(radians( ci.latitude ))
                 * cos(radians( :longitude ) - radians( ci.longitude ))
                 + sin(radians( :latitude ))
                 * sin(radians( ci.latitude ))
-              )')
+              ) AS distance')
+            ->join('ci.professionals', 'p', Join::WITH, ':now between p.featuredFrom and p.featuredTo')
+            ->setParameter('now', new \DateTime('now'))
+            ->setParameter('latitude', $request->latitude)
+            ->setParameter('longitude', $request->longitude)
+            ->andWhere('ci.isBigCity = 1')
+            ->orderBy('distance')
             ->setMaxResults(1)
             ->getQuery()->getOneOrNullResult();
+
+        if (is_array($closestCity)) {
+            return array_shift($closestCity);
+        }
+        return $closestCity;
     }
 }
