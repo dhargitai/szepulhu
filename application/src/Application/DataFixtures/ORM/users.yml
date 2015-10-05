@@ -2,7 +2,7 @@ Application\Entity\ProfessionalUser:
     professional_{1..14}:
         username: <userName()>
         email: <email()>
-        plainPassword: <userName()>
+        plainPassword: @self->username
         enabled: <numberBetween(0,1)>
         firstName: <firstName()>
         lastName: <lastName()>
@@ -58,7 +58,7 @@ Application\Entity\ProfessionalUser:
     professional_{15..20}:
         username: <userName()>
         email: <email()>
-        plainPassword: <userName()>
+        plainPassword: @self->username
         enabled: <numberBetween(0,1)>
         firstName: <firstName()>
         lastName: <lastName()>
@@ -114,7 +114,7 @@ Application\Entity\ProfessionalUser:
     professional_{21..21}:
         username: <userName()>
         email: <email()>
-        plainPassword: <userName()>
+        plainPassword: @self->username
         enabled: <numberBetween(0,1)>
         firstName: <firstName()>
         lastName: <lastName()>
@@ -191,7 +191,7 @@ Application\Entity\ClientUser:
     client_{1..10}:
         username: <userName()>
         email: <email()>
-        plainPassword: <userName()>
+        plainPassword: @self->username
         enabled: <numberBetween(0,1)>
         dateOfBirth: <dateTimeBetween('-70 years', '-18 years')>
         firstName: <firstName()>
