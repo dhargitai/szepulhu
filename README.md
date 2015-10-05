@@ -20,8 +20,8 @@ git clone git@bitbucket.org:diatigrah/szepulhu.git
 To be able to write the project files with your actual user you should run these commands:
 
 ```bash
-sudo setfacl -R -m u:`whoami`:rwX appliction/
-sudo setfacl -dR -m u:`whoami`:rwX appliction/
+sudo setfacl -R -m u:`whoami`:rwX application/
+sudo setfacl -dR -m u:`whoami`:rwX application/
 ```
 
 ## Build development environment

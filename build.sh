@@ -27,6 +27,7 @@ echo "For the first time we also have to generate fixtures, so we need even more
 ./wait-for-webserver.sh
 
 docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
+    export HOME=/tmp/www-data XDG_CONFIG_HOME=/tmp/www-data/.config XDG_CACHE_HOME=/tmp/www-data/.cache XDG_DATA_HOME=/tmp/www-data/.data XDG_STATE_HOME=/tmp/www-data/.state && \
     composer install --ansi --prefer-dist --no-interaction && \
     php app/console doctrine:database:drop --force && \
     php app/console doctrine:database:create && \
@@ -34,14 +35,12 @@ docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
     tar -xzf /tmp/fixtures.tar.gz --no-same-owner -C src/Application/DataFixtures/ && \
     mkdir -p web/uploads/media && \
     php app/console szepulhu:fixtures:load && \
-    php app/console fos:js-routing:dump
-'
-
-cd application/app/Resources/public && \
+    php app/console fos:js-routing:dump && \
+    cd app/Resources/public && \
     npm install && \
-    node_modules/.bin/bower --config.interactive=false --allow-root install && \
-    node_modules/.bin/gulp build && \
-cd ../../../../
+    node_modules/.bin/bower --config.interactive=false install && \
+    node_modules/.bin/gulp build
+'
 
 # Start the application in the default environment
 ./stop.sh
