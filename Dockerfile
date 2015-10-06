@@ -15,7 +15,6 @@ ADD docker/run.sh /root/run.sh
 
 ADD application/bin/wait-for-db.sh /wait-for-db.sh
 RUN chmod a+x /wait-for-db.sh
+RUN usermod -d /tmp/www-data www-data
 
 WORKDIR /var/www/szepul.hu
-
-RUN composer config -g github-oauth.github.com fa748cab6ccc830d796ce74ed651807c3cd16fd2

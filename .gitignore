@@ -6,6 +6,8 @@ application/bin/*
 !application/bin/wait-for-db.sh
 application/build
 application/cache.properties
+.env
+docker/services/php5-fpm/php.ini
 
 # Composer
 application/vendor
@@ -29,6 +31,7 @@ application/app/logs/*
 !application/app/cache/.gitkeep
 !application/app/logs/.gitkeep
 application/src/Application/DataFixtures/data/*
+application/src/Application/DataFixtures/fixtures.media.tar.gz
 
 # Build artifacts
 application/app/build/

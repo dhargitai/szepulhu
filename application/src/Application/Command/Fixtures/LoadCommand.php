@@ -73,7 +73,11 @@ EOT
         ];
 
         foreach ($sqlFilesToImport as $file) {
-            $returnCodes[$file] = $this->runCommandWithArguments('dbal:import', ['file' => $file]);
+            try {
+                $returnCodes[$file] = $this->runCommandWithArguments('dbal:import', ['file' => $file]);
+            } catch (\InvalidArgumentException $e) {
+                echo $e->getMessage() . PHP_EOL . $e->getTraceAsString();
+            }
         }
 
         return $returnCodes;

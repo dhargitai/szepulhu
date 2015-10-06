@@ -13,7 +13,7 @@ git clone git@bitbucket.org:diatigrah/szepulhu.git
 ## Requirements
 
 * Docker [docs.docker.com](https://docs.docker.com/installation)
-* npm [npmjs.com](https://www.npmjs.com/#getting-started)
+* Docker Compose [docs.docker.com/compose/install](https://docs.docker.com/compose/install/)
 
 ### For linux users
 
@@ -23,6 +23,15 @@ To be able to write the project files with your actual user you should run these
 sudo setfacl -R -m u:`whoami`:rwX application/
 sudo setfacl -dR -m u:`whoami`:rwX application/
 ```
+
+## Setup development environment
+
+
+```bash
+./setup.sh
+```
+
+This needs to be run only once when you clone the project.
 
 ## Build development environment
 

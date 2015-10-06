@@ -1,0 +1,27 @@
+database:
+  container_name: szepulhu_mysql
+  image: mysql
+  volumes:
+    - /var/lib/mysql:/var/lib/mysql
+  env_file:
+    - .env
+  extra_hosts:
+    - "db1.szepul.hu.dev:127.0.0.1"
+  ports:
+    - "3306:3306"
+
+web:
+  container_name: szepulhu_web_1
+  build: .
+  links:
+    - database:db
+  volumes:
+    - ./application:/var/www/szepul.hu
+  env_file:
+    - .env
+  extra_hosts:
+    - "web1.szepul.hu.dev:127.0.0.1"
+    - "szepul.hu.dev:127.0.0.1"
+    - "szepul.hu.test:127.0.0.1"
+  ports:
+    - "80:80"
