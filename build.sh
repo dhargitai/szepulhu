@@ -36,6 +36,7 @@ docker exec -it szepulhu_mysql /bin/bash -c "
     mysql -uroot -p$MYSQL_ROOT_PASSWORD << EOF
 GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* To '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
 GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* To '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';
+DROP DATABASE IF EXISTS $MYSQL_DATABASE;
 EOF
 "
 
@@ -46,12 +47,16 @@ if [ -n "$GITHUB_API_TOKEN" ]; then
     docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c "$COMPOSER_CONFIG_COMMAND"
 fi
 
+docker-compose restart web
+
 docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
+    php app/console doctrine:cache:clear-metadata && \
+    php app/console doctrine:cache:clear-query && \
+    php app/console doctrine:cache:clear-result && \
     composer install --ansi --prefer-dist --no-interaction && \
     composer run-script post-build-cmd && \
     bin/phantomjs --webdriver=4444 & \
     mkdir -p web/uploads/media && \
-    php app/console doctrine:database:drop --force > /dev/null && \
     php app/console doctrine:database:create && \
     php app/console szepulhu:fixtures:load && \
     php app/console fos:js-routing:dump && \
