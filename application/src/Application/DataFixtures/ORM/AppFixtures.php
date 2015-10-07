@@ -43,6 +43,20 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         return $this->createImageMediaFile($filesArray[array_rand($filesArray)]);
     }
 
+    /**
+     * Create a specific image fixture.
+     *
+     * For random images @see newImage() method.
+     *
+     * @param string $kind Type of image.
+     * @param string $filename Name of the image within the type directory.
+     * @return object
+     */
+    public function specificImage($kind, $filename)
+    {
+        return $this->createImageMediaFile(__DIR__.'/../data/images/'.$kind.'/'.$filename);
+    }
+
     public function newGallery()
     {
         $gallery = $this->getGalleryManager()->create();

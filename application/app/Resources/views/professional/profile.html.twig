@@ -58,7 +58,7 @@
                                 <p>{{ service.description }}</p>
                             </div>
                             <div class="large-2 columns">{{ service.price|localizedcurrency('HUF') }}</div>
-                            <div class="large-2 columns">{{ 'professionalProfile.serviceLengthInMinutes'|trans({'%serviceLength%': service.length}) }}</div>
+                            <div class="large-2 columns">{{ 'professionalProfile.serviceLengthInMinutes'|trans({'%serviceLength%': service.duration.format('%i')}) }}</div>
                             <div class="large-2 columns"><a class="tiny button" href="">{{ 'professionalProfile.service.bookMe'|trans }}</a></div>
                         </li>
                         {% endfor %}

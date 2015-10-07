@@ -8,8 +8,9 @@
 
 namespace Page;
 
+use Page\Element\Professionals\FeaturedProfessional;
+use Page\Element\Professionals\FeaturedProfessional\ElementFinder;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException;
-use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 
 /**
  * Class Homepage
@@ -76,6 +77,19 @@ class Homepage extends CustomPage
         $xpathSelector = sprintf("//a[contains(@href, '%s')]", $href);
         $link = $freeSlot->find('xpath', $xpathSelector);
         return !is_null($link);
+    }
+
+    public function ensureFeaturedProfessionalExist($name, $profession, $photo)
+    {
+        /** @var FeaturedProfessional $featuredProfessional */
+        $featuredProfessional = $this->getElement('Professionals\Featured Professional');
+
+        /** @var ElementFinder $finder */
+        $finder = $featuredProfessional->getElementFinder();
+        $finder->addNameFilter($name);
+        $finder->addProfessionFilter($profession);
+        $finder->addPhotoFilter($photo);
+        $finder->find($this);
     }
 
     public function fillSearchField($label, $value)

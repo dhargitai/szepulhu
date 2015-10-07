@@ -8,7 +8,7 @@
                         {% thumbnail professional.profilePicture, 'medium_square' %}
                     </a>
 
-                    <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ professional.lastName }} {{ professional.firstName }} </a></span><br>
+                    <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ 'professional.name'|trans({'%firstname%': professional.firstName, '%lastname%': professional.lastName}) }}</a></span><br>
                     <span class="professionalProfession">{{ professional.profession }}</span>
                 </div>
             </li>

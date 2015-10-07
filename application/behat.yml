@@ -8,6 +8,7 @@ default:
                     - screenshots
                     - 1920x1080
                 - FeatureContext
+                - HeaderContext
                 - ProfessionalsContext
             filters:
                 tags: @core
@@ -43,7 +44,9 @@ default:
 
     extensions:
         Behat\Symfony2Extension: ~
-        SensioLabs\Behat\PageObjectExtension: ~
+        Geza\Behat\ElementFinderExtension\ServiceContainer\Extension: ~
+        SensioLabs\Behat\PageObjectExtension:
+            factory: geza.behat.element_finder_extension.page_factory_class
         Behat\TeamCityFormatter\TeamCityFormatterExtension: ~
         Behat\MinkExtension:
             base_url: 'http://szepul.hu.test/'

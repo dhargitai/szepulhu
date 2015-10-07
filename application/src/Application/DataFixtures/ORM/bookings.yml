@@ -1,7 +1,7 @@
 Application\Entity\Professional\Booking:
     booking_1:
         client: @client_*
-        professional: @professional_21
+        professional: @professional_15
         reminderPreference: <numberBetween(1,4)>
         email: <email()>
         phone: <phoneNumber()>
@@ -12,7 +12,7 @@ Application\Entity\Professional\Booking:
         isLateArrival: <numberBetween(0,1)>
     booking_2:
         client: @client_*
-        professional: @professional_21
+        professional: @professional_15
         reminderPreference: <numberBetween(1,4)>
         email: <email()>
         phone: <phoneNumber()>
@@ -23,7 +23,7 @@ Application\Entity\Professional\Booking:
         isLateArrival: <numberBetween(0,1)>
     booking_3:
         client: @client_*
-        professional: @professional_21
+        professional: @professional_15
         reminderPreference: <numberBetween(1,4)>
         email: <email()>
         phone: <phoneNumber()>
@@ -34,7 +34,7 @@ Application\Entity\Professional\Booking:
         isLateArrival: <numberBetween(0,1)>
     booking_4:
         client: @client_*
-        professional: @professional_21
+        professional: @professional_15
         reminderPreference: <numberBetween(1,4)>
         email: <email()>
         phone: <phoneNumber()>

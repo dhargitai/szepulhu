@@ -4,7 +4,7 @@ Application\Entity\Professional\ServiceGroup:
         professional: @professional_*
     service_group_22:
         name: Haj
-        professional: @professional_21
+        professional: @professional_15
 
 Application\Entity\Professional\Service:
     service_{1..30}:

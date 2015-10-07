@@ -29,3 +29,10 @@ Feature: Homepage
     When I press the "Search" button
     Then I should see the message "Alter search parameters to get results."
     And I should not see any result
+
+  Scenario: View featured professionals
+    Given I am logged out
+    When I visit the homepage
+    Then I should see basic information about a list of featured professionals like
+      | Name          | Profession  | Photo                                                             |
+      | Jakabné Gipsz | Fodrász     | stock-photo-young-woman-portrait-isolated-on-white-115309930.jpg  |

@@ -94,4 +94,14 @@ class ProfessionalsContext implements Context
         $currentPage = $this->currentPage;
         $currentPage->hasNoItems();
     }
+
+    /**
+     * @Then /^I should see basic information about a list of featured professionals like$/
+     */
+    public function iShouldSeeBasicInformationAboutAListOfFeaturedProfessionalsLike(TableNode $table)
+    {
+        foreach ($table->getColumnsHash() as $row) {
+            $this->homepage->ensureFeaturedProfessionalExist($row['Name'], $row['Profession'], $row['Photo']);
+        }
+    }
 }
