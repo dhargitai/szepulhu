@@ -7,6 +7,7 @@ echo
 echo
 echo "Determining Docker IP..."
 dockerip=$(ifconfig docker0 2> /dev/null | grep --word-regexp inet | awk '{print $2}' | sed 's%addr:%%g')
+dockerinterfaceip=$dockerip
 if [[ ! $dockerip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
     dockerip=$(docker-machine ip default 2> /dev/null)
     if [[ ! $dockerip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
@@ -54,8 +55,14 @@ cgi.fix_pathinfo = 0
 date.timezone = \"Europe/Budapest\"" > docker/services/php5-fpm/php.ini
 
 echo
-echo "Adding szepul.hu.dev and szepul.hu.test domains to your hosts file..."
-echo "$dockerip szepul.hu.dev szepul.hu.test" | sudo tee -a /etc/hosts
+host_entry="$dockerip szepul.hu.dev szepul.hu.test"
+if grep "$host_entry" /etc/hosts;
+then
+    echo "Your hosts file is up to date."
+else
+    echo "Adding szepul.hu.dev and szepul.hu.test domains to your hosts file..."
+    echo $host_entry | sudo tee -a /etc/hosts
+fi
 
 echo
 echo "Ok, your files are ready. From now you can use build.sh to build up your environment."

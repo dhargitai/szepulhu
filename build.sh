@@ -16,7 +16,7 @@ rm -rf  application/web/uploads/media/* \
 echo
 echo "Checking if compressed fixture media file exists and fresh..."
 FIXTURE_MEDIA_LOCAL_FILE="application/app/build/fixtures.media.tar.gz"
-FIXTURE_MEDIA_LOCAL_FILE_SIZE=$(wc -c $FIXTURE_MEDIA_LOCAL_FILE 2>/dev/null | awk '{print $1}' | tr -d '[[:space:]]')
+FIXTURE_MEDIA_LOCAL_FILE_SIZE=$([ -f $FIXTURE_MEDIA_LOCAL_FILE ] && echo $(wc -c $FIXTURE_MEDIA_LOCAL_FILE 2>/dev/null | awk '{print $1}' | tr -d '[[:space:]]') || echo 0)
 FIXTURE_MEDIA_REMOTE_FILE="https://s3.eu-central-1.amazonaws.com/szepulhudevelopment/fixtures.media.tar.gz"
 FIXTURE_MEDIA_REMOTE_FILE_SIZE=$(curl -sI $FIXTURE_MEDIA_REMOTE_FILE | grep -i content-length | awk '{print $2}' | tr -d '[[:space:]]')
 if [ "$FIXTURE_MEDIA_LOCAL_FILE_SIZE" -ne "$FIXTURE_MEDIA_REMOTE_FILE_SIZE" ]; then
@@ -47,12 +47,8 @@ if [ -n "$GITHUB_API_TOKEN" ]; then
     docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c "$COMPOSER_CONFIG_COMMAND"
 fi
 
-docker-compose restart web
-
 docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
-    php app/console doctrine:cache:clear-metadata && \
-    php app/console doctrine:cache:clear-query && \
-    php app/console doctrine:cache:clear-result && \
+    chown -R www-data: .
     composer install --ansi --prefer-dist --no-interaction && \
     composer run-script post-build-cmd && \
     bin/phantomjs --webdriver=4444 & \
@@ -60,7 +56,8 @@ docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c '
     php app/console doctrine:database:create && \
     php app/console szepulhu:fixtures:load && \
     php app/console fos:js-routing:dump && \
-    cd app/Resources/public && \
+    cp -R app/Resources/public/* app/build/ && \
+    cd app/build/ && \
     npm install && \
     node_modules/.bin/bower --config.interactive=false install && \
     node_modules/.bin/gulp build

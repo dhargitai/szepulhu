@@ -23,4 +23,13 @@ if [ $EUID != 0 ]; then
     grep -v "$DOCKER_IP szepul.hu.dev szepul.hu.test" /etc/hosts > temp && sudo mv temp /etc/hosts
 fi
 
+echo "Deleting vendor files..."
+rm -rf application/vendor
+
+echo "Deleting build files..."
+rm -rf application/app/build
+
+echo "Deleting fixture files..."
+rm -rf application/src/Application/DataFixtures/data
+
 echo "Done."
