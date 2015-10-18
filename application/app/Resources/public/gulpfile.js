@@ -30,26 +30,20 @@ gulp.task('css', function() {
             'bower_components/jquery-ui/themes/smoothness/jquery-ui.css',
             'bower_components/jquery-ui/themes/smoothness/theme.css'
         ],
-        appFiles = [
+        vendorSource = gulp.src(vendorFiles)
+            .pipe(expect({ errorOnFailure: true }, vendorFiles))
+            .on('error', handleError);
+    var appFiles = [
             'bower_components/foundation/scss/normalize.scss',
             'css/*.scss'
-        ];
+        ],
+        appSource = gulp.src(appFiles)
+            .pipe(expect({ errorOnFailure: true }, appFiles))
+            .on('error', handleError)
+            .pipe(sass({errLogToConsole: true}))
+            .pipe(sass({ style: 'compressed' }));
 
-    var vendor = gulp.src(vendorFiles);
-    vendor
-        .pipe(expect({ errorOnFailure: true }, vendorFiles))
-        .on('error', handleError)
-        .pipe(sass({errLogToConsole: true}))
-        .pipe(sass({ style: 'compressed' }));
-
-    var app = gulp.src(appFiles);
-    app
-        .pipe(expect({ errorOnFailure: true }, appFiles))
-        .on('error', handleError)
-        .pipe(sass({errLogToConsole: true}))
-        .pipe(sass({ style: 'compressed' }));
-
-    return es.concat(vendor, app)
+    return es.concat(vendorSource, appSource)
         .pipe(concat('style.css'))
         .pipe(gulp.dest(targetDir + '/css'))
         .pipe(minifyCss())
@@ -75,7 +69,7 @@ gulp.task('scripts', function() {
             'bower_components/foundation/js/foundation.min.js',
             'js/geoposition/geoPosition.js',
             '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.js',
-            targetDir + '/js/fos_js_routes.js',
+            '../../web/js/fos_js_routes.js',
             'js/app.js'
         ];
     var result1 = gulp.src(header_files)
