@@ -1,4 +1,8 @@
 application/web/uploads
 application/web/play.php
 application/web/app_dev.php
+application/app/cache/*
+application/app/logs/*
 application/src/Application/DataFixtures
+application/src/Application/DataFixtures/data/*
+application/src/Application/DataFixtures/fixtures.media.tar.gz
