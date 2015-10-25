@@ -3,7 +3,7 @@
         {% if featuredProfessionals[i] is defined %}
             {% set professional = featuredProfessionals[i] %}
             <li>
-                <div class="panel featuredProfessional">
+                <div class="panel featuredProfessional" data-id="{{ professional.id }}">
                     <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
                         {% thumbnail professional.profilePicture, 'medium_square' %}
                     </a>

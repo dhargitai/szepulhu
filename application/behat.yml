@@ -7,7 +7,8 @@ default:
                 - DebugContext:
                     - screenshots
                     - 1920x1080
-                - FeatureContext
+                - HomepageContext:
+                    professionalUserRepository: @app.professional_repository
                 - HeaderContext
                 - ProfessionalsContext
             filters:
@@ -19,7 +20,7 @@ default:
                 - DebugContext:
                     - screenshots
                     - 1920x1080
-                - FeatureContext
+                - HomepageContext
                 - ProfessionalsContext
         client_features:
             paths: [ %paths.base%/features/clients ]

@@ -36,3 +36,9 @@ Feature: Homepage
     Then I should see basic information about a list of featured professionals like
       | Name          | Profession  | Photo                                                             |
       | Jakabné Gipsz | Fodrász     | stock-photo-young-woman-portrait-isolated-on-white-115309930.jpg  |
+
+  Scenario: Filter featured professionals by region
+    Given I am logged out
+    When I go to the homepage
+    And I select the "Csongrád" county
+    Then I should see only professionals from "Csongrád" county

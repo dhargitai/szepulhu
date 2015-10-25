@@ -118,3 +118,12 @@ services:
             - @doctrine.orm.default_entity_manager
         tags:
             - { name: form.type, alias: location }
+
+    app.before_request_listener.activate_doctrine_filters:
+        class: Application\EventListener\ActivateDoctrineFiltersListener
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernelRequest

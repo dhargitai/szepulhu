@@ -1,5 +1,12 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
+use Application\Entity\ProfessionalUserRepository;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
@@ -12,7 +19,7 @@ use Page\ProfessionalProfile;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends PageObjectContext implements Context, SnippetAcceptingContext
+class HomepageContext extends PageObjectContext implements Context, SnippetAcceptingContext
 {
     use KernelDictionary;
 
@@ -26,10 +33,24 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
      */
     private $professionalProfile;
 
-    public function __construct(Homepage $homepage, ProfessionalProfile $professionalProfile)
-    {
+    /** @var ProfessionalUserRepository $professionalUserRepository */
+    private $professionalUserRepository;
+
+    public function __construct(
+        Homepage $homepage, ProfessionalProfile $professionalProfile,
+        ProfessionalUserRepository $professionalUserRepository
+    ) {
         $this->homepage = $homepage;
         $this->professionalProfile = $professionalProfile;
+        $this->professionalUserRepository = $professionalUserRepository;
+    }
+
+    /**
+     * @When I go to the homepage
+     */
+    public function iGoToTheHomepage()
+    {
+        $this->homepage->open();
     }
 
     /**
@@ -179,5 +200,59 @@ class FeatureContext extends PageObjectContext implements Context, SnippetAccept
             );
             throw new LogicException($message);
         }
+    }
+
+    /**
+     * @Given I select the :countyName county
+     *
+     * @param $countyName
+     */
+    public function iSelectTheCounty($countyName)
+    {
+        $this->homepage->selectLocation($countyName);
+    }
+
+    /**
+     * @Then I should see only professionals from :countyName county
+     *
+     * @param $countyName
+     */
+    public function iShouldSeeOnlyProfessionalsFromCounty($countyName)
+    {
+        $expectedUserIds = array_map(
+            function($value){
+                return $value['id'];
+            },
+            $this->findAllProfessionalUserByCounty($countyName)
+        );
+        $currentUserIds = $this->homepage->getFeaturedProfessionalsIds();
+
+        if ($missingIds = array_diff($expectedUserIds, $currentUserIds)) {
+            throw new DomainException(
+                'These professional users must be on the page, but missing: ' . implode(',', $missingIds)
+            );
+        }
+        if ($extraUserIds = array_diff($currentUserIds, $expectedUserIds)) {
+            throw new DomainException(
+                'These professional users should not be on the page, but present: ' . implode(',', $extraUserIds)
+            );
+        }
+    }
+
+    private function findAllProfessionalUserByCounty($countyName)
+    {
+        $query = $this->professionalUserRepository->createQueryBuilder('u')
+            ->select('u.id')
+            ->join('u.city', 'c')
+            ->join('c.county', 'co', \Doctrine\ORM\Query\Expr\Join::WITH, 'co.name = :countyName')
+            ->where('u.enabled = :yes')
+            ->andwhere('u.featuredFrom <= CURRENT_TIME()')
+            ->andWhere('u.featuredTo >= CURRENT_TIME()')
+            ->andWhere('c.isBigCity <> :yes')
+            ->andWhere('c.isCapital <> :yes')
+            ->setParameters(['yes' => 1, 'countyName' => $countyName])
+            ->getQuery();
+
+        return $query->getArrayResult();
     }
 }

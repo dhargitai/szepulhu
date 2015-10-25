@@ -93,6 +93,10 @@ class HomepageInteractor
             [
                 'featuredProfessionals'         => $featuredProfessionals,
                 'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
+                'location' => [
+                    'name' => $request->locationRequest->name,
+                    'type' => $request->locationRequest->type
+                ],
             ]
         );
     }

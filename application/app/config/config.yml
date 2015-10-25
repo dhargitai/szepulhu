@@ -79,6 +79,9 @@ doctrine:
 
                     string_functions:
                         radians: DoctrineExtensions\Query\Mysql\Radians
+                # Register available filters. It has to be enabled to take effect.
+                filters:
+                    active_user: Application\DoctrineExtension\Filter\ActiveUserFilter
 
 swiftmailer:
     transport: "%mailer_transport%"

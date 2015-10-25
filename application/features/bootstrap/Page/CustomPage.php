@@ -26,4 +26,28 @@ abstract class CustomPage extends Page
     {
         $this->getSession()->wait($timeToWaitInMs, '(0 === jQuery.active)');
     }
+
+    /**
+     * Return a list of matching elements on the page
+     *
+     * @param string $name Index of the @see $this->elements configuration array.
+     * @return \Behat\Mink\Element\NodeElement[]
+     */
+    public function getElements($name)
+    {
+        if (isset($this->elements[$name])) {
+            $configuration = $this->elements[$name];
+            if (is_array($configuration)) {
+                $selector = key($configuration);
+                $locator = current($configuration);
+            } else {
+                $selector = 'css';
+                $locator = $configuration;
+            }
+
+            return $this->findAll($selector, $locator);
+        }
+
+        throw new \InvalidArgumentException(sprintf('Class %s has no element defined with "%s".', __CLASS__, $name));
+    }
 }

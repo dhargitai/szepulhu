@@ -28,6 +28,10 @@ class Homepage extends CustomPage
      */
     protected $path = '/';
 
+    protected $elements = [
+        'featured_professionals' => ['xpath' => "//*[contains(@class, 'featuredProfessional')]"],
+    ];
+
     private $freeFeaturedProfessionalSlot;
 
     public function selectOneOfTheFeaturedProfessionals()
@@ -139,5 +143,19 @@ class Homepage extends CustomPage
         if (!$this->getElement('Clients\Navigation\Top menu')->isValid()) {
             throw new ElementNotFoundException('Client top menu on current page does not found.');
         }
+    }
+
+    /**
+     * @return array List of user IDs.
+     */
+    public function getFeaturedProfessionalsIds()
+    {
+        $userIds = [];
+        foreach ($this->getElements('featured_professionals') as $user) {
+            if ($user->hasAttribute('data-id')) {
+                $userIds[] = $user->getAttribute('data-id');
+            }
+        }
+        return $userIds;
     }
 }
