@@ -5,7 +5,6 @@ default:
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
                 - DebugContext:
-                    - screenshots
                     - 1920x1080
                 - HomepageContext:
                     professionalUserRepository: @app.professional_repository
@@ -18,16 +17,15 @@ default:
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
                 - DebugContext:
-                    - screenshots
                     - 1920x1080
-                - HomepageContext
+                - HomepageContext:
+                    professionalUserRepository: @app.professional_repository
                 - ProfessionalsContext
         client_features:
             paths: [ %paths.base%/features/clients ]
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
                 - DebugContext:
-                    - screenshots
                     - 1920x1080
                 - ClientsContext
 
@@ -56,3 +54,5 @@ default:
                 browser: phantomjs
             show_cmd: echo '%s'
             show_tmp_dir: ./tmp/
+        Bex\Behat\ScreenshotExtension:
+            active_image_drivers: upload_pie

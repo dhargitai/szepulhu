@@ -69,7 +69,9 @@
         "hautelook/alice-bundle": "0.2.*",
         "phing/phing": "^2.11",
         "escapestudios/symfony2-coding-standard": "~2.0",
-        "phpdocumentor/phpdocumentor": "2.*"
+        "phpdocumentor/phpdocumentor": "2.*",
+        "bex/behat-screenshot": "^1.0",
+        "bex/behat-screenshot-image-driver-uploadpie": "^1.0"
     },
     "scripts": {
         "post-root-package-install": [
