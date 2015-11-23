@@ -8,15 +8,29 @@
 namespace Application\Interactor;
 
 use Application\Model\ValueObject;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 /**
  * Class HomepageResponse
  * @package Application\Interactor
  *
- * @property string $capitalCity
- * @property \Application\Entity\ProfessionalUser[] $bigCitiesWithFeaturedProfessionals
- * @property \Application\Entity\ProfessionalUser[] $countiesWithFeaturedProfessionals
+ * @property-read string $capitalCity
+ * @property-read \Application\Entity\ProfessionalUser[] $bigCitiesWithFeaturedProfessionals
+ * @property-read \Application\Entity\ProfessionalUser[] $countiesWithFeaturedProfessionals
+ * @property-read FormView $searchForm
  */
 class HomepageResponse extends ValueObject
 {
+    public function __construct(
+        $capitalCity, array $bigCitiesWithFeaturedProfessionals, array $countiesWithFeaturedProfessionals,
+        FormView $searchForm
+    ) {
+        $this->value = [
+            'capitalCity' => $capitalCity,
+            'bigCitiesWithFeaturedProfessionals' => $bigCitiesWithFeaturedProfessionals,
+            'countiesWithFeaturedProfessionals' => $countiesWithFeaturedProfessionals,
+            'searchForm' => $searchForm,
+        ];
+    }
 }

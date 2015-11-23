@@ -35,6 +35,8 @@ class DefaultController
     private $templating;
     private $interactor;
 
+    const LOCATION_COOKIE_NAME = 'location';
+
     public function __construct(EngineInterface $templating, HomepageInteractor $interactor)
     {
         $this->templating = $templating;
@@ -49,7 +51,7 @@ class DefaultController
     public function indexAction()
     {
         $searchParameters = new ServiceSearchParameters();
-        $response = $this->interactor->createResponse(new HomepageRequest(['searchParameters' => $searchParameters]));
+        $response = $this->interactor->createResponse(new HomepageRequest($searchParameters));
         return $this->templating->renderResponse(
             'index.html.twig',
             $response->asArray()
@@ -71,18 +73,19 @@ class DefaultController
             '_featuredProfessionals.html.twig',
             $response->asArray()
         );
-        $httpResponse->headers->setCookie(new Cookie('location', json_encode($response->location)));
+        $locationCookie = new Cookie(self::LOCATION_COOKIE_NAME, json_encode($response->location->asArray()));
+        $httpResponse->headers->setCookie($locationCookie);
         return $httpResponse;
     }
 
     private function createFeaturedProfessionalsRequest(Request $request)
     {
-        $locationData = $request->request->get('location') ?: (array)json_decode($request->cookies->get('location'));
+        $locationData = $request->request->get(self::LOCATION_COOKIE_NAME) ?: (array)json_decode($request->cookies->get(
+            self::LOCATION_COOKIE_NAME
+        ));
         return new FeaturedProfessionalsRequest(
-            [
-                'numberOfFeaturedProfessionals' => $request->request->get('numberOfFeaturedProfessionals', 6),
-                'locationRequest'               => new LocationRequest($locationData),
-            ]
+            LocationRequest::createFromArray($locationData),
+            $request->request->get('numberOfFeaturedProfessionals', 6)
         );
     }
 
@@ -97,8 +100,8 @@ class DefaultController
         $response = new JsonResponse();
         $response->setData(
             [
-                'location' => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
-                    new LocationRequest(
+                self::LOCATION_COOKIE_NAME => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
+                    LocationRequest::createFromArray(
                         [
                             'latitude'  => $request->get('latitude'),
                             'longitude' => $request->get('longitude'),

@@ -7,7 +7,7 @@ namespace Application\Model;
  * @package Application\Model
  * @author Hargitai Dávid <div@diatigrah.hu>
  *
- * @property integer $type
+ * @property-read integer $type
  */
 class Reminder extends ValueObject
 {
@@ -15,4 +15,8 @@ class Reminder extends ValueObject
     const TYPE_TEXT = 2;
     const TYPE_EMAIL_AND_TEXT = 3;
     const TYPE_NONE = 4;
+
+    public function __construct()
+    {
+    }
 }

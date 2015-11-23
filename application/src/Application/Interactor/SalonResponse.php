@@ -13,17 +13,26 @@ use Application\Model\ValueObject;
  * Class SalonResponse
  * @package Application\Interactor
  *
- * @property string $picture
- * @property string $name
- * @property string $address
- * @property string $addressAdditional
- * @property string $city
- * @property string $postCode
- * @property string $phone
- * @property string $mapUrl
- * @property string $map
- * @property \Application\Entity\ProfessionalUser[] $professionals
+ * @property-read string $picture
+ * @property-read string $name
+ * @property-read string $address
+ * @property-read string $addressAdditional
+ * @property-read string $city
+ * @property-read string $postCode
+ * @property-read string $phone
+ * @property-read string $mapUrl
+ * @property-read string $map
+ * @property-read \Application\Entity\ProfessionalUser[] $professionals
  */
 class SalonResponse extends ValueObject
 {
+    public function __construct(
+        $picture, $name, $address, $addressAdditional, $city, $postCode, $phone, $mapUrl, $map, $professionals
+    ) {
+        $this->value = [
+            'picture' => $picture, 'name' => $name, 'address' => $address, 'addressAdditional' => $addressAdditional,
+            'city' => $city, 'postCode' => $postCode, 'phone' => $phone, 'mapUrl' => $mapUrl, 'map' => $map,
+            'professionals' => $professionals
+        ];
+    }
 }

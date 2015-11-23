@@ -62,7 +62,7 @@ class ProfessionalController extends Controller
     public function profileAction($professionalSlug)
     {
         $response = $this->profileInteractor->createProfessionalProfileResponse(
-            new ProfessionalProfileRequest(array('slug' => $professionalSlug))
+            new ProfessionalProfileRequest($professionalSlug)
         );
         return $this->templating->renderResponse(
             'professional/profile.html.twig',
@@ -79,7 +79,7 @@ class ProfessionalController extends Controller
     public function professionalSalon($slug)
     {
         $response = $this->salonInteractor->createSalonResponse(
-            new SalonRequest(array('slug' => $slug))
+            new SalonRequest($slug)
         );
         return $this->templating->renderResponse(
             'professional/salon.html.twig',

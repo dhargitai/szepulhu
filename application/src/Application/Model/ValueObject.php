@@ -2,16 +2,9 @@
 
 namespace Application\Model;
 
-class ValueObject
+abstract class ValueObject
 {
     protected $value = [];
-
-    public function __construct(array $attributes = array())
-    {
-        foreach ($attributes as $name => $value) {
-            $this->value[$name] = $value;
-        }
-    }
 
     public function __get($key)
     {

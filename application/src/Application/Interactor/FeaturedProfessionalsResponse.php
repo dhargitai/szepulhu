@@ -14,10 +14,18 @@ use Application\Model\ValueObject;
  * Class FeaturedProfessionalsResponse
  * @package Application\Interactor
  *
- * @property array featuredProfessionals
- * @property int numberOfFeaturedProfessionals
- * @property array location Array having "type" and "name" attributes
+ * @property-read array $featuredProfessionals
+ * @property-read int $numberOfFeaturedProfessionals
+ * @property-read Location $location
  */
 class FeaturedProfessionalsResponse extends ValueObject
 {
+    public function __construct(array $featuredProfessionals, $numberOfFeaturedProfessionals, Location $location)
+    {
+        $this->value = [
+            'featuredProfessionals' => $featuredProfessionals,
+            'numberOfFeaturedProfessionals' => $numberOfFeaturedProfessionals,
+            'location' => $location,
+        ];
+    }
 }

@@ -7,6 +7,7 @@
 
 namespace Application\Interactor;
 
+use Application\Entity\Professional\ServiceGroup;
 use Application\Entity\ProfessionalUserRepository;
 
 class ProfessionalProfileInteractor
@@ -21,22 +22,22 @@ class ProfessionalProfileInteractor
     public function createProfessionalProfileResponse(ProfessionalProfileRequest $request)
     {
         $professional = $this->repository->findOneBy(array('slug' => $request->slug));
-        return new ProfessionalProfileResponse(array(
-            'hasServices' => $this->repository->hasServices($professional->getId()),
-            'firstName' => $professional->getFirstName(),
-            'lastName' => $professional->getLastName(),
-            'profession' => $professional->getProfession(),
-            'profilePicture' => $professional->getProfilePicture(),
-            'salon' => $professional->getSalon(),
-            'biography' => $professional->getBiography(),
-            'gallery' => $professional->getGallery(),
-            'slug' => $professional->getSlug(),
-            'serviceGroups' => $professional->getServiceGroups(),
-            'recommendations' => $professional->getRecommendations(),
-            'website' => $professional->getWebsite(),
-            'blogPage' => $professional->getBlogPage(),
-            'facebookPage' => $professional->getFacebookPage(),
-            'twitterAccount' => $professional->getTwitterAccount(),
-        ));
+        return new ProfessionalProfileResponse(
+            $this->repository->hasServices($professional->getId()),
+            $professional->getFirstName(),
+            $professional->getLastName(),
+            $professional->getProfession(),
+            $professional->getProfilePicture(),
+            $professional->getSalon(),
+            $professional->getBiography(),
+            $professional->getGallery(),
+            $professional->getSlug(),
+            $professional->getServiceGroups(),
+            $professional->getRecommendations(),
+            $professional->getWebsite(),
+            $professional->getBlogPage(),
+            $professional->getFacebookPage(),
+            $professional->getTwitterAccount()
+        );
     }
 }

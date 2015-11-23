@@ -69,12 +69,10 @@ class HomepageInteractor
             ['validation_groups' => ['search']]
         );
         return new HomepageResponse(
-            [
-                'capitalCity'                        => $capitalCity,
-                'bigCitiesWithFeaturedProfessionals' => $cities,
-                'countiesWithFeaturedProfessionals'  => $counties,
-                'searchForm'                         => $searchForm->createView()
-            ]
+            $capitalCity,
+            $cities,
+            $counties,
+            $searchForm->createView()
         );
     }
 
@@ -90,14 +88,12 @@ class HomepageInteractor
             $request->numberOfFeaturedProfessionals
         );
         return new FeaturedProfessionalsResponse(
-            [
-                'featuredProfessionals'         => $featuredProfessionals,
-                'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
-                'location' => [
-                    'name' => $request->locationRequest->name,
-                    'type' => $request->locationRequest->type
-                ],
-            ]
+            $featuredProfessionals,
+            $request->numberOfFeaturedProfessionals,
+            new Location(
+                $request->locationRequest->type,
+                $request->locationRequest->name
+            )
         );
     }
 
