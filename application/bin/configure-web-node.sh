@@ -39,9 +39,6 @@ fi
 echo; echo "Installing composer packages..." &&
 composer install --ansi --prefer-dist --no-interaction &&
 
-echo; echo "Installing PhantomJS..." &&
-composer run-script post-build-cmd &&
-
 echo; echo "Creating media upload folder..." &&
 mkdir -p web/uploads/media &&
 php app/console doctrine:database:create &&

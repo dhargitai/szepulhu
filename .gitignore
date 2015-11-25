@@ -4,6 +4,8 @@
 .ruby-version
 application/bin/*
 !application/bin/wait-for-db.sh
+!application/bin/wait-for-webserver.sh
+!application/bin/configure-web-node.sh
 application/build
 application/cache.properties
 .env

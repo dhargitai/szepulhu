@@ -1,0 +1,22 @@
+#
+# Configuration for building the application in the continuous intergration environment
+#
+database:
+    extends:
+        file: docker-compose.yml
+        service: database
+    container_name: szepulhu_mysql_ci
+
+web:
+  container_name: szepulhu_web_ci
+  build: .
+  links:
+    - database:db
+  volumes:
+    - ./application:/var/www/szepul.hu
+  env_file:
+    - .env
+  extra_hosts:
+    - "szepul.hu.test:127.0.0.1"
+  ports:
+    - "80:80"
