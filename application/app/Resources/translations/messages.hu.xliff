@@ -294,6 +294,14 @@
                 <source>professionals.search.no_results</source>
                 <target>A találatok megjelenítéséhez módosítsa a keresési feltételeket.</target>
             </trans-unit>
+            <trans-unit id="professionals.search.address_on_map">
+                <source>professionals.search.address_on_map</source>
+                <target>Megtekintés a térképen</target>
+            </trans-unit>
+            <trans-unit id="professionals.search.page_title">
+                <source>professionals.search.page_title</source>
+                <target>Foglaljon időpontot</target>
+            </trans-unit>
             <trans-unit id="layout.logged_in_as">
                 <source>layout.logged_in_as</source>
                 <target>Üdvözöljük %lastname% %firstname%!</target>

@@ -30,6 +30,7 @@ class Homepage extends CustomPage
 
     protected $elements = [
         'featured_professionals' => ['xpath' => "//*[contains(@class, 'featuredProfessional')]"],
+        'featured_location' => '#locationSelector',
     ];
 
     private $freeFeaturedProfessionalSlot;
@@ -55,9 +56,9 @@ class Homepage extends CustomPage
         return !is_null($menuItem);
     }
 
-    public function selectLocation($locationName)
+    public function selectLocationOfFeaturedProfessionals($locationName)
     {
-        $this->find('css', '#locationSelector')->selectOption($locationName);
+        $this->getElement('featured_location')->selectOption($locationName);
         $this->waitForAjax();
     }
 
@@ -130,7 +131,7 @@ class Homepage extends CustomPage
 
     public function getSelectedLocation()
     {
-        return $this->find('css', '#locationSelector')->getValue();
+        return $this->getElement('featured_location')->getValue();
     }
 
     public function clearSearchForm()
@@ -157,5 +158,10 @@ class Homepage extends CustomPage
             }
         }
         return $userIds;
+    }
+
+    public function selectLocationSearchParameter($name)
+    {
+        $this->getSearchForm()->fillLocation($name);
     }
 }

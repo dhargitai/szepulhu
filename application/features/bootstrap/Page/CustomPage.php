@@ -1,19 +1,32 @@
 <?php
 /**
- * A common, customized parent for some page object which reveals the path
- * so the linking to them can be used in feature files in a more centralized way.
+ * This file is part of the szepul.hu application.
  *
- * @author    Hargitai Dávid <div@diatigrah.hu>
- * @copyright Hargitai Dávid, 2015.05.23.
- * @package   szepulhu_functional_tests
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Page;
 
+use Exception\UnexpectedPageTitleException;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageException;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 
+/**
+ * Class CustomPage
+ *
+ * Extend capabilities of the PageObject extension.
+ *
+ * @package Page
+ * @author Dávid Hargitai <div@diatigrah.hu>
+ * @author Geza Buza <bghome@gmail.com>
+ */
 abstract class CustomPage extends Page
 {
+    /** @var string $title Define page title text. It can be a PCRE. */
+    protected $title;
+
     /**
      * @return string
      */
@@ -30,24 +43,61 @@ abstract class CustomPage extends Page
     /**
      * Return a list of matching elements on the page
      *
-     * @param string $name Index of the @see $this->elements configuration array.
+     * @param string $name Both inline or custom elements can be given. Same as @see Page::getElement() expects.
      * @return \Behat\Mink\Element\NodeElement[]
      */
     public function getElements($name)
     {
-        if (isset($this->elements[$name])) {
-            $configuration = $this->elements[$name];
-            if (is_array($configuration)) {
-                $selector = key($configuration);
-                $locator = current($configuration);
-            } else {
-                $selector = 'css';
-                $locator = $configuration;
-            }
+        $element = $this->createElement($name);
 
-            return $this->findAll($selector, $locator);
+        if (($elements = $this->findAll('xpath', $element->getXpath())) && count($elements) == 0) {
+            throw new ElementNotFoundException(sprintf('"%s" element is not present on the page', $name));
         }
 
-        throw new \InvalidArgumentException(sprintf('Class %s has no element defined with "%s".', __CLASS__, $name));
+        return $elements;
+    }
+
+    /**
+     * Overload to verify if the current url matches the expected one. Throw an exception otherwise.
+     *
+     * Use non set parameters in the URL path as wildcards.
+     *
+     * @param array $urlParameters
+     * @throws UnexpectedPageException
+     */
+    protected function verifyUrl(array $urlParameters = array())
+    {
+        $urlPattern = sprintf('#%s#U', preg_replace('#{[^{}]+}#', '.*', preg_quote($this->getUrl($urlParameters))));
+        if (!preg_match($urlPattern, $this->getSession()->getCurrentUrl())) {
+            throw new UnexpectedPageException(
+                sprintf(
+                    'Expected to be on "%s" but found "%s" instead',
+                    $this->getUrl($urlParameters),
+                    $this->getSession()->getCurrentUrl()
+                )
+            );
+        }
+    }
+
+    /**
+     * Check whether the title of the current page matches
+     *
+     * If the title variable is null, the verification is skipped.
+     *
+     * @throws UnexpectedPageTitleException
+     */
+    public function verifyTitle()
+    {
+        $titleElement = $this->getSession()->getPage()->find('css', 'head > title');
+        $currentTitle = is_null($titleElement) ? '' : $titleElement->getHtml();
+        if (isset($this->title) && !preg_match(sprintf('#%s#', str_replace('#', '\#', $this->title)), $currentTitle)) {
+            throw new UnexpectedPageTitleException(
+                sprintf(
+                    'Expected to see page title "%s", but got "%s".',
+                    $this->title,
+                    $currentTitle
+                )
+            );
+        }
     }
 }

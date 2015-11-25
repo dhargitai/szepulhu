@@ -20,5 +20,40 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
  */
 class ResultItem extends Element
 {
-    protected $selector = 'div.professional';
+    protected $selector = 'tr.professional';
+
+    public function hasName()
+    {
+        return $this->has('css', '.professionalName');
+    }
+
+    public function hasProfession()
+    {
+        return $this->has('css', '.professionalProfession');
+    }
+
+    public function hasSalon()
+    {
+        return $this->has('css', '.professionalSalon');
+    }
+
+    public function hasPostalAddress()
+    {
+        return $this->has('css', '.professionalAddress');
+    }
+
+    public function hasLinkToProfile()
+    {
+        return $this->has('css', 'a[href^="/"]');
+    }
+
+    public function hasLinkToMap()
+    {
+        return $this->has('css', '.professionalAddress > a');
+    }
+
+    public function hasPhoto()
+    {
+        return $this->has('css', 'a > img');
+    }
 }

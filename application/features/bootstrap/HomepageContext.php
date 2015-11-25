@@ -103,11 +103,12 @@ class HomepageContext extends PageObjectContext implements Context, SnippetAccep
     }
 
     /**
-     * @When I select :countyName county in the location selector
+     * @When I select :name county in the location selector
+     * @When I select :name city in the location selector
      */
-    public function iSelectCountyInTheLocationSelector($countyName)
+    public function iSelectTheLocation($name)
     {
-        $this->homepage->selectLocation($countyName);
+        $this->homepage->selectLocationOfFeaturedProfessionals($name);
     }
 
     /**
@@ -200,16 +201,6 @@ class HomepageContext extends PageObjectContext implements Context, SnippetAccep
             );
             throw new LogicException($message);
         }
-    }
-
-    /**
-     * @Given I select the :countyName county
-     *
-     * @param $countyName
-     */
-    public function iSelectTheCounty($countyName)
-    {
-        $this->homepage->selectLocation($countyName);
     }
 
     /**
