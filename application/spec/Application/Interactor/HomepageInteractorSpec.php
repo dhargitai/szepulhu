@@ -4,6 +4,7 @@ namespace spec\Application\Interactor;
 
 use Application\Entity\CityRepository;
 use Application\Entity\CountyRepository;
+use Application\Entity\ProfessionalUser;
 use Application\Entity\ProfessionalUserRepository;
 use Application\Interactor\FeaturedProfessionalsRequest;
 use Application\Interactor\FeaturedProfessionalsResponse;
@@ -34,6 +35,7 @@ class HomepageInteractorSpec extends ObjectBehavior
         $this->initCountyRepositoryDouble($countyRepository);
         $this->initFormFactoryDouble($formFactory, $form);
         $this->initFormDouble($form, $formView);
+        $this->initProfessionalRepositoryDouble($professionalRepository);
     }
 
     function it_is_initializable()
@@ -55,7 +57,9 @@ class HomepageInteractorSpec extends ObjectBehavior
         $featuredProfessionalsResponse = new FeaturedProfessionalsResponse(
             $featuredProfessionals,
             $numberOfFeaturedProfessionals,
-            $location
+            $location,
+            [],
+            []
         );
 
         $locator->getLocationByRequest($locationRequest)->shouldBeCalled()->willReturn($location);
@@ -73,19 +77,24 @@ class HomepageInteractorSpec extends ObjectBehavior
         $this->createResponse($request)->shouldHaveType('Application\Interactor\HomepageResponse');
     }
 
-    public function it_gathers_the_counties_with_featured_professionals($countyRepository)
-    {
-        $request = new HomepageRequest();
+    public function it_gathers_the_counties_with_featured_professionals(
+        $countyRepository, $locator, LocationRequest $locationRequest, Location $location
+    ) {
+        $request = new FeaturedProfessionalsRequest($locationRequest->getWrappedObject(), 4);
+        $locator->getLocationByRequest(Argument::any())->willReturn($location);
+
         $countyRepository->getCountiesWithActiveFeaturedProfessionals()->shouldBeCalled();
-        $this->createResponse($request);
+        $this->createFeaturedProfessionalsResponse($request);
     }
 
-    public function it_gathers_the_big_cities_with_featured_professionals($cityRepository)
-    {
-        $request = new HomepageRequest();
-        $cityRepository->getCapital()->shouldBeCalled();
+    public function it_gathers_the_big_cities_with_featured_professionals(
+        $cityRepository, $locator, LocationRequest $locationRequest, Location $location
+    ) {
+        $request = new FeaturedProfessionalsRequest($locationRequest->getWrappedObject(), 4);
+        $locator->getLocationByRequest(Argument::any())->willReturn($location);
+
         $cityRepository->getBigCitiesWithActiveFeaturedProfessionals()->shouldBeCalled();
-        $this->createResponse($request);
+        $this->createFeaturedProfessionalsResponse($request);
     }
 
     /**
@@ -117,5 +126,10 @@ class HomepageInteractorSpec extends ObjectBehavior
     private function initFormDouble(Form $form, FormView $formView)
     {
         $form->createView()->willReturn($formView);
+    }
+
+    private function initProfessionalRepositoryDouble($professionalRepository)
+    {
+        $professionalRepository->getFeaturedProfessionalsByLocation(Argument::cetera())->willReturn([]);
     }
 }

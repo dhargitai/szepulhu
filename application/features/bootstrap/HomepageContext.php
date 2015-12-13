@@ -184,7 +184,7 @@ class HomepageContext extends PageObjectContext implements Context, SnippetAccep
      */
     public function iWaitForTheFeaturedProfessionalsBlockSChanging()
     {
-        $this->homepage->getSession()->executeScript('Application.geolocateClosestFeaturedProfessionals();');
+        $this->homepage->getSession()->executeScript("Application.geolocateClosestFeaturedProfessionals($('select[name=locationSelector]'));");
         $this->homepage->waitForAjax();
     }
 

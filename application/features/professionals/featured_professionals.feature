@@ -22,8 +22,3 @@ Feature: Featured professionals
     Given the user shared his location's coordinates "46.21806000" as latitude and "19.88510000" as longitude
     When I wait for the featured professionals block's changing
     Then I should see "Szeged" in the location selector as nearest location
-
-  Scenario: Loading the stored nearest location with featured professionals
-    Given we stored "Szeged" "city" as nearest featured professional location earlier
-    When I am on the homepage
-    Then I should see "Szeged" in the location selector as nearest location

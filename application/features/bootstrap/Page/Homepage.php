@@ -30,7 +30,7 @@ class Homepage extends CustomPage
 
     protected $elements = [
         'featured_professionals' => ['xpath' => "//*[contains(@class, 'featuredProfessional')]"],
-        'featured_location' => '#locationSelector',
+        'featured_location' => 'select[name=locationSelector]',
     ];
 
     private $freeFeaturedProfessionalSlot;

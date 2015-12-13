@@ -22,11 +22,13 @@ var Application = (function() {
         /**
          * Update featured professionals section via AJAX method
          *
-         * The location of professionals is stored in a cookie, but at first time the method tries to find out the
-         * position based on the geolocation provider.
+         * The method tries to find out the position based on the geolocation provider and set the
+         * location selector (city, county) based on that.
+         *
+         * @param locationSelector An HTML Select element representing the location.
          */
-        geolocateClosestFeaturedProfessionals: function() {
-            if (!Cookies.get('location') && currentOptions.geolocationAdapter.isSupported()) {
+        geolocateClosestFeaturedProfessionals: function(locationSelector) {
+            if (currentOptions.geolocationAdapter.isSupported()) {
                 currentOptions.geolocationAdapter.getCurrentPosition(
                     function(location) {
                         if (location.coords.latitude && location.coords.longitude) {
@@ -38,8 +40,7 @@ var Application = (function() {
                                     longitude: location.coords.longitude
                                 },
                                 success: function(response) {
-                                    Cookies.set('location', response.location);
-                                    var $locationSelector = $('#locationSelector');
+                                    var $locationSelector = $(locationSelector);
                                     if ($locationSelector.val() != response.location.name) {
                                         $locationSelector.val(response.location.name).trigger('change');
                                     }

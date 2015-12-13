@@ -35,7 +35,7 @@ class DefaultController
     private $templating;
     private $interactor;
 
-    const LOCATION_COOKIE_NAME = 'location';
+    const LOCATION_PARAMETER_NAME = 'location';
 
     public function __construct(EngineInterface $templating, HomepageInteractor $interactor)
     {
@@ -69,20 +69,15 @@ class DefaultController
         $response = $this->interactor->createFeaturedProfessionalsResponse(
             $this->createFeaturedProfessionalsRequest($request)
         );
-        $httpResponse = $this->templating->renderResponse(
+        return $this->templating->renderResponse(
             '_featuredProfessionals.html.twig',
             $response->asArray()
         );
-        $locationCookie = new Cookie(self::LOCATION_COOKIE_NAME, json_encode($response->location->asArray()));
-        $httpResponse->headers->setCookie($locationCookie);
-        return $httpResponse;
     }
 
     private function createFeaturedProfessionalsRequest(Request $request)
     {
-        $locationData = $request->request->get(self::LOCATION_COOKIE_NAME) ?: (array)json_decode($request->cookies->get(
-            self::LOCATION_COOKIE_NAME
-        ));
+        $locationData = $request->request->get(self::LOCATION_PARAMETER_NAME, []);
         return new FeaturedProfessionalsRequest(
             LocationRequest::createFromArray($locationData),
             $request->request->get('numberOfFeaturedProfessionals', 6)
@@ -100,7 +95,7 @@ class DefaultController
         $response = new JsonResponse();
         $response->setData(
             [
-                self::LOCATION_COOKIE_NAME => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
+                self::LOCATION_PARAMETER_NAME => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
                     LocationRequest::createFromArray(
                         [
                             'latitude'  => $request->get('latitude'),

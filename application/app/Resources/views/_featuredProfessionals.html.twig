@@ -1,28 +1,42 @@
-<ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-    {% for i in 0..(numberOfFeaturedProfessionals-1) %}
-        {% if featuredProfessionals[i] is defined %}
-            {% set professional = featuredProfessionals[i] %}
-            <li>
-                <div class="panel featuredProfessional" data-id="{{ professional.id }}">
-                    <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
-                        {% thumbnail professional.profilePicture, 'medium_square' %}
-                    </a>
+<form action="">
+    <select name="locationSelector" autocomplete="off">
+        {% for city in bigCitiesWithFeaturedProfessionals %}
+            <option value="{{ city.name }}" data-type="city"{% if location.type == 'city' and location.name == city.name %} selected="selected"{% endif %}>{{ city.name }}</option>
+        {% endfor %}
+        <option value="" disabled>-----------------------</option>
+        {% for county in countiesWithFeaturedProfessionals %}
+            <option value="{{ county.name }}" data-type="county"{% if location.type == 'county' and location.name == county.name %} selected="selected"{% endif %}>{{ 'homepage.countyoption'|trans({'%countyName%': county.name}) }}</option>
+        {% endfor %}
+    </select>
+</form>
 
-                    <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ 'professional.name'|trans({'%firstname%': professional.firstName, '%lastname%': professional.lastName}) }}</a></span><br>
-                    <span class="professionalProfession">{{ professional.profession }}</span>
-                </div>
-            </li>
-        {% else %}
-            <li>
-                <div class="panel featuredProfessional free">
-                    <a href="{{ path('professional_registration_flow') }}">
-                        <img src="img/silhouette_{{ random(['male', 'female']) }}.jpg" alt=""/>
-                    </a>
-
-                    <span class="professionalName">{{ 'homepage.listYourselfHere'|trans }}</span><br>
-                    <span class="professionalProfession"><a href="{{ path('professional_registration_flow') }}">{{ 'homepage.clickHere'|trans }}</a></span>
-                </div>
-            </li>
-        {% endif %}
-    {% endfor %}
-</ul>
+<article>
+    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+        {% for i in 0..(numberOfFeaturedProfessionals-1) %}
+            {% if featuredProfessionals[i] is defined %}
+                {% set professional = featuredProfessionals[i] %}
+                <li>
+                    <div class="panel featuredProfessional" data-id="{{ professional.id }}">
+                        <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                            {% thumbnail professional.profilePicture, 'medium_square' %}
+                        </a>
+    
+                        <span class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ 'professional.name'|trans({'%firstname%': professional.firstName, '%lastname%': professional.lastName}) }}</a></span><br>
+                        <span class="professionalProfession">{{ professional.profession }}</span>
+                    </div>
+                </li>
+            {% else %}
+                <li>
+                    <div class="panel featuredProfessional free">
+                        <a href="{{ path('professional_registration_flow') }}">
+                            <img src="img/silhouette_{{ random(['male', 'female']) }}.jpg" alt=""/>
+                        </a>
+    
+                        <span class="professionalName">{{ 'homepage.listYourselfHere'|trans }}</span><br>
+                        <span class="professionalProfession"><a href="{{ path('professional_registration_flow') }}">{{ 'homepage.clickHere'|trans }}</a></span>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</article>

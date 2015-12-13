@@ -17,15 +17,21 @@ use Application\Model\ValueObject;
  * @property-read array $featuredProfessionals
  * @property-read int $numberOfFeaturedProfessionals
  * @property-read Location $location
+ * @property-read \Application\Entity\ProfessionalUser[] $bigCitiesWithFeaturedProfessionals
+ * @property-read \Application\Entity\ProfessionalUser[] $countiesWithFeaturedProfessionals
  */
 class FeaturedProfessionalsResponse extends ValueObject
 {
-    public function __construct(array $featuredProfessionals, $numberOfFeaturedProfessionals, Location $location)
-    {
+    public function __construct(
+        array $featuredProfessionals, $numberOfFeaturedProfessionals, Location $location,
+        array $bigCitiesWithFeaturedProfessionals, array $countiesWithFeaturedProfessionals
+    ) {
         $this->value = [
             'featuredProfessionals' => $featuredProfessionals,
             'numberOfFeaturedProfessionals' => $numberOfFeaturedProfessionals,
             'location' => $location,
+            'bigCitiesWithFeaturedProfessionals' => $bigCitiesWithFeaturedProfessionals,
+            'countiesWithFeaturedProfessionals' => $countiesWithFeaturedProfessionals,
         ];
     }
 }
