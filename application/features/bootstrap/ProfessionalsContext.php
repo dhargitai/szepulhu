@@ -9,8 +9,13 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
+use Exception\PropertyNotFoundException;
 use Page\Homepage;
+use Page\Professionals\SearchResult;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageException;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class ProfessionalsContext
@@ -26,9 +31,13 @@ class ProfessionalsContext implements Context
     /** @var Page $currentPage */
     private $currentPage;
 
-    public function __construct(Homepage $homepage)
+    /** @var SearchResult $searchResultPage */
+    private $searchResultPage;
+
+    public function __construct(Homepage $homepage, SearchResult $searchResultPage)
     {
         $this->homepage = $homepage;
+        $this->searchResultPage = $searchResultPage;
     }
 
     /**
@@ -64,7 +73,7 @@ class ProfessionalsContext implements Context
      */
     public function iShouldSeeTheListOfMatchingProfessionals()
     {
-        /** @var \Page\Professionals\SearchResult $currentPage  */
+        /** @var SearchResult $currentPage  */
         $currentPage = $this->currentPage;
         $currentPage->getItems();
     }
@@ -90,8 +99,65 @@ class ProfessionalsContext implements Context
      */
     public function iShouldNotSeeAnyResult()
     {
-        /** @var \Page\Professionals\SearchResult $currentPage  */
+        /** @var SearchResult $currentPage  */
         $currentPage = $this->currentPage;
         $currentPage->hasNoItems();
+    }
+
+    /**
+     * @Then /^I should see basic information about a list of featured professionals like$/
+     */
+    public function iShouldSeeBasicInformationAboutAListOfFeaturedProfessionalsLike(TableNode $table)
+    {
+        foreach ($table->getColumnsHash() as $row) {
+            $this->homepage->ensureFeaturedProfessionalExist($row['Name'], $row['Profession'], $row['Photo']);
+        }
+    }
+
+    /**
+     * @Then I should be on the Book an Appointment page
+     */
+    public function iShouldBeOnTheSearchResultPage()
+    {
+        if (!$this->searchResultPage->isOpen()) {
+            throw new UnexpectedPageException('The current page is expected to be the search result page.');
+        }
+        $this->searchResultPage->verifyTitle();
+    }
+
+    /**
+     * @When I select the location :name on the search form
+     */
+    public function iSelectTheLocationOnTheSearchForm($name)
+    {
+        $this->homepage->selectLocationSearchParameter($name);
+    }
+
+    /**
+     * @Then I should see basic information of a professional
+     */
+    public function iShouldSeeBasicInformationOfAProfessional(TableNode $table)
+    {
+        /** @var \Page\Element\Professionals\ResultItem $professionalElement */
+        $professionalElement = $this->searchResultPage->getFirstItem();
+        foreach ($table->getColumn(0) as $propertyName) {
+            $methodName = Container::camelize('has_' . $propertyName);
+            if (!method_exists($professionalElement, $methodName)) {
+                throw new \RuntimeException(
+                    sprintf('Cannot verify property "%s" of professional user.', $propertyName)
+                );
+            }
+
+            if (!$professionalElement->$methodName()) {
+                throw $this->createPropertyNotFoundException($professionalElement, $propertyName);
+            }
+        }
+    }
+
+    private function createPropertyNotFoundException(Element $element, $propertyName)
+    {
+        return new PropertyNotFoundException(
+            sprintf('Element "%s" has no property "%s".', get_class($element), $propertyName)
+        );
     }
 }

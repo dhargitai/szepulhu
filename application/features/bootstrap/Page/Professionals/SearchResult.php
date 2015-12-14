@@ -7,8 +7,9 @@
  */
 
 namespace Page\Professionals;
+
 use Exception\ElementFoundException;
-use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
+use Page\CustomPage;
 
 
 /**
@@ -19,13 +20,19 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
  * @package Page\Professionals
  * @author Geza Buza <bghome@gmail.com>
  */
-class SearchResult extends Page
+class SearchResult extends CustomPage
 {
-    protected $path = '/service/search';
+    protected $path = '/service/search/{parameters}';
 
+    protected $title = 'Book an Appointment';
+
+    /**
+     * @return \SensioLabs\Behat\PageObjectExtension\PageObject\Element[]
+     * @throws \SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException
+     */
     public function getItems()
     {
-        return $this->getElement('Professionals\Result item');
+        return $this->getElements('Professionals\Result item');
     }
 
     public function hasNoItems()
@@ -33,5 +40,14 @@ class SearchResult extends Page
         if ($this->hasElement('Professionals\Result item')) {
             throw new ElementFoundException($this->getSession(), 'Result item');
         }
+    }
+
+    /**
+     * @return \SensioLabs\Behat\PageObjectExtension\PageObject\Element
+     * @throws \SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException
+     */
+    public function getFirstItem()
+    {
+        return $this->getElement('Professionals\Result item');
     }
 }

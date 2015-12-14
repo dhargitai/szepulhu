@@ -21,17 +21,17 @@ class SalonInteractor
     public function createSalonResponse(SalonRequest $request)
     {
         $salon = $this->repostory->findOneBy(array('slug' => $request->slug));
-        return new SalonResponse(array(
-            'picture' => $salon->getPicture(),
-            'name' => $salon->getName(),
-            'address' => $salon->getAddress(),
-            'addressAdditional' => $salon->getAddressAdditional(),
-            'city' => $salon->getCity(),
-            'postCode' => $salon->getPostCode(),
-            'phone' => $salon->getPhone(),
-            'mapUrl' => $salon->getMapUrl(),
-            'map' => $salon->getMap(),
-            'professionals' => $salon->getProfessionals(),
-        ));
+        return new SalonResponse(
+            $salon->getPicture(),
+            $salon->getName(),
+            $salon->getAddress(),
+            $salon->getAddressAdditional(),
+            $salon->getCity(),
+            $salon->getPostCode(),
+            $salon->getPhone(),
+            $salon->getMapUrl(),
+            $salon->getMap(),
+            $salon->getProfessionals()
+        );
     }
 }

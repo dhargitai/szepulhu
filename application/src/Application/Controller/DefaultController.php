@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file is part of the szepul.hu application.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Application\Controller;
 
@@ -16,6 +22,7 @@ use Application\Entity\ClientUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +34,8 @@ class DefaultController
 {
     private $templating;
     private $interactor;
+
+    const LOCATION_PARAMETER_NAME = 'location';
 
     public function __construct(EngineInterface $templating, HomepageInteractor $interactor)
     {
@@ -42,7 +51,7 @@ class DefaultController
     public function indexAction()
     {
         $searchParameters = new ServiceSearchParameters();
-        $response = $this->interactor->createResponse(new HomepageRequest(['searchParameters' => $searchParameters]));
+        $response = $this->interactor->createResponse(new HomepageRequest($searchParameters));
         return $this->templating->renderResponse(
             'index.html.twig',
             $response->asArray()
@@ -68,12 +77,10 @@ class DefaultController
 
     private function createFeaturedProfessionalsRequest(Request $request)
     {
-        $locationData = $request->request->get('location') ?: (array)json_decode($request->cookies->get('location'));
+        $locationData = $request->request->get(self::LOCATION_PARAMETER_NAME, []);
         return new FeaturedProfessionalsRequest(
-            [
-                'numberOfFeaturedProfessionals' => $request->request->get('numberOfFeaturedProfessionals', 6),
-                'locationRequest'               => new LocationRequest($locationData),
-            ]
+            LocationRequest::createFromArray($locationData),
+            $request->request->get('numberOfFeaturedProfessionals', 6)
         );
     }
 
@@ -88,8 +95,8 @@ class DefaultController
         $response = new JsonResponse();
         $response->setData(
             [
-                'location' => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
-                    new LocationRequest(
+                self::LOCATION_PARAMETER_NAME => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
+                    LocationRequest::createFromArray(
                         [
                             'latitude'  => $request->get('latitude'),
                             'longitude' => $request->get('longitude'),

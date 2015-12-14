@@ -251,6 +251,14 @@
                 <source>professionals.search.no_results</source>
                 <target>Alter search parameters to get results.</target>
             </trans-unit>
+            <trans-unit id="professionals.search.address_on_map">
+                <source>professionals.search.address_on_map</source>
+                <target>View on map</target>
+            </trans-unit>
+            <trans-unit id="professionals.search.page_title">
+                <source>professionals.search.page_title</source>
+                <target>Book an Appointment</target>
+            </trans-unit>
             <trans-unit id="layout.logged_in_as">
                 <source>layout.logged_in_as</source>
                 <target>Welcome %firstname% %lastname%!</target>

@@ -29,3 +29,31 @@ Feature: Homepage
     When I press the "Search" button
     Then I should see the message "Alter search parameters to get results."
     And I should not see any result
+
+  Scenario: View featured professionals
+    Given I am logged out
+    When I visit the homepage
+    Then I should see basic information about a list of featured professionals like
+      | Name          | Profession  | Photo                                                             |
+      | Jakabné Gipsz | Fodrász     | stock-photo-young-woman-portrait-isolated-on-white-115309930.jpg  |
+
+  Scenario: Filter featured professionals by region
+    Given I am logged out
+    When I go to the homepage
+    And I select "Csongrád" county in the location selector
+    Then I should see only professionals from "Csongrád" county
+
+  Scenario: Browse the list of professionals
+    Given I am logged out
+    And I am on the homepage
+    When I select the location "szeged" on the search form
+    And I press the "Search" button
+    Then I should be on the Book an Appointment page
+    And I should see basic information of a professional
+      | name            |
+      | profession      |
+      | salon           |
+      | postal_address  |
+      | link_to_profile |
+      | link_to_map     |
+      | photo           |

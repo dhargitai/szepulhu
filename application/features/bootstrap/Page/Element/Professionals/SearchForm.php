@@ -7,6 +7,7 @@
  */
 
 namespace Page\Element\Professionals;
+
 use Behat\Mink\Element\NodeElement;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
 
@@ -53,5 +54,10 @@ class SearchForm extends Element
         foreach ($this->findAll('css', 'input,select') as $element) {
             $element->setValue('');
         }
+    }
+
+    public function fillLocation($value)
+    {
+        $this->fillField('app_professional_search_location', $value);
     }
 }

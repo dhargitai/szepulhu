@@ -9,7 +9,7 @@
 
 namespace Page;
 
-use Behat\Mink\Exception\ElementNotFoundException;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException;
 
 class ProfessionalProfile extends CustomPage
 {
@@ -20,6 +20,10 @@ class ProfessionalProfile extends CustomPage
 
     public function getSlugOfTheSalon()
     {
-        return ltrim($this->find('css', 'a.salonLink')->getAttribute('href'), '/');
+        if (($element = $this->find('css', 'a.salonLink')) !== null) {
+            return ltrim($element->getAttribute('href'), '/');
+        }
+
+        throw new ElementNotFoundException('Link to the salon page has not found.');
     }
 }

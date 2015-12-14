@@ -8,8 +8,9 @@
 
 namespace Page;
 
+use Page\Element\Professionals\FeaturedProfessional;
+use Page\Element\Professionals\FeaturedProfessional\ElementFinder;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException;
-use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 
 /**
  * Class Homepage
@@ -26,6 +27,11 @@ class Homepage extends CustomPage
      * @var string $path
      */
     protected $path = '/';
+
+    protected $elements = [
+        'featured_professionals' => ['xpath' => "//*[contains(@class, 'featuredProfessional')]"],
+        'featured_location' => 'select[name=locationSelector]',
+    ];
 
     private $freeFeaturedProfessionalSlot;
 
@@ -50,9 +56,9 @@ class Homepage extends CustomPage
         return !is_null($menuItem);
     }
 
-    public function selectLocation($locationName)
+    public function selectLocationOfFeaturedProfessionals($locationName)
     {
-        $this->find('css', '#locationSelector')->selectOption($locationName);
+        $this->getElement('featured_location')->selectOption($locationName);
         $this->waitForAjax();
     }
 
@@ -76,6 +82,19 @@ class Homepage extends CustomPage
         $xpathSelector = sprintf("//a[contains(@href, '%s')]", $href);
         $link = $freeSlot->find('xpath', $xpathSelector);
         return !is_null($link);
+    }
+
+    public function ensureFeaturedProfessionalExist($name, $profession, $photo)
+    {
+        /** @var FeaturedProfessional $featuredProfessional */
+        $featuredProfessional = $this->getElement('Professionals\Featured Professional');
+
+        /** @var ElementFinder $finder */
+        $finder = $featuredProfessional->getElementFinder();
+        $finder->addNameFilter($name);
+        $finder->addProfessionFilter($profession);
+        $finder->addPhotoFilter($photo);
+        $finder->find($this);
     }
 
     public function fillSearchField($label, $value)
@@ -112,7 +131,7 @@ class Homepage extends CustomPage
 
     public function getSelectedLocation()
     {
-        return $this->find('css', '#locationSelector')->getValue();
+        return $this->getElement('featured_location')->getValue();
     }
 
     public function clearSearchForm()
@@ -125,5 +144,24 @@ class Homepage extends CustomPage
         if (!$this->getElement('Clients\Navigation\Top menu')->isValid()) {
             throw new ElementNotFoundException('Client top menu on current page does not found.');
         }
+    }
+
+    /**
+     * @return array List of user IDs.
+     */
+    public function getFeaturedProfessionalsIds()
+    {
+        $userIds = [];
+        foreach ($this->getElements('featured_professionals') as $user) {
+            if ($user->hasAttribute('data-id')) {
+                $userIds[] = $user->getAttribute('data-id');
+            }
+        }
+        return $userIds;
+    }
+
+    public function selectLocationSearchParameter($name)
+    {
+        $this->getSearchForm()->fillLocation($name);
     }
 }

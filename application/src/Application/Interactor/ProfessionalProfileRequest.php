@@ -13,8 +13,12 @@ use Application\Model\ValueObject;
  * Class ProfessionalProfileRequest
  * @package Application\Interactor
  *
- * @property string $slug
+ * @property-read string $slug
  */
 class ProfessionalProfileRequest extends ValueObject
 {
+    public function __construct($slug)
+    {
+        $this->value['slug'] = $slug;
+    }
 }

@@ -29,10 +29,10 @@ class LocatorSpec extends ObjectBehavior
 
     public function let(CityRepository $cityRepository, CountyRepository $countyRepository)
     {
-        $this->location = new Location([
-            'name' => $this->locationName,
-            'type' => Location::TYPE_CITY,
-        ]);
+        $this->location = new Location(
+            Location::TYPE_CITY,
+            $this->locationName
+        );
 
         $this->beConstructedWith($cityRepository, $countyRepository);
     }
@@ -43,20 +43,23 @@ class LocatorSpec extends ObjectBehavior
     }
 
     public function it_returns_the_default_location_to_an_empty_location_request(
-        LocationRequest $request,
         CityRepository $cityRepository,
         City $capital
     ) {
+        $latitude = $longitude = $ip = '';
+        $request = new LocationRequest('', '', $latitude, $longitude, $ip);
+
         $capital->getName()->shouldBeCalled()->willReturn($this->locationName);
         $cityRepository->getCapital()->shouldBeCalled()->willReturn($capital);
 
         $this->getLocationByRequest($request)->shouldBeLike($this->location);
     }
 
-    public function it_returns_the_location_object_if_the_correct_request_data_is_available(LocationRequest $request)
+    public function it_returns_the_location_object_if_the_correct_request_data_is_available()
     {
-        $request->name = $this->locationName;
-        $request->type = Location::TYPE_CITY;
+        $latitude = $longitude = $ip = '';
+        $request = new LocationRequest($this->locationName, Location::TYPE_CITY, $latitude, $longitude, $ip);
+
         $this->getLocationByRequest($request)->shouldBeLike($this->location);
     }
 

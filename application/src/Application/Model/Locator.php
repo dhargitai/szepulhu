@@ -54,10 +54,10 @@ class Locator
     {
         try {
             $closestCity = $this->cityRepository->getClosestBigCityWithActiveFeaturedProfessionals($request);
-            return new Location([
-                'name' => $closestCity->getName(),
-                'type' => Location::TYPE_CITY,
-            ]);
+            return new Location(
+                Location::TYPE_CITY,
+                $closestCity->getName()
+            );
         } catch (\DomainException $e) {
             return $this->getDefaultLocation();
         }
@@ -70,14 +70,14 @@ class Locator
      */
     public function getLocationByRequest(LocationRequest $request)
     {
-        try {
-            return new Location([
-                'name' => $request->name,
-                'type' => $request->type,
-            ]);
-        } catch (\Exception $e) {
-            return $this->getDefaultLocation();
+        if (!empty($request->type) && !empty($request->name)) {
+            return new Location(
+                $request->type,
+                $request->name
+            );
         }
+
+        return $this->getDefaultLocation();
     }
 
     /**
@@ -88,10 +88,8 @@ class Locator
         if (!$this->defaultLocation) {
             $capital = $this->cityRepository->getCapital();
             $this->defaultLocation = new Location(
-                [
-                    'type' => Location::TYPE_CITY,
-                    'name' => $capital->getName(),
-                ]
+                Location::TYPE_CITY,
+                $capital->getName()
             );
         }
         return $this->defaultLocation;

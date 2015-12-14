@@ -8,15 +8,17 @@
 namespace Application\Interactor;
 
 use Application\Model\ValueObject;
+use Symfony\Component\Form\FormView;
 
 /**
  * Class HomepageResponse
  * @package Application\Interactor
  *
- * @property string $capitalCity
- * @property \Application\Entity\ProfessionalUser[] $bigCitiesWithFeaturedProfessionals
- * @property \Application\Entity\ProfessionalUser[] $countiesWithFeaturedProfessionals
+ * @property-read FormView $searchForm
  */
 class HomepageResponse extends ValueObject
 {
+    public function __construct(FormView $searchForm) {
+        $this->value = ['searchForm' => $searchForm];
+    }
 }

@@ -60,22 +60,12 @@ class HomepageInteractor
      */
     public function createResponse(HomepageRequest $request)
     {
-        $capitalCity = $this->cityRepository->getCapital();
-        $cities = $this->cityRepository->getBigCitiesWithActiveFeaturedProfessionals();
-        $counties = $this->countyRepository->getCountiesWithActiveFeaturedProfessionals();
         $searchForm = $this->formFactory->create(
             new ServiceSearch(),
             $request->searchParameters,
             ['validation_groups' => ['search']]
         );
-        return new HomepageResponse(
-            [
-                'capitalCity'                        => $capitalCity,
-                'bigCitiesWithFeaturedProfessionals' => $cities,
-                'countiesWithFeaturedProfessionals'  => $counties,
-                'searchForm'                         => $searchForm->createView()
-            ]
-        );
+        return new HomepageResponse($searchForm->createView());
     }
 
     /**
@@ -85,15 +75,19 @@ class HomepageInteractor
      */
     public function createFeaturedProfessionalsResponse(FeaturedProfessionalsRequest $request)
     {
+        $locationFound = $this->locator->getLocationByRequest($request->locationRequest);
         $featuredProfessionals = $this->professionalRepository->getFeaturedProfessionalsByLocation(
-            $this->locator->getLocationByRequest($request->locationRequest),
+            $locationFound,
             $request->numberOfFeaturedProfessionals
         );
+        $cities = $this->cityRepository->getBigCitiesWithActiveFeaturedProfessionals();
+        $counties = $this->countyRepository->getCountiesWithActiveFeaturedProfessionals();
         return new FeaturedProfessionalsResponse(
-            [
-                'featuredProfessionals'         => $featuredProfessionals,
-                'numberOfFeaturedProfessionals' => $request->numberOfFeaturedProfessionals,
-            ]
+            $featuredProfessionals,
+            $request->numberOfFeaturedProfessionals,
+            $locationFound,
+            $cities,
+            $counties
         );
     }
 

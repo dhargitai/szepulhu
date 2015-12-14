@@ -15,14 +15,20 @@ use Application\Model\ValueObject;
  * @package Application\Interactor
  * @author Hargitai Dávid <div@diatigrah.hu>
  *
- * @property string type
- * @property string name
- * @property string latitude
- * @property string longitude
+ * @property-read string $type
+ * @property-read string $name
  */
 class Location extends ValueObject
 {
     const TYPE_CITY = 'city';
     const TYPE_COUNTY = 'county';
     const TYPE_COUNTRY = 'country';
+
+    public function __construct($type, $name)
+    {
+        $this->value = [
+            'type' => $type,
+            'name' => $name,
+        ];
+    }
 }

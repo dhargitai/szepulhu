@@ -9,6 +9,7 @@ use Application\Entity\ProfessionalUserRepository;
 use Application\Interactor\ProfessionalProfileRequest;
 use Application\Interactor\ProfessionalProfileResponse;
 use Application\Sonata\MediaBundle\Entity\Gallery;
+use Doctrine\Common\Collections\Collection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,12 +18,18 @@ class ProfessionalProfileInteractorSpec extends ObjectBehavior
     private $request;
     private $repository;
     private $professional;
+    private $serviceGroups;
+    private $recommendations;
 
-    public function let(ProfessionalUserRepository $repository, ProfessionalUser $professional)
-    {
-        $this->request = new ProfessionalProfileRequest(['slug' => '/peldabela-szalon']);
+    public function let(
+        ProfessionalUserRepository $repository, ProfessionalUser $professional,
+        Collection $serviceGroups, Collection $recommendations
+    ) {
+        $this->request = new ProfessionalProfileRequest('/peldabela-szalon');
         $this->repository = $repository;
         $this->professional = $professional;
+        $this->serviceGroups = $serviceGroups;
+        $this->recommendations = $recommendations;
 
         $this->beConstructedWith($this->repository);
 
@@ -35,8 +42,8 @@ class ProfessionalProfileInteractorSpec extends ObjectBehavior
         $this->professional->getBiography()->willReturn('...');
         $this->professional->getGallery()->willReturn(new Gallery());
         $this->professional->getSlug()->willReturn('/peldabela-szalon');
-        $this->professional->getServiceGroups()->willReturn(new ServiceGroup());
-        $this->professional->getRecommendations()->willReturn(array());
+        $this->professional->getServiceGroups()->willReturn($serviceGroups);
+        $this->professional->getRecommendations()->willReturn($recommendations);
         $this->professional->getWebsite()->willReturn('www.peldabela.hu');
         $this->professional->getBlogPage()->willReturn('blog.peldabela.hu');
         $this->professional->getFacebookPage()->willReturn('http://facebook.com/peldabela');
@@ -85,8 +92,8 @@ class ProfessionalProfileInteractorSpec extends ObjectBehavior
         $response->biography->shouldReturn('...');
         $response->gallery->shouldHaveType('Application\Sonata\MediaBundle\Entity\Gallery');
         $response->slug->shouldReturn('/peldabela-szalon');
-        $response->serviceGroups->shouldHaveType('Application\Entity\Professional\ServiceGroup');
-        $response->recommendations->shouldReturn(array());
+        $response->serviceGroups->shouldReturn($this->serviceGroups);
+        $response->recommendations->shouldReturn($this->recommendations);
         $response->website->shouldReturn('www.peldabela.hu');
         $response->blogPage->shouldReturn('blog.peldabela.hu');
         $response->facebookPage->shouldReturn('http://facebook.com/peldabela');

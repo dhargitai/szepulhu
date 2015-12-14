@@ -9,7 +9,19 @@ namespace Application\Interactor;
 
 use Application\Model\ValueObject;
 
+/**
+ * Class HomepageRequest
+ *
+ * @package Application\Interactor
+ *
+ * @property-read string $searchParameters
+ *
+ * @author Geza Buza <bghome@gmail.com>
+ */
 class HomepageRequest extends ValueObject
 {
-    protected $value = ['searchParameters' => ''];
+    public function __construct($searchParameters = '')
+    {
+        $this->value['searchParameters'] = $searchParameters;
+    }
 }
