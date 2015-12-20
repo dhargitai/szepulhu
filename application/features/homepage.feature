@@ -33,6 +33,7 @@ Feature: Homepage
   Scenario: View featured professionals
     Given I am logged out
     When I visit the homepage
+    And I select "Budapest" city in the location selector
     Then I should see basic information about a list of featured professionals like
       | Name          | Profession  | Photo                                                             |
       | Jakabné Gipsz | Fodrász     | stock-photo-young-woman-portrait-isolated-on-white-115309930.jpg  |

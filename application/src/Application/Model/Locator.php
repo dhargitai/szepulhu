@@ -64,23 +64,6 @@ class Locator
     }
 
     /**
-     * @param LocationRequest $request
-     *
-     * @return Location
-     */
-    public function getLocationByRequest(LocationRequest $request)
-    {
-        if (!empty($request->type) && !empty($request->name)) {
-            return new Location(
-                $request->type,
-                $request->name
-            );
-        }
-
-        return $this->getDefaultLocation();
-    }
-
-    /**
      * @return Location
      */
     public function getDefaultLocation()
