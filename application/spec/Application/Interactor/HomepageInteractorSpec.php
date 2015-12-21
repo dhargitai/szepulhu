@@ -44,14 +44,12 @@ class HomepageInteractorSpec extends ObjectBehavior
     }
 
     public function it_gathers_the_featured_professionals_of_location(
-        ProfessionalUserRepository $professionalRepository,
-        Locator $locator
+        ProfessionalUserRepository $professionalRepository
     ) {
-        $locationRequest = new LocationRequest('Pecs', Location::TYPE_CITY, 0, 0, '127.0.0.1');
         $location = new Location(Location::TYPE_CITY, 'Pecs');
         $numberOfFeaturedProfessionals = 6;
         $featuredProfessionalsRequest = new FeaturedProfessionalsRequest(
-            $locationRequest, $numberOfFeaturedProfessionals
+            $location, $numberOfFeaturedProfessionals
         );
         $featuredProfessionals = [];
         $featuredProfessionalsResponse = new FeaturedProfessionalsResponse(
@@ -62,7 +60,6 @@ class HomepageInteractorSpec extends ObjectBehavior
             []
         );
 
-        $locator->getLocationByRequest($locationRequest)->shouldBeCalled()->willReturn($location);
         $professionalRepository->getFeaturedProfessionalsByLocation($location, $numberOfFeaturedProfessionals)
             ->shouldBeCalled()->willReturn($featuredProfessionals);
 
@@ -77,21 +74,39 @@ class HomepageInteractorSpec extends ObjectBehavior
         $this->createResponse($request)->shouldHaveType('Application\Interactor\HomepageResponse');
     }
 
+    public function it_creates_request_from_location_name(Location $location)
+    {
+        $maxItems = 5;
+
+        $this->createFeaturedProfessionalsRequestFromLocation($location, $maxItems)
+            ->shouldHaveType('Application\Interactor\FeaturedProfessionalsRequest');
+    }
+
+    public function it_creates_request_from_location_coordinates(LocationRequest $request, $locator, Location $location)
+    {
+        $maxItems = 5;
+
+        $locator->findClosestFeaturedProfessionals($request)->willReturn($location);
+
+        $this->createFeaturedProfessionalsRequestFromLocationRequest($request, $maxItems)
+            ->shouldHaveType('Application\Interactor\FeaturedProfessionalsRequest');
+    }
+
     public function it_gathers_the_counties_with_featured_professionals(
-        $countyRepository, $locator, LocationRequest $locationRequest, Location $location
+        $countyRepository, Location $location
     ) {
-        $request = new FeaturedProfessionalsRequest($locationRequest->getWrappedObject(), 4);
-        $locator->getLocationByRequest(Argument::any())->willReturn($location);
+        $maxItems = 4;
+        $request = $this->createFeaturedProfessionalsRequestFromLocation($location, $maxItems);
 
         $countyRepository->getCountiesWithActiveFeaturedProfessionals()->shouldBeCalled();
         $this->createFeaturedProfessionalsResponse($request);
     }
 
     public function it_gathers_the_big_cities_with_featured_professionals(
-        $cityRepository, $locator, LocationRequest $locationRequest, Location $location
+        $cityRepository, Location $location
     ) {
-        $request = new FeaturedProfessionalsRequest($locationRequest->getWrappedObject(), 4);
-        $locator->getLocationByRequest(Argument::any())->willReturn($location);
+        $maxItems = 4;
+        $request = $this->createFeaturedProfessionalsRequestFromLocation($location, $maxItems);
 
         $cityRepository->getBigCitiesWithActiveFeaturedProfessionals()->shouldBeCalled();
         $this->createFeaturedProfessionalsResponse($request);

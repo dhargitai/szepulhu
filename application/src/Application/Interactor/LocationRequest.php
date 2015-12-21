@@ -15,18 +15,16 @@ use Application\Model\ValueObject;
  * @package Application\Interactor
  * @author Hargitai Dávid <div@diatigrah.hu>
  *
- * @property-read string $name
- * @property-read string $type
  * @property-read string $latitude
  * @property-read string $longitude
  * @property-read string $ip
  */
 class LocationRequest extends ValueObject
 {
-    public function __construct($name, $type, $latitude, $longitude, $ip)
+    public function __construct($latitude, $longitude, $ip)
     {
         $this->value = [
-            'name' => $name, 'type' => $type, 'latitude' => $latitude, 'longitude' => $longitude, 'ip' => $ip
+            'latitude' => $latitude, 'longitude' => $longitude, 'ip' => $ip
         ];
     }
 
@@ -34,8 +32,6 @@ class LocationRequest extends ValueObject
     {
         $data = array_merge(
             [
-                'name' => '',
-                'type' => '',
                 'latitude' => '',
                 'longitude' => '',
                 'ip' => '',
@@ -43,6 +39,6 @@ class LocationRequest extends ValueObject
             $data
         );
 
-        return new self($data['name'], $data['type'], $data['latitude'], $data['longitude'], $data['ip']);
+        return new self($data['latitude'], $data['longitude'], $data['ip']);
     }
 }

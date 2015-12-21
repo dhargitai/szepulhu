@@ -4,7 +4,7 @@
 var Application = (function() {
     var currentOptions;
 
-    return {
+    var application = {
 
         /**
          * Initialize application
@@ -15,8 +15,11 @@ var Application = (function() {
             $(document).foundation();
 
             currentOptions = $.extend({
-                geolocationAdapter: new Application.Geolocation.BrowserAdapter()
+                geolocationAdapter: new Application.Geolocation.BrowserAdapter(),
+                sessionCookieName: 'PHPSESSID'
             }, options || {});
+
+            application.session = new Application.Session(currentOptions);
         },
 
         /**
@@ -29,17 +32,22 @@ var Application = (function() {
          */
         geolocateClosestFeaturedProfessionals: function(locationSelector) {
             if (currentOptions.geolocationAdapter.isSupported()) {
+                var session = application.session;
                 currentOptions.geolocationAdapter.getCurrentPosition(
                     function(location) {
-                        if (location.coords.latitude && location.coords.longitude) {
+                        if (location.coords.latitude && location.coords.longitude && !session.has('location')) {
+                            var coordinates = {
+                                latitude: location.coords.latitude,
+                                longitude: location.coords.longitude
+                            };
+
                             $.ajax({
-                                url : Routing.generate('get_closest_location'),
+                                url : Routing.generate('update_location'),
                                 type: 'post',
-                                data: {
-                                    latitude: location.coords.latitude,
-                                    longitude: location.coords.longitude
-                                },
+                                data: coordinates,
                                 success: function(response) {
+                                    session.set('location', coordinates);
+
                                     var $locationSelector = $(locationSelector);
                                     if ($locationSelector.val() != response.location.name) {
                                         $locationSelector.val(response.location.name).trigger('change');
@@ -54,6 +62,8 @@ var Application = (function() {
             }
         }
     };
+
+    return application;
 })();
 
 /**
@@ -119,6 +129,45 @@ Application.Geolocation = {
             }
         };
     }
+};
+
+/**
+ * Application session class
+ *
+ * Use local session storage for keep track of what data have been shared with the backend.
+ *
+ * @param options Constructor options:
+ * - sessionCookieName string: name of the session cookie used by the backend
+ * @returns {{has: Function, get: Function, set: Function}}
+ * @constructor
+ */
+Application.Session = function(options) {
+    var sessionNamespace = Cookies.get(options.sessionCookieName),
+        sessionStorage = window.sessionStorage;
+
+    function getData() {
+        return JSON.parse(sessionStorage.getItem(sessionNamespace) || '{}');
+    }
+
+    function setData(data) {
+        sessionStorage.setItem(sessionNamespace, JSON.stringify(data));
+    }
+
+    return {
+        has: function (key) {
+            var sessionData = getData();
+            return sessionData[key] !== undefined;
+        },
+        get: function (key) {
+            var sessionData = getData();
+            return sessionData[key];
+        },
+        set: function (key, value) {
+            var sessionData = getData();
+            sessionData[key] = value;
+            setData(sessionData);
+        }
+    };
 };
 
 Application.init();

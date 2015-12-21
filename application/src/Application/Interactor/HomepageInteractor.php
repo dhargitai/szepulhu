@@ -68,6 +68,22 @@ class HomepageInteractor
         return new HomepageResponse($searchForm->createView());
     }
 
+    public function createFeaturedProfessionalsRequestFromLocation(Location $location, $maxItems)
+    {
+        return new FeaturedProfessionalsRequest(
+            $location,
+            $maxItems
+        );
+    }
+
+    public function createFeaturedProfessionalsRequestFromLocationRequest(LocationRequest $request, $maxItems)
+    {
+        return new FeaturedProfessionalsRequest(
+            $this->locator->findClosestFeaturedProfessionals($request),
+            $maxItems
+        );
+    }
+
     /**
      * @param FeaturedProfessionalsRequest $request
      *
@@ -75,7 +91,7 @@ class HomepageInteractor
      */
     public function createFeaturedProfessionalsResponse(FeaturedProfessionalsRequest $request)
     {
-        $locationFound = $this->locator->getLocationByRequest($request->locationRequest);
+        $locationFound = $request->location;
         $featuredProfessionals = $this->professionalRepository->getFeaturedProfessionalsByLocation(
             $locationFound,
             $request->numberOfFeaturedProfessionals

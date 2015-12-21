@@ -66,43 +66,40 @@ class DefaultController
      */
     public function embeddedFeaturedProfessionalsAction(Request $request)
     {
-        $response = $this->interactor->createFeaturedProfessionalsResponse(
-            $this->createFeaturedProfessionalsRequest($request)
-        );
+        $maxItems = $request->request->get('numberOfFeaturedProfessionals', 6);
+        $featuredProfessionalsRequest = $request->request->has(self::LOCATION_PARAMETER_NAME)
+            ? $this->createFeaturedProfessionalsRequestFromRequestParameter($request, $maxItems)
+            : $this->createFeaturedProfessionalsResponseFromLocationInSession($request, $maxItems);
+
+        $response = $this->interactor->createFeaturedProfessionalsResponse($featuredProfessionalsRequest);
         return $this->templating->renderResponse(
             '_featuredProfessionals.html.twig',
             $response->asArray()
         );
     }
 
-    private function createFeaturedProfessionalsRequest(Request $request)
-    {
-        $locationData = $request->request->get(self::LOCATION_PARAMETER_NAME, []);
-        return new FeaturedProfessionalsRequest(
-            LocationRequest::createFromArray($locationData),
-            $request->request->get('numberOfFeaturedProfessionals', 6)
-        );
-    }
-
     /**
-     * @Route("/get_closest_location", name="get_closest_location", options={"expose"=true})
+     * @Route("/update_location", name="update_location", options={"expose"=true})
      * @param Request $request
      *
      * @return JsonResponse
      */
-    public function getCurrentLocationAction(Request $request)
+    public function updateLocationAction(Request $request)
     {
+        $location = LocationRequest::createFromArray(
+            [
+                'latitude' => $request->get('latitude'),
+                'longitude' => $request->get('longitude'),
+                'ip' => $request->getClientIp(),
+            ]
+        );
+        $request->getSession()->set(self::LOCATION_PARAMETER_NAME, $location);
+
         $response = new JsonResponse();
         $response->setData(
             [
                 self::LOCATION_PARAMETER_NAME => $this->interactor->createClosestFeaturedProfessionalsLocationResponse(
-                    LocationRequest::createFromArray(
-                        [
-                            'latitude'  => $request->get('latitude'),
-                            'longitude' => $request->get('longitude'),
-                            'ip'        => $request->getClientIp(),
-                        ]
-                    )
+                    $location
                 )->asArray()
             ]
         );
@@ -188,6 +185,37 @@ class DefaultController
                       array('slug' => $professionalSlug)
                   )
             )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param $maxItems
+     * @return FeaturedProfessionalsRequest
+     */
+    private function createFeaturedProfessionalsRequestFromRequestParameter(Request $request, $maxItems)
+    {
+        $locationData = $request->request->get(self::LOCATION_PARAMETER_NAME);
+        return $this->interactor->createFeaturedProfessionalsRequestFromLocation(
+            new Location($locationData['type'], $locationData['name']),
+            $maxItems
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param $maxItems
+     * @return FeaturedProfessionalsRequest
+     */
+    private function createFeaturedProfessionalsResponseFromLocationInSession(Request $request, $maxItems)
+    {
+        $locationRequest = $request->getSession()->get(
+            self::LOCATION_PARAMETER_NAME,
+            LocationRequest::createFromArray([])
+        );
+        return $this->interactor->createFeaturedProfessionalsRequestFromLocationRequest(
+            $locationRequest,
+            $maxItems
         );
     }
 }

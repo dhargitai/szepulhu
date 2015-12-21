@@ -42,27 +42,6 @@ class LocatorSpec extends ObjectBehavior
         $this->shouldHaveType('Application\Model\Locator');
     }
 
-    public function it_returns_the_default_location_to_an_empty_location_request(
-        CityRepository $cityRepository,
-        City $capital
-    ) {
-        $latitude = $longitude = $ip = '';
-        $request = new LocationRequest('', '', $latitude, $longitude, $ip);
-
-        $capital->getName()->shouldBeCalled()->willReturn($this->locationName);
-        $cityRepository->getCapital()->shouldBeCalled()->willReturn($capital);
-
-        $this->getLocationByRequest($request)->shouldBeLike($this->location);
-    }
-
-    public function it_returns_the_location_object_if_the_correct_request_data_is_available()
-    {
-        $latitude = $longitude = $ip = '';
-        $request = new LocationRequest($this->locationName, Location::TYPE_CITY, $latitude, $longitude, $ip);
-
-        $this->getLocationByRequest($request)->shouldBeLike($this->location);
-    }
-
     public function it_returns_the_capital_for_default_location(CityRepository $cityRepository, City $capital)
     {
         $capital->getName()->willReturn($this->locationName);
