@@ -21,4 +21,5 @@ parameters:
     use_assetic_controller: true
 
     sonata.user.admin.user.class: Application\Sonata\UserBundle\Admin\Model\UserAdmin
+    sonata.media.provider.image.class: Application\Sonata\MediaBundle\Provider\ImageProvider
 

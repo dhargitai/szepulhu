@@ -9,6 +9,7 @@ namespace Application\Interactor;
 
 use Application\Entity\Professional\Salon;
 use Application\Model\ValueObject;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -30,19 +31,21 @@ use Doctrine\Common\Collections\Collection;
  * @property-read string $blogPage
  * @property-read string $facebookPage
  * @property-read string $twitterAccount
+ * @property-read \Application\Sonata\MediaBundle\Entity\Media[] $galleryImages
  */
 class ProfessionalProfileResponse extends ValueObject
 {
     public function __construct(
         $hasServices, $firstName, $lastName, $profession, $profilePicture, Salon $salon, $biography, $gallery, $slug,
-        Collection $serviceGroups, Collection $recommendations, $website, $blogPage, $facebookPage, $twitterAccount
+        Collection $serviceGroups, Collection $recommendations, $website, $blogPage, $facebookPage, $twitterAccount,
+        ArrayCollection $galleryImages
     ) {
         $this->value = [
             'hasServices' => $hasServices, 'firstName' => $firstName, 'lastName' => $lastName,
             'profession' => $profession, 'profilePicture' => $profilePicture, 'salon' => $salon,
             'biography' => $biography, 'gallery' => $gallery, 'slug' => $slug, 'serviceGroups' => $serviceGroups,
             'recommendations' => $recommendations, 'website' => $website, 'blogPage' => $blogPage,
-            'facebookPage' => $facebookPage, 'twitterAccount' => $twitterAccount
+            'facebookPage' => $facebookPage, 'twitterAccount' => $twitterAccount, 'galleryImages' => $galleryImages
         ];
     }
 }

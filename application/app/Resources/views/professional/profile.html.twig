@@ -25,16 +25,39 @@
 
     <div id="professionalGallery" class="row">
 
-        {% for picture in gallery.galleryHasMedias %}
+        {% for picture in galleryImages %}
         <div class="large-3 columns">
             <div class="panel">
                 <p>
-                    <a href="{{ path('professional_photo', {'professionalSlug': slug, 'photoId': picture.media.id}) }}">{% thumbnail picture.media, 'medium_square' %}</a>
+                    <a href="{{ path('professional_photo', {'professionalSlug': slug, 'photoId': picture.media.id}) }}">{% thumbnail picture.media, 'medium_square' with {'lazyLoadAttribute':'data-lazy'} %}</a>
                 </p>
             </div>
         </div>
         {% endfor %}
     </div>
+
+    {% set script %}
+        <script>
+            $('#professionalGallery').slick({
+                infinite: true,
+                lazyLoad: 'ondemand',
+                slidesToShow: 4,
+                slidesToScroll: 4
+            });
+        </script>
+    {% endset %}
+    {{ scripts.add(script) }}
+
+    {% for picture in galleryImages %}
+    <div id="imageModal-{{ picture.id }}" class="reveal-modal large" data-reveal aria-labelledby="imageModalTitle-{{ picture.id }}" aria-hidden="true" role="dialog">
+        <h2 id="imageModalTitle-{{ picture.id }}">{{ 'professionalProfile.imageModalTitle'|trans({'%firstname%': firstName, '%lastname%': lastName}) }}</h2>
+        <div class="flex-video widescreen">
+            <iframe width="1280" height="720" name="photo-container-{{ picture.id }}" data-src="{{ path('professional_photo', {'galleryId': gallery.id, 'imageId': picture.id}) }}" src="about:blank" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+    {% endfor %}
 
     <div class="row"><hr/></div>
 

@@ -28,6 +28,18 @@ framework:
     fragments:       ~
     http_method_override: true
 
+# Logging
+monolog:
+    handlers:
+        main:
+            type:           fingers_crossed
+            path:           "%kernel.logs_dir%/%kernel.environment%.log"
+            passthru_level: error
+            handler:        file
+        file:
+            type:   stream
+            level:  debug
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"

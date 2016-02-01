@@ -21,6 +21,7 @@ default:
                 - HomepageContext:
                     professionalUserRepository: @app.professional_repository
                 - ProfessionalsContext
+                - PhotoGalleryContext
         client_features:
             paths: [ %paths.base%/features/clients ]
             contexts:

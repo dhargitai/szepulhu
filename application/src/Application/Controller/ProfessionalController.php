@@ -52,17 +52,15 @@ class ProfessionalController extends Controller
     }
 
     /**
-     * @Route("/{professionalSlug}", name="professional_profile", requirements={
-     *    "professionalSlug": "[a-zA-Z]+"
-     * })
-     * @param string $professionalSlug
+     * @Route("/{slug}", name="professional_profile", requirements={"slug": "[\w\d]+"})
+     * @param string $slug
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function profileAction($professionalSlug)
+    public function profileAction($slug)
     {
         $response = $this->profileInteractor->createProfessionalProfileResponse(
-            new ProfessionalProfileRequest($professionalSlug)
+            new ProfessionalProfileRequest($slug)
         );
         return $this->templating->renderResponse(
             'professional/profile.html.twig',
@@ -71,7 +69,7 @@ class ProfessionalController extends Controller
     }
 
     /**
-     * @Route("/{slug}", name="professional_salon")
+     * @Route("/{slug}", name="professional_salon", requirements={"slug": "[\w\d]+-[\w\d]+"})
      * @param string $slug
      *
      * @return \Symfony\Component\HttpFoundation\Response

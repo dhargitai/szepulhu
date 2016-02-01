@@ -67,7 +67,7 @@ class AppFixtures implements FixtureInterface, ContainerAwareInterface
         foreach ($files as $file) {
             $filesArray[] = $file;
         }
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 8; $i++) {
             $image = $this->createImageMediaFile($filesArray[array_rand($filesArray)]);
             $this->addMedia($gallery, $image);
         }

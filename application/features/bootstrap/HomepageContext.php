@@ -86,7 +86,7 @@ class HomepageContext extends PageObjectContext implements Context, SnippetAccep
         $this->iVisitTheHomepage();
         $professionalSlug = $this->homepage->getSlugOfTheFirstFeaturedProfessional();
         $this->professionalProfile->open(
-            array('professionalSlug' => $professionalSlug)
+            array('slug' => $professionalSlug)
         );
     }
 

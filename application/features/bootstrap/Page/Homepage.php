@@ -42,7 +42,11 @@ class Homepage extends CustomPage
 
     public function getSlugOfTheFirstFeaturedProfessional()
     {
-        return ltrim($this->find('css', '.featuredProfessional:first-child a')->getAttribute('href'), '/');
+        if (($linkElement = $this->find('css', '.featuredProfessional:first-child a'))) {
+            return ltrim($linkElement->getAttribute('href'), '/');
+        }
+
+        throw new ElementNotFoundException('Link of the professional user not found.');
     }
 
     public function hasMenuItemInNavigation($label, $targetPath)
