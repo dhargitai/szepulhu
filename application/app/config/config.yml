@@ -70,6 +70,7 @@ doctrine:
 
         types:
             json: Sonata\Doctrine\Types\JsonType
+            dateinterval: Application\DoctrineExtension\DateIntervalType # TODO Once Doctrine DBAL 2.6 is released, this line has to be removed!
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
