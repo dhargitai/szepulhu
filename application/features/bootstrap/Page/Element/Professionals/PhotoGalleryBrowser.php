@@ -1,10 +1,3 @@
-<?php
-/**
- * This file is part of the szepul.hu application.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Page\Element\Professionals;
 
@@ -13,19 +6,19 @@ use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundExc
 
 
 /**
- * Class PhotoGalleryCarousel
+ * Class PhotoGallery
  * @package Page\Element\Professionals
  *
  * @author Geza Buza <bghome@gmail.com>
  */
-class PhotoGalleryCarousel extends Element
+class PhotoGallery extends Element
 {
     protected $selector = '#professionalGallery';
 
     /**
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function clickPreviousButton()
+    public function clickLeftArrow()
     {
         $this->pressButton('Previous');
     }
@@ -33,7 +26,7 @@ class PhotoGalleryCarousel extends Element
     /**
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function clickNextButton()
+    public function clickRightArrow()
     {
         $this->pressButton('Next');
     }
@@ -43,19 +36,7 @@ class PhotoGalleryCarousel extends Element
      */
     public function clickPhoto($position)
     {
-        $photo = $this->findNthPhoto($position);
-        $photo->click();
-    }
-
-    /**
-     * @param int $position
-     *
-     * @return null|string
-     */
-    public function getPhotoTitle($position)
-    {
-        $photo = $this->findNthPhoto($position);
-        return $photo->find('css', 'img')->getAttribute('title');
+         $this->findNthPhoto($position)->click();
     }
 
     /**

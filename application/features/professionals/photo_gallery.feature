@@ -15,3 +15,9 @@ Feature: Display photo gallery of a professional
       | Direction |
       | next      |
       | previous  |
+
+  Scenario: View photo gallery
+    When I click on any photo from the gallery
+    Then I should see that image opened in a modal window
+    And I should have a next button
+    And I should have a previous button

@@ -143,3 +143,28 @@ stof_doctrine_extensions:
             timestampable: true
             sluggable: true
             sortable: true
+
+nomaya_social:
+    buttons:
+        facebook:
+            url:         null
+            locale:      "%locale%"
+            send:        false
+            width:       300
+            showFaces:   false
+            layout:      "button_count"
+        twitter:
+            url:         null
+            locale:      "%locale%"
+            message:     ""
+            text:        "Tweet"
+            via:         "szepul.hu"
+            tag:         "beauty"
+        googleplus:
+            url:         null
+            locale:      "%locale%"
+            size:        "medium"
+            annotation:  "bubble"
+            width:       300
+        pinterest:
+            url:         null

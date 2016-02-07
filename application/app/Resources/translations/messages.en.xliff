@@ -71,6 +71,10 @@
                 <source>form.professional.role</source>
                 <target>Role</target>
             </trans-unit>
+            <trans-unit id="button.previous">
+                <source>button.previous</source>
+                <target>Previous</target>
+            </trans-unit>
             <trans-unit id="button.next">
                 <source>button.next</source>
                 <target>Next</target>
@@ -167,9 +171,21 @@
                 <source>professionalProfile.professionalsCalendar</source>
                 <target>%lastname% %firstname%'s Calendar</target>
             </trans-unit>
+            <trans-unit id="professionalProfile.imageModalTitle">
+                <source>professionalProfile.imageModalTitle</source>
+                <target>Photo by %firstname% %lastname%</target>
+            </trans-unit>
             <trans-unit id="professionalProfile.verifiedRecommendations">
                 <source>professionalProfile.verifiedRecommendations</source>
                 <target>%numberOfRecommendations% Verified Recommendations</target>
+            </trans-unit>
+            <trans-unit id="professionalPhoto.share">
+                <source>professionalPhoto.share</source>
+                <target>Share</target>
+            </trans-unit>
+            <trans-unit id="professionalPhoto.shareWithFriends">
+                <source>professionalPhoto.shareWithFriends</source>
+                <target>Share it with your friends!</target>
             </trans-unit>
             <trans-unit id="homepage.tagline">
                 <source>homepage.tagline</source>

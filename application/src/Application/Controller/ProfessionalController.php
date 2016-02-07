@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ProfessionalController
@@ -137,5 +138,25 @@ class ProfessionalController extends Controller
         }
 
         return $this->render(':professional:service_results.html.twig', $templateParameters);
+    }
+
+    /**
+     * @Route("/professional/profile/{professionalSlug}/photo-gallery", name="professional_photo")
+     * @param string  $professionalSlug
+     *
+     * @return Response
+     */
+    public function professionalPhoto($professionalSlug)
+    {
+        $professionalRepository = $this->getDoctrine()->getRepository('AppBundle:ProfessionalUser');
+
+        return $this->render(
+            'professional/photo.html.twig',
+            [
+                'professional' => $professionalRepository->findOneBy(
+                    ['slug' => $professionalSlug]
+                )
+            ]
+        );
     }
 }

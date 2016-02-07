@@ -67,7 +67,7 @@ abstract class CustomPage extends Page
      */
     protected function verifyUrl(array $urlParameters = array())
     {
-        $urlPattern = sprintf('#%s#U', preg_replace('#{[^{}]+}#', '.*', preg_quote($this->getUrl($urlParameters))));
+        $urlPattern = sprintf('#%s#U', preg_replace('#\\\{[^{}]+\\\}#', '.*', preg_quote($this->getUrl($urlParameters))));
         if (!preg_match($urlPattern, $this->getSession()->getCurrentUrl())) {
             throw new UnexpectedPageException(
                 sprintf(

@@ -9,6 +9,9 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
 use Page\ProfessionalProfile;
+use Page\Professionals\PhotoGallery;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageException;
 
 /**
  * Class PhotoGalleryContext
@@ -36,10 +39,12 @@ class PhotoGalleryContext implements Context
      * PhotoGalleryContext constructor.
      *
      * @param ProfessionalProfile $profilePage
+     * @param PhotoGallery $galleryPage
      */
-    public function __construct(ProfessionalProfile $profilePage)
+    public function __construct(ProfessionalProfile $profilePage, PhotoGallery $galleryPage)
     {
         $this->profilePage = $profilePage;
+        $this->galleryPage = $galleryPage;
     }
 
     /**

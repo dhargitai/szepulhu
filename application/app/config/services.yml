@@ -78,6 +78,8 @@ services:
         arguments:
             - @templating
             - @app.homepage.interactor
+        calls:
+            - [ setContainer, [@service_container] ]
 
     app.professional_controller:
         class: Application\Controller\ProfessionalController

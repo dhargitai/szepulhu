@@ -23,7 +23,7 @@ use Doctrine\Common\Collections\Collection;
  * @property-read string $profilePicture
  * @property-read \Application\Entity\Professional\Salon $salon
  * @property-read string $biography
- * @property-read string $gallery
+ * @property-read \Application\Sonata\MediaBundle\Entity\Gallery $gallery
  * @property-read string $slug
  * @property-read \Application\Entity\Professional\ServiceGroup[] $serviceGroups
  * @property-read \Application\Entity\Professional\Recommendation[] $recommendations
