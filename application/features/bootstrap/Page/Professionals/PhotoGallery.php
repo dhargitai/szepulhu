@@ -10,10 +10,14 @@ namespace Page\Professionals;
 
 use Page\CustomPage;
 use Page\Element\Professionals\PhotoGalleryBrowser;
+use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\ElementNotFoundException;
 
 
 /**
  * Class PhotoGallery
+ *
+ * This class represents the photo gallery page of a professional user.
+ *
  * @package Page\Professionals
  *
  * @author Geza Buza <bghome@gmail.com>
@@ -27,14 +31,37 @@ class PhotoGallery extends CustomPage
         return $this->getGalleryBrowser()->getLargeImage()->getAttribute('title');
     }
 
-    public function hasPreviousButton()
+    /**
+     * @param string $direction
+     *
+     * @return bool
+     * @throws \InvalidArgumentException
+     */
+    public function hasNavigationButton($direction)
     {
-        return $this->getGalleryBrowser()->hasPreviousButton();
+        if ($direction === 'previous') {
+            return $this->getGalleryBrowser()->hasPreviousButton();
+        } elseif ($direction === 'next') {
+            return $this->getGalleryBrowser()->hasNextButton();
+        } else {
+            throw $this->createUnknownButtonException($direction);
+        }
     }
 
-    public function hasNextButton()
+    /**
+     * @param string $direction
+     *
+     * @throws ElementNotFoundException
+     */
+    public function clickButton($direction)
     {
-        return $this->getGalleryBrowser()->hasNextButton();
+        if ($direction === 'previous') {
+            $this->getGalleryBrowser()->clickPreviousButton();
+        } elseif ($direction === 'next') {
+            $this->getGalleryBrowser()->clickNextButton();
+        } else {
+            throw $this->createUnknownButtonException($direction);
+        }
     }
 
     /**
@@ -43,5 +70,15 @@ class PhotoGallery extends CustomPage
     protected function getGalleryBrowser()
     {
         return $this->getElement('Professionals\Photo gallery browser');
+    }
+
+    /**
+     * @param string $direction
+     *
+     * @return \InvalidArgumentException
+     */
+    protected function createUnknownButtonException($direction)
+    {
+        return new \InvalidArgumentException(sprintf('Navigation button "%s" is unknown.', $direction));
     }
 }

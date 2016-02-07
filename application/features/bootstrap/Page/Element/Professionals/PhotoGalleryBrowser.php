@@ -56,4 +56,14 @@ class PhotoGallery extends Element
 
         throw new ElementNotFoundException(sprintf('Photo gallery has no visible image at position %d.', $position));
     }
+
+    public function clickPreviousButton()
+    {
+        $this->pressButton('Previous');
+    }
+
+    public function clickNextButton()
+    {
+        $this->pressButton('Next');
+    }
 }

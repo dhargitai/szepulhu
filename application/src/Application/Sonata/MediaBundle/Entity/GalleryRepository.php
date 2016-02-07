@@ -13,18 +13,18 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
- * Class MediaRepository
+ * Class GalleryRepository
  *
  * @package Application\Sonata\MediaBundle\Entity
  *
  * @author Geza Buza <bghome@gmail.com>
  */
-class MediaRepository extends EntityRepository
+class GalleryRepository extends EntityRepository
 {
     public function __construct($em, ClassMetadata $class = null)
     {
         if (empty($class)) {
-            $entityName = 'Application\Sonata\MediaBundle\Entity\Media';
+            $entityName = 'Application\Sonata\MediaBundle\Entity\Gallery';
             $class = new ClassMetadata($entityName);
         }
 

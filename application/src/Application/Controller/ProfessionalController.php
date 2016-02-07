@@ -11,6 +11,8 @@ namespace Application\Controller;
 use Application\Entity\ProfessionalUser;
 use Application\Entity\ProfessionalUserRepository;
 use Application\Form\Type\Professional\ServiceSearch;
+use Application\Interactor\ProfessionalPhotoInteractor;
+use Application\Interactor\ProfessionalPhotoRequest;
 use Application\Interactor\ProfessionalProfileInteractor;
 use Application\Interactor\ProfessionalProfileRequest;
 use Application\Interactor\ProfessionalSearchInteractor;
@@ -41,15 +43,22 @@ class ProfessionalController extends Controller
     private $profileInteractor;
     private $salonInteractor;
 
+    /**
+     * @var ProfessionalPhotoInteractor
+     */
+    private $photoInteractor;
+
     public function __construct(
         EngineInterface $templating,
         ProfessionalProfileInteractor $professionalInteractor,
-        SalonInteractor $salonInteractor
+        SalonInteractor $salonInteractor,
+        ProfessionalPhotoInteractor $photoInteractor
     )
     {
         $this->templating = $templating;
         $this->profileInteractor = $professionalInteractor;
         $this->salonInteractor = $salonInteractor;
+        $this->photoInteractor = $photoInteractor;
     }
 
     /**
@@ -141,21 +150,24 @@ class ProfessionalController extends Controller
     }
 
     /**
-     * @Route("/professional/profile/{professionalSlug}/photo-gallery", name="professional_photo")
-     * @param string  $professionalSlug
+     * @Route("/professional/profile/photo-gallery/{galleryId}/{imageId}", name="professional_photo")
+     * @param int $galleryId
+     * @param int $imageId
      *
      * @return Response
      */
-    public function professionalPhoto($professionalSlug)
+    public function professionalPhoto($galleryId, $imageId)
     {
-        $professionalRepository = $this->getDoctrine()->getRepository('AppBundle:ProfessionalUser');
+        try {
+            $photoResponse = $this->photoInteractor->createResponse(new ProfessionalPhotoRequest($galleryId, $imageId));
+        } catch (\RuntimeException $e) {
+            throw $this->createNotFoundException($e->getMessage());
+        }
 
         return $this->render(
             'professional/photo.html.twig',
             [
-                'professional' => $professionalRepository->findOneBy(
-                    ['slug' => $professionalSlug]
-                )
+                'gallery' => $photoResponse,
             ]
         );
     }

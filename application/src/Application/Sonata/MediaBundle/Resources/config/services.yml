@@ -1,0 +1,7 @@
+services:
+    sonata.media_repository:
+        class: Application\Sonata\MediaBundle\Entity\MediaRepository
+        arguments: [@doctrine.orm.default_entity_manager]
+    sonata.gallery_repository:
+        class: Application\Sonata\MediaBundle\Entity\GalleryRepository
+        arguments: [@doctrine.orm.default_entity_manager]

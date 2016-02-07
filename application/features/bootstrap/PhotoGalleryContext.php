@@ -76,6 +76,7 @@ class PhotoGalleryContext implements Context
 
     /**
      * @When I click on any photo from the gallery
+     * @Given I clicked on an intermediate photo from the gallery
      */
     public function iClickOnAnyPhotoFromTheGallery()
     {
@@ -108,18 +109,9 @@ class PhotoGalleryContext implements Context
      */
     public function iShouldHaveAButton($direction)
     {
-        if (!$this->profilePage->hasNavigationButton($direction)) {
+        if (!$this->profilePage->hasNavigationButtonInModalWindow($direction)) {
             throw new ElementNotFoundException(sprintf('Photo gallery page has no "%s" button.', $direction));
         }
-    }
-
-    /**
-     * @Given I see the photo gallery browser of :slug
-     */
-    public function iSeeThePhotoGalleryBrowserOf($slug)
-    {
-        $this->galleryPage->open(['slug' => $slug]);
-        $this->selectedImageTitle = $this->galleryPage->getLargePhotoTitle();
     }
 
     /**
@@ -127,7 +119,7 @@ class PhotoGalleryContext implements Context
      */
     public function iClickOnTheArrowButton($direction)
     {
-        $this->galleryPage->clickButton($direction);
+        $this->profilePage->clickNavigationButtonInModalWindow($direction);
     }
 
     /**
@@ -135,7 +127,7 @@ class PhotoGalleryContext implements Context
      */
     public function iShouldSeeAnotherPhotoFromTheGallery()
     {
-        if ($this->selectedImageTitle === $this->galleryPage->getLargePhotoTitle()) {
+        if ($this->selectedImageTitle === $this->profilePage->getPhotoTitleInModalWindow()) {
             throw new ElementNotFoundException(
                 sprintf(
                     'Large photo expected to have different title than "%s".',

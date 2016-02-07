@@ -101,12 +101,25 @@ class ProfessionalProfile extends CustomPage
         return $this->getModalWindow()->getLargeImageTitle();
     }
 
-    public function hasNavigationButton($direction)
+    public function hasNavigationButtonInModalWindow($direction)
     {
         if ($direction === 'next') {
             return $this->getModalWindow()->hasNextButton();
         } elseif ($direction === 'previous') {
             return $this->getModalWindow()->hasPreviousButton();
+        }
+
+        throw new \DomainException(sprintf('Navigation button "%s" is unknown.', $direction));
+    }
+
+    public function clickNavigationButtonInModalWindow($currentNavigationButton)
+    {
+        if ($currentNavigationButton === 'previous') {
+            $this->getModalWindow()->clickPreviousButton();
+        } elseif ($currentNavigationButton === 'next') {
+            $this->getModalWindow()->clickNextButton();
+        } else {
+            throw new \DomainException(sprintf('Navigation button "%s" is unknown.', $currentNavigationButton));
         }
     }
 

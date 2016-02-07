@@ -1,9 +1,7 @@
 <?php
 
 /**
- * This file is part of the <name> project.
- *
- * (c) <yourname> <youremail>
+ * This file is part of the szepul.hu application.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,7 +17,9 @@ use Sonata\MediaBundle\Entity\BaseGalleryHasMedia as BaseGalleryHasMedia;
  * References :
  *   working with object : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en
  *
- * @author <yourname> <youremail>
+ * @package Application\Sonata\MediaBundle\Entity
+ *
+ * @author Geza Buza <bghome@gmail.com>
  */
 class GalleryHasMedia extends BaseGalleryHasMedia
 {
@@ -29,6 +29,16 @@ class GalleryHasMedia extends BaseGalleryHasMedia
     protected $id;
 
     /**
+     * @var integer $gallery_id
+     */
+    protected $gallery_id;
+
+    /**
+     * @var integer $media_id
+     */
+    protected $media_id;
+
+    /**
      * Get id
      *
      * @return integer $id
@@ -36,5 +46,21 @@ class GalleryHasMedia extends BaseGalleryHasMedia
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGalleryId()
+    {
+        return $this->gallery_id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMediaId()
+    {
+        return $this->media_id;
     }
 }

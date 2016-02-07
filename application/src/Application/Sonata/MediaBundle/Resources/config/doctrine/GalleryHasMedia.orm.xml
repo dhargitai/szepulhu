@@ -17,5 +17,12 @@
             <generator strategy="AUTO"/>
         </id>
 
+        <field name="gallery_id" type="integer" />
+        <field name="media_id" type="integer" />
+
+        <many-to-one field="media" target-entity="Application\Sonata\MediaBundle\Entity\Media" inversed-by="positions">
+            <join-column name="media_id" referenced-column-name="id" />
+        </many-to-one>
+
     </entity>
 </doctrine-mapping>

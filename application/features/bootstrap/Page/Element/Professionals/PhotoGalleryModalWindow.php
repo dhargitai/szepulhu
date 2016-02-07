@@ -62,12 +62,20 @@ class PhotoGalleryModalWindow extends Element
 
     public function clickPreviousButton()
     {
-        $this->pressButton('Previous');
+        $this->callInsideIframe(
+            function(DocumentElement $page) {
+                $page->clickLink('Previous');
+            }
+        );
     }
 
     public function clickNextButton()
     {
-        $this->pressButton('Next');
+        $this->callInsideIframe(
+            function(DocumentElement $page) {
+                $page->clickLink('Next');
+            }
+        );
     }
 
     private function callInsideIframe(callable $callback)

@@ -18,5 +18,7 @@
             <generator strategy="AUTO"/>
         </id>
 
+        <one-to-many field="positions" target-entity="Application\Sonata\MediaBundle\Entity\GalleryHasMedia" mapped-by="media" />
+
     </entity>
 </doctrine-mapping>

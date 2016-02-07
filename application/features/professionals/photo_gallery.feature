@@ -21,3 +21,13 @@ Feature: Display photo gallery of a professional
     Then I should see that image opened in a modal window
     And I should have a next button
     And I should have a previous button
+
+  Scenario Outline: Use photo gallery browser
+    Given I clicked on an intermediate photo from the gallery
+    When I click on the <Direction> arrow button
+    Then I should see another photo from the gallery
+
+    Examples:
+      | Direction |
+      | next      |
+      | previous  |

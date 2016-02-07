@@ -68,6 +68,12 @@ services:
         arguments:
             - @app.professional_repository
 
+    app.professional.photo.interactor:
+        class: Application\Interactor\ProfessionalPhotoInteractor
+        arguments:
+            - @sonata.gallery_repository
+            - @sonata.media_repository
+
     app.salon.interactor:
         class: Application\Interactor\SalonInteractor
         arguments:
@@ -87,6 +93,7 @@ services:
             - @templating
             - @app.professional.profile.interactor
             - @app.salon.interactor
+            - @app.professional.photo.interactor
         calls:
             - [ setContainer, [@service_container] ]
 
