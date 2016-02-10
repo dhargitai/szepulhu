@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new UserBundle\AppUserBundle(),
 
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Nomaya\SocialBundle\NomayaSocialBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

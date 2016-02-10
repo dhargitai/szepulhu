@@ -9,6 +9,8 @@ namespace Application\Interactor;
 
 use Application\Entity\Professional\ServiceGroup;
 use Application\Entity\ProfessionalUserRepository;
+use Application\Sonata\MediaBundle\Entity\Gallery;
+use Application\Sonata\MediaBundle\Entity\GalleryHasMedia;
 
 class ProfessionalProfileInteractor
 {
@@ -37,7 +39,17 @@ class ProfessionalProfileInteractor
             $professional->getWebsite(),
             $professional->getBlogPage(),
             $professional->getFacebookPage(),
-            $professional->getTwitterAccount()
+            $professional->getTwitterAccount(),
+            $this->loadGalleryImages($professional->getGallery())
+        );
+    }
+
+    private function loadGalleryImages(Gallery $gallery)
+    {
+        return $gallery->getGalleryHasMedias()->map(
+            function(GalleryHasMedia $item) {
+                return $item->getMedia();
+            }
         );
     }
 }

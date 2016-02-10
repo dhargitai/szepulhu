@@ -9,8 +9,7 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.7.*",
-        "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/dbal": "dev-master",
+        "doctrine/orm": "~2.5.0",
         "doctrine/doctrine-bundle": "~1.5",
         "twig/extensions": "~1.0",
         "symfony/assetic-bundle": "~2.3",
@@ -37,7 +36,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "^2.3",
         "knplabs/knp-paginator-bundle": "^2.4",
         "beberlei/DoctrineExtensions": "^1.0",
-        "friendsofsymfony/jsrouting-bundle": "^1.5"
+        "friendsofsymfony/jsrouting-bundle": "^1.5",
+        "nomaya/social-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
@@ -59,7 +59,7 @@
         "pdepend/pdepend": "2.*",
         "phploc/phploc": "2.*",
         "theseer/phpdox": "0.7.*",
-        "jakoch/phantomjs-installer": "~1.9.8",
+        "jakoch/phantomjs-installer": "~2.1.1",
         "phpunit/phpunit": "3.7.*",
         "covex-nn/phpcb": "1.*",
         "coduo/php-matcher": "~1.0",

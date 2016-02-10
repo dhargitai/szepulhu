@@ -14,6 +14,7 @@ use Page\Homepage;
 use Page\Professionals\SearchResult;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Element;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Exception\UnexpectedPageException;
+use Page\ProfessionalProfile;
 use SensioLabs\Behat\PageObjectExtension\PageObject\Page;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -34,10 +35,14 @@ class ProfessionalsContext implements Context
     /** @var SearchResult $searchResultPage */
     private $searchResultPage;
 
-    public function __construct(Homepage $homepage, SearchResult $searchResultPage)
+    /** @var ProfessionalProfile $profilePage */
+    private $profilePage;
+
+    public function __construct(Homepage $homepage, SearchResult $searchResultPage, ProfessionalProfile $profilePage)
     {
         $this->homepage = $homepage;
         $this->searchResultPage = $searchResultPage;
+        $this->profilePage = $profilePage;
     }
 
     /**
@@ -152,6 +157,14 @@ class ProfessionalsContext implements Context
                 throw $this->createPropertyNotFoundException($professionalElement, $propertyName);
             }
         }
+    }
+
+    /**
+     * @Given I am on the profile page of :slug
+     */
+    public function iAmOnTheProfilePageOf($slug)
+    {
+        $this->profilePage->open(['slug' => $slug]);
     }
 
     private function createPropertyNotFoundException(Element $element, $propertyName)

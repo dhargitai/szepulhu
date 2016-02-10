@@ -111,6 +111,62 @@ Application\Entity\ProfessionalUser:
         interests: <interests()>
         tasks: [@task_premium_badge, @task_email_newsletter, @task_upload_gallery, @task_setup_personal_info, @task_connect_facebook]
 
+    professional_{16..16}:
+        username: <userName()>
+        email: <email()>
+        plainPassword: <userName()>
+        enabled: <numberBetween(0,1)>
+        firstName: 'Elek'
+        lastName: 'Mekk'
+        website: <url()>
+        biography: <paragraph(5)>
+        locale: <randomElement(array('hu', 'en'))>
+        timezone: <timezone()>
+        phone: <phoneNumber()>
+        address: <streetAddress()>
+        addressAdditional: <streetName()>
+        city: 143 # Hódmezővásárhely
+        userType: professional
+        acceptedTos: <numberBetween(0,1)>
+        profilePicture: <newImage()>
+        profession: <randomElement(array('Fodrász'))>
+        slug: <lexify('mekk_elek')>
+        role: <randomElement(array('Alkalmazott', 'Tulajdonos', 'Gyakornok'))>
+        priceCategory: <numberBetween(1,5)>
+        facebookPage: http://facebook.com/<slug()>
+        twitterAccount: http://twitter.com/<slug()>
+        blogPage: <url()>
+        isPremium: <numberBetween(0,1)>
+        settingOnlineBooking: <numberBetween(0,1)>
+        settingCreditcardForBooking: <numberBetween(0,1)>
+        settingBookMultiple: <numberBetween(0,1)>
+        settingNoticeForBooking: <numberBetween(0,1)>
+        settingNoticeForCancellation: <numberBetween(0,1)>
+        settingShowLastMinute: <numberBetween(0,1)>
+        settingCancellationPolicy: <paragraph(4)>
+        settingSmsOnBookingSend: <numberBetween(0,1)>
+        settingSmsOnBookingPhone: <phoneNumber()>
+        settingSmsOnBookingFromHour: <numberBetween(9,15)>
+        settingSmsOnBookingToHour: <numberBetween(15,21)>
+        settingScheduleNotification: <numberBetween(0,1)>
+        settingClientReminderSend: <numberBetween(0,1)>
+        settingClientReminderBeforeDays: <numberBetween(1,5)>
+        settingClientReminderTextMessage: <paragraph(2)>
+        settingClientReminderPhone: <phoneNumber()>
+        settingClientThankyou: <numberBetween(0,1)>
+        settingClientMissyou: <numberBetween(0,1)>
+        settingReceiveDailyStats: <numberBetween(0,1)>
+        settingReceiveWeeklyStats: <numberBetween(0,1)>
+        settingServiceTax: <randomFloat(3,0,30)>
+        settingProductTax: <randomFloat(3,0,30)>
+        isActive: 1
+        featuredFrom: <dateTimeBetween('-1 month', 'now')>
+        featuredTo: <dateTimeBetween('now', '+1 month')>
+        gallery: <newGallery()>
+        salon: @salon_<current()>
+        interests: <interests()>
+        tasks: [@task_premium_badge, @task_email_newsletter, @task_upload_gallery, @task_setup_personal_info, @task_connect_facebook]
+
     featured_professional_{1..6}:
         username: <userName()>
         email: <email()>

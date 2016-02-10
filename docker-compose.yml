@@ -17,6 +17,8 @@ web:
     - database:db
   volumes:
     - ./application:/var/www/szepul.hu
+    - ./application/app/tmp:/tmp  # Sharing the tmp dir with the host enables Xdebug to step into genrated proxy
+                                  # classes of page object classes. (workaround until page object extension is fixed)
   env_file:
     - .env
   extra_hosts:

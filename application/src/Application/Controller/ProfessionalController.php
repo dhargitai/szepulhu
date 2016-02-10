@@ -11,6 +11,8 @@ namespace Application\Controller;
 use Application\Entity\ProfessionalUser;
 use Application\Entity\ProfessionalUserRepository;
 use Application\Form\Type\Professional\ServiceSearch;
+use Application\Interactor\ProfessionalPhotoInteractor;
+use Application\Interactor\ProfessionalPhotoRequest;
 use Application\Interactor\ProfessionalProfileInteractor;
 use Application\Interactor\ProfessionalProfileRequest;
 use Application\Interactor\ProfessionalSearchInteractor;
@@ -22,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ProfessionalController
@@ -40,29 +43,34 @@ class ProfessionalController extends Controller
     private $profileInteractor;
     private $salonInteractor;
 
+    /**
+     * @var ProfessionalPhotoInteractor
+     */
+    private $photoInteractor;
+
     public function __construct(
         EngineInterface $templating,
         ProfessionalProfileInteractor $professionalInteractor,
-        SalonInteractor $salonInteractor
+        SalonInteractor $salonInteractor,
+        ProfessionalPhotoInteractor $photoInteractor
     )
     {
         $this->templating = $templating;
         $this->profileInteractor = $professionalInteractor;
         $this->salonInteractor = $salonInteractor;
+        $this->photoInteractor = $photoInteractor;
     }
 
     /**
-     * @Route("/{professionalSlug}", name="professional_profile", requirements={
-     *    "professionalSlug": "[a-zA-Z]+"
-     * })
-     * @param string $professionalSlug
+     * @Route("/{slug}", name="professional_profile", requirements={"slug": "[\w\d]+"})
+     * @param string $slug
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function profileAction($professionalSlug)
+    public function profileAction($slug)
     {
         $response = $this->profileInteractor->createProfessionalProfileResponse(
-            new ProfessionalProfileRequest($professionalSlug)
+            new ProfessionalProfileRequest($slug)
         );
         return $this->templating->renderResponse(
             'professional/profile.html.twig',
@@ -71,7 +79,7 @@ class ProfessionalController extends Controller
     }
 
     /**
-     * @Route("/{slug}", name="professional_salon")
+     * @Route("/{slug}", name="professional_salon", requirements={"slug": "[\w\d]+-[\w\d]+"})
      * @param string $slug
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -139,5 +147,28 @@ class ProfessionalController extends Controller
         }
 
         return $this->render(':professional:service_results.html.twig', $templateParameters);
+    }
+
+    /**
+     * @Route("/professional/profile/photo-gallery/{galleryId}/{imageId}", name="professional_photo")
+     * @param int $galleryId
+     * @param int $imageId
+     *
+     * @return Response
+     */
+    public function professionalPhoto($galleryId, $imageId)
+    {
+        try {
+            $photoResponse = $this->photoInteractor->createResponse(new ProfessionalPhotoRequest($galleryId, $imageId));
+        } catch (\RuntimeException $e) {
+            throw $this->createNotFoundException($e->getMessage());
+        }
+
+        return $this->render(
+            'professional/photo.html.twig',
+            [
+                'gallery' => $photoResponse,
+            ]
+        );
     }
 }

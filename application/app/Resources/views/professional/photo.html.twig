@@ -1,47 +1,46 @@
 {% extends 'base.html.twig' %}
 
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
 {% block body %}
     <div class="row">
-        <div class="large-9 columns">
-            <div class="photo text-center">
-                {% thumbnail photo, 'big' %}
+        <div id="photoGalleryBrowser" class="large-12 columns photo-gallery-container">
+            <div class="photo-gallery-display orbit-container">
+                <ul>
+                    <li>{% thumbnail gallery.currentImage, 'big' %}</li>
+                </ul>
+                {% if gallery.previousImage %}
+                    <a href="{{ url('professional_photo', {'galleryId': gallery.galleryId, 'imageId': gallery.previousImage.id}) }}" class="orbit-prev"><span>{{ 'button.previous'|trans }}</span></a>
+                {% endif %}
+                {% if gallery.nextImage %}
+                    <a href="{{ url('professional_photo', {'galleryId': gallery.galleryId, 'imageId': gallery.nextImage.id}) }}" class="orbit-next"><span>{{ 'button.next'|trans }}</span></a>
+                {% endif %}
             </div>
         </div>
-        <div class="large-3 columns">
-            <div class="cta panel">
-                Profi vagy? Regizzé'!
-            </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <hr/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
             <div class="panel">
-                <h3>Megosztás</h3>
-                Oszd meg a barátaiddal
-                <ul class="inline-list">
-                    <li><a href="#"><i class="fi-social-facebook"></i></a></li>
-                    <li><a href="#"><i class="fi-social-twitter"></i></a></li>
-                    <li><a href="#"><i class="fi-social-pinterest"></i></a></li>
-                </ul>
-
-                <h3>Kövess</h3>
-
-                <div class="large-3 columns">
-                    {% thumbnail professional.profilePicture, 'small_square' %}
+                <h3>{{ 'professionalPhoto.share'|trans }}</h3>
+                <div class="row">
+                    <div class="medium-3 large-3 columns">{{ 'professionalPhoto.shareWithFriends'|trans }}</div>
+                    <div class="medium-9 large-9 columns">{{ socialButtons() }}</div>
                 </div>
-                <div class="large-9 columns">
-                    <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
-                        <span class="name">{{ professional.lastName }} {{ professional.firstName }}</span><br/>
-                        <span class="profession">{{ professional.profession }}</span>
-                    </a>
-                    <br/>
-                    <small>{{ professional.salon.name }}, {{ professional.salon.city }}</small>
-                </div>
-
-                <h3>Még több fotó</h3>
-                <ul class="inline-list">
-                    {% for picture in professional.gallery.galleryHasMedias %}
-                    <li><a href="{{ path('professional_photo', {'professionalSlug': professional.slug, 'photoId': picture.media.id}) }}">{% thumbnail picture.media, 'small_square' %}</a></li>
-                    {% endfor %}
-                </ul>
-
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="fb-comments" data-href="{{ app.request.uri }}" data-numposts="5" data-width="100%"></div>
         </div>
     </div>
 {% endblock %}

@@ -66,6 +66,10 @@
                 <source>form.first_name</source>
                 <target>Keresztnév</target>
             </trans-unit>
+            <trans-unit id="button.previous">
+                <source>button.previous</source>
+                <target>Vissza</target>
+            </trans-unit>
             <trans-unit id="button.next">
                 <source>button.next</source>
                 <target>Tovább</target>
@@ -210,9 +214,21 @@
                 <source>professionalProfile.professionalsCalendar</source>
                 <target>%lastname% %firstname% időbeosztása</target>
             </trans-unit>
+            <trans-unit id="professionalProfile.imageModalTitle">
+                <source>professionalProfile.imageModalTitle</source>
+                <target>%lastname% %firstname% fotója</target>
+            </trans-unit>
             <trans-unit id="professionalProfile.verifiedRecommendations">
                 <source>professionalProfile.verifiedRecommendations</source>
                 <target>%numberOfRecommendations% Ellenőrzött ajánlás</target>
+            </trans-unit>
+            <trans-unit id="professionalPhoto.share">
+                <source>professionalPhoto.share</source>
+                <target>Megosztás</target>
+            </trans-unit>
+            <trans-unit id="professionalPhoto.shareWithFriends">
+                <source>professionalPhoto.shareWithFriends</source>
+                <target>Oszd meg a barátaiddal!</target>
             </trans-unit>
             <trans-unit id="homepage.tagline">
                 <source>homepage.tagline</source>

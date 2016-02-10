@@ -28,7 +28,8 @@ gulp.task('lint', function() {
 gulp.task('css', function() {
     var vendorFiles = [
             'bower_components/jquery-ui/themes/smoothness/jquery-ui.css',
-            'bower_components/jquery-ui/themes/smoothness/theme.css'
+            'bower_components/jquery-ui/themes/smoothness/theme.css',
+            'bower_components/slick-carousel/slick/slick.css'
         ],
         vendorSource = gulp.src(vendorFiles)
             .pipe(expect({ errorOnFailure: true }, vendorFiles))
@@ -67,6 +68,7 @@ gulp.task('scripts', function() {
             'bower_components/jquery-ui/ui/i18n/datepicker-hu.js',
             'bower_components/js-cookie/src/js.cookie.js',
             'bower_components/foundation/js/foundation.min.js',
+            'bower_components/slick-carousel/slick/slick.min.js',
             'js/geoposition/geoPosition.js',
             '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.js',
             '../../web/js/fos_js_routes.js',

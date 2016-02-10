@@ -32,13 +32,13 @@
                 <div class="panel">
                     <div class="row">
                         <div class="large-3 columns">
-                            <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                            <a href="{{ path('professional_profile', {'slug': professional.slug}) }}">
                                 {% thumbnail professional.profilePicture, 'medium_square' %}
                             </a>
                         </div>
                         <div class="large-9 columns">
                             <h3>
-                                <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                                <a href="{{ path('professional_profile', {'slug': professional.slug}) }}">
                                     {{ professional.lastName }} {{ professional.firstName }}
                                 </a>
                             </h3>

@@ -28,6 +28,18 @@ framework:
     fragments:       ~
     http_method_override: true
 
+# Logging
+monolog:
+    handlers:
+        main:
+            type:           fingers_crossed
+            path:           "%kernel.logs_dir%/%kernel.environment%.log"
+            passthru_level: error
+            handler:        file
+        file:
+            type:   stream
+            level:  debug
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -58,6 +70,7 @@ doctrine:
 
         types:
             json: Sonata\Doctrine\Types\JsonType
+            dateinterval: Application\DoctrineExtension\DateIntervalType # TODO Once Doctrine DBAL 2.6 is released, this line has to be removed!
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -131,3 +144,28 @@ stof_doctrine_extensions:
             timestampable: true
             sluggable: true
             sortable: true
+
+nomaya_social:
+    buttons:
+        facebook:
+            url:         null
+            locale:      "%locale%"
+            send:        false
+            width:       300
+            showFaces:   false
+            layout:      "button_count"
+        twitter:
+            url:         null
+            locale:      "%locale%"
+            message:     ""
+            text:        "Tweet"
+            via:         "szepul.hu"
+            tag:         "beauty"
+        googleplus:
+            url:         null
+            locale:      "%locale%"
+            size:        "medium"
+            annotation:  "bubble"
+            width:       300
+        pinterest:
+            url:         null

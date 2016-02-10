@@ -8,21 +8,15 @@
 
 namespace Application\Controller;
 
-use Application\Entity\Professional\Salon;
-use Application\Entity\ProfessionalUserRepository;
 use Application\Interactor\Location;
 use Application\Interactor\LocationRequest;
 use Application\Interactor\FeaturedProfessionalsRequest;
 use Application\Interactor\HomepageInteractor;
 use Application\Interactor\HomepageRequest;
 use Application\Model\Professional\ServiceSearchParameters;
-use Application\Sonata\MediaBundle\Document\Media;
-use Application\Entity\ProfessionalUser;
-use Application\Entity\ClientUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @Route(service="app.default_controller")
  */
-class DefaultController
+class DefaultController extends Controller
 {
     private $templating;
     private $interactor;

@@ -1,0 +1,25 @@
+.photo-gallery-container {
+  text-align: center;
+}
+
+.photo-gallery-display {
+  ul {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+  }
+
+  &.orbit-container .orbit-prev > span {
+    border-color: transparent #666 transparent transparent;
+  }
+  &.orbit-container .orbit-prev:hover > span {
+    border-right-color: #FFF;
+  }
+
+  &.orbit-container .orbit-next > span {
+    border-color: transparent transparent transparent #666;
+  }
+  &.orbit-container .orbit-next:hover > span {
+    border-left-color: #FFF;
+  }
+}

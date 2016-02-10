@@ -37,3 +37,6 @@ application/src/Application/DataFixtures/fixtures.media.tar.gz
 
 # Build artifacts
 application/app/build/
+
+# Mounted tmp directory
+application/app/tmp

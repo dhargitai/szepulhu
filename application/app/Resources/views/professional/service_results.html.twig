@@ -37,14 +37,14 @@
                     <td>{{ professional.id }}</td>
                     <td>
                         <div class="panel">
-                            <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">
+                            <a href="{{ path('professional_profile', {'slug': professional.slug}) }}">
                                 {% thumbnail professional.profilePicture, 'medium_square' %}
                             </a>
 
-                            <div class="professionalName"><a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}">{{ 'professional.name'|trans(professional.name) }} </a></div>
+                            <div class="professionalName"><a href="{{ path('professional_profile', {'slug': professional.slug}) }}">{{ 'professional.name'|trans(professional.name) }} </a></div>
                             <div class="professionalAddress">{{ professional.address }}<br />
                                 {{ professional.addressAdditional }}<br />
-                                <a href="{{ path('professional_profile', {'professionalSlug': professional.slug}) }}#map">{{ 'professionals.search.address_on_map'|trans }}</a>
+                                <a href="{{ path('professional_profile', {'slug': professional.slug}) }}#map">{{ 'professionals.search.address_on_map'|trans }}</a>
                             </div>
                         </div>
                     </td>

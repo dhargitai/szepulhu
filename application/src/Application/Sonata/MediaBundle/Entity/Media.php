@@ -1,9 +1,7 @@
 <?php
 
 /**
- * This file is part of the <name> project.
- *
- * (c) <yourname> <youremail>
+ * This file is part of the szepul.hu application.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,6 +9,7 @@
 
 namespace Application\Sonata\MediaBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
 
 /**
@@ -19,7 +18,9 @@ use Sonata\MediaBundle\Entity\BaseMedia as BaseMedia;
  * References :
  *   working with object : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en
  *
- * @author <yourname> <youremail>
+ * @package Application\Sonata\MediaBundle\Entity
+ *
+ * @author Geza Buza <bghome@gmail.com>
  */
 class Media extends BaseMedia
 {
@@ -27,6 +28,14 @@ class Media extends BaseMedia
      * @var integer $id
      */
     protected $id;
+
+    /** @var ArrayCollection $positions */
+    protected $positions;
+
+    public function __construct()
+    {
+        $this->positions = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -36,5 +45,13 @@ class Media extends BaseMedia
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPositions()
+    {
+        return $this->positions;
     }
 }

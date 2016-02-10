@@ -1,13 +1,14 @@
 {
   "name": "szepul.hu",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": "true",
   "dependencies": {
-    "foundation": "5.5.2",
-    "jquery": "2.1.0",
-    "jquery-ui": "1.11.4",
-    "js-cookie": "2.0.3",
-    "modernizr-min": "~3.1.0"
+    "foundation": "~5.5.2",
+    "jquery": "~2.1.0",
+    "jquery-ui": "~1.11.4",
+    "js-cookie": "~2.0.3",
+    "modernizr-min": "~3.1.0",
+    "slick-carousel": "~1.5.8"
   },
   "install": {
     "path": {
