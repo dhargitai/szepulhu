@@ -20,7 +20,7 @@
 
     <!-- Default target -->
     <target name="build:main"
-            depends="build:check, build:test, build:dependencies"
+            depends="build:check, build:dependencies, build:test"
             description="Run all test and build everything" />
 
 
@@ -89,25 +89,9 @@
     </target>
 
 
-    <!-- Test target -->
-    <target name="build:test"
-            depends="build:prepare"
-            description="Executes all tests..">
-        <parallel threadCount="${threads}">
-            <phingcall target="test:unit"/>
-        </parallel>
-    </target>
-
-    <!-- Unit tests -->
-    <target name="test:unit" description="Executes unit tests.">
-        <echo msg="Running unit tests ..." />
-        <exec command="${dir.bin}/phpspec -n run --format=pretty --stop-on-failure --no-code-generation" checkreturn="true" passthru="true" />
-    </target>
-
-
     <!-- Application dependencies -->
     <target name="build:dependencies"
-            depends="build:test"
+            depends="build:prepare"
             description="Install dependencies.">
         <parallel threadCount="${threads}">
             <phingcall target="composer:install"/>
@@ -118,6 +102,22 @@
     <target name="composer:install" description="Install PHP dependencies.">
         <echo msg="Running composer install ..." />
         <exec command="cd ${project.basedir} &amp;&amp; composer install --ansi --prefer-dist --no-interaction --no-dev" checkreturn="true" passthru="true" />
+    </target>
+
+
+    <!-- Test target -->
+    <target name="build:test"
+            depends="build:dependencies"
+            description="Executes all tests..">
+        <parallel threadCount="${threads}">
+            <phingcall target="test:unit"/>
+        </parallel>
+    </target>
+
+    <!-- Unit tests -->
+    <target name="test:unit" description="Executes unit tests.">
+        <echo msg="Running unit tests ..." />
+        <exec command="${dir.bin}/phpspec -n run --format=pretty --stop-on-failure --no-code-generation" checkreturn="true" passthru="true" />
     </target>
 
 </project>
