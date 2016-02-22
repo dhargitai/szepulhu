@@ -12,8 +12,6 @@ web:
   build: .
   links:
     - database:db
-  volumes:
-    - ./application:/var/www/szepul.hu
   env_file:
     - .env
   extra_hosts:
