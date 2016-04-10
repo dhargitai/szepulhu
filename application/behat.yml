@@ -7,11 +7,11 @@ default:
                 - DebugContext:
                     - 1920x1080
                 - HomepageContext:
-                    professionalUserRepository: @app.professional_repository
+                    professionalUserRepository: '@app.professional_repository'
                 - HeaderContext
                 - ProfessionalsContext
             filters:
-                tags: @core
+                tags: '@core'
         professional_features:
             paths: [ %paths.base%/features/professionals ]
             contexts:
@@ -19,7 +19,7 @@ default:
                 - DebugContext:
                     - 1920x1080
                 - HomepageContext:
-                    professionalUserRepository: @app.professional_repository
+                    professionalUserRepository: '@app.professional_repository'
                 - ProfessionalsContext
                 - PhotoGalleryContext
         client_features:
