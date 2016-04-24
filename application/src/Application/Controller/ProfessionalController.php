@@ -8,8 +8,6 @@
 
 namespace Application\Controller;
 
-use Application\Entity\ProfessionalUser;
-use Application\Entity\ProfessionalUserRepository;
 use Application\Form\Type\Professional\ServiceSearch;
 use Application\Interactor\ProfessionalPhotoInteractor;
 use Application\Interactor\ProfessionalPhotoRequest;
@@ -27,7 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ProfessionalController
+ * Class ProfessionalsController
  *
  * @package Application\Controller
  * @author Dávid Hargitai <div@diatigrah.hu>

@@ -97,13 +97,13 @@ class BuilderFactory implements Factory
     }
 
     /**
-     * @param string $pageClass
+     * @param string $pageObjectClass
      *
-     * @return Page
+     * @return \SensioLabs\Behat\PageObjectExtension\PageObject
      */
-    private function instantiatePage($pageClass)
+    public function create($pageObjectClass)
     {
-        return new $pageClass($this->mink->getSession(), $this, $this->pageParameters);
+        return new $pageObjectClass($this->mink->getSession(), $this, $this->pageParameters);
     }
 
     /**

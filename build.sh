@@ -3,4 +3,4 @@
 ./build-backend.sh && \
 ./build-frontend.sh && \
 docker-compose build --pull
-# && ./run-integration-tests.sh
+docker-compose up && ./build-bdd-tests.sh

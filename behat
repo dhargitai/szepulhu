@@ -1,4 +1,0 @@
-#!/bin/bash
-
-ARGUMENTS="$@"
-docker exec -it szepulhu_web_1 su www-data -s /bin/bash -c "XDEBUG_CONFIG='idekey=phpstorm' /var/www/szepul.hu/bin/behat $ARGUMENTS"

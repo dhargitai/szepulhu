@@ -1,0 +1,3 @@
+professionals:
+    type: rest
+    resource: Application\Controller\RestApi\ProfessionalsController
