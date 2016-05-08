@@ -36,4 +36,8 @@ cwd=$(pwd)
 src_dir="$cwd/application"
 builder_dir="$cwd/builder"
 
+docker build -t php-builder builder
 docker run --rm -v "$src_dir":/var/src -v "$builder_dir":/var/builder -it php-builder
+
+# Reinstall development dependencies
+docker run --rm -v "$src_dir":/var/src -v "$builder_dir":/var/builder -it php-builder bash -c "./bin/phing -f /var/builder/build.xml composer:install-dev"

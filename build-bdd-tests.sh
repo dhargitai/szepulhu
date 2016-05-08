@@ -81,4 +81,5 @@ if ! is_container_running phantomjs; then
     echo "done."
 fi
 
+docker build -t bdd-tester bdd-tester
 docker run --rm -v "$features_dir":/var/tests/features -v "$behat_element_finder_extension":/var/tests/extensions/Geza -v "$behat_config_file":/var/tests/behat.yml -v "$behat_script":/var/tester/behat.sh -e "APP_XDEBUG=$XDEBUG_ENABLED" -e "DOCKER_IP=$DOCKER_IP" -it bdd-tester ${BEHAT_ARGUMENTS}

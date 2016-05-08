@@ -47,4 +47,5 @@ if [ "$is_watch_mode" -eq 1 ]; then
     environment="-e GULP_TASK=watch"
 fi
 
+docker build -t js-compiler js-compiler
 docker run --rm -v "$src_dir":/var/src -v "$compiler_dir":/var/compiler -v "$target_dir":/var/target $environment -it js-compiler

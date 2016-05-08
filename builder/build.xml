@@ -104,6 +104,12 @@
         <exec command="cd ${project.basedir} &amp;&amp; composer install --ansi --prefer-dist --no-interaction --no-dev" checkreturn="true" passthru="true" />
     </target>
 
+    <!-- Composer install with dev tools -->
+    <target name="composer:install-dev" description="Install PHP dependencies with development tools.">
+        <echo msg="Running composer install with development tools ..." />
+        <exec command="cd ${project.basedir} &amp;&amp; composer install --ansi --prefer-dist --no-interaction" checkreturn="true" passthru="true" />
+    </target>
+
 
     <!-- Test target -->
     <target name="build:test"
