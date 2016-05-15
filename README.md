@@ -35,6 +35,43 @@ This needs to be run only once when you clone the project.
 
 ## Build development environment
 
+The application consists of **Docker containers** which are defined by the _docker-compose.yml_ file.
+
+To build the application **tools are needed** like Javascript minifier or SASS compiler, PHPSpec tester or Behat for functional testing. These tools are organized into Docker containers to make these portable and environment independent as much as possible. Furthermore it allows to build only the application itself without requiring to build the tools again.
+
+Every Docker container of the application has a hostname which is actually a FQDN. To get these names resolved to the corresponding IP address, a **DNS server** is added to the application stack. It listens for container IP changes and updates it's internal DNS database based on that.
+To get it working, the first nameserver in _/etc/resolv.conf_ have to point to the Docker bridge interface (docker0 currently). The _setup.sh_ script gives help to set it up. Also make sure that the firewall on the host machine allows incoming and outgoing packets from the subnet used by Docker.
+
+### Build the tools
+
+Note: These tools will be built automatically by the `build-*.sh` scripts at the first time.
+
+- __PHP builder__: this Docker container encompasses tools used for building the backend part of the application.
+It does statical code validation and veryification, installs 3rd-party dependencies and runs unit test. These are available as Phing tasks, see build.xml file for details.
+
+  Command to build this tool:
+  ```bash
+  docker build --tag php-builder php-builder/
+  ```
+
+- __Javascript compiler__: this Docker container encompasses tools used for building the frontend part of the application.
+It installs 3rd-party dependencies, prepares assets which are not provided by Symfony Bundles. These are done by project specific Gulp tasks.
+
+  Command to build this tool:
+  ```bash
+  docker build --tag js-compiler js-compiler/
+  ```
+
+- __BDD tester__: this Docker container encompasses tools used for fuctional testing the application.
+It requires a running application to be able to do the testing. Test are run by Behat.
+
+  Command to build this tool:
+  ```bash
+  docker build --tag bdd-tester bdd-tester/
+  ```
+
+### Build the application
+
 ```bash
 ./build.sh
 ```
@@ -96,4 +133,4 @@ You may have problems when running Behat tests. As it is using the test environm
 
 # License
 
-Copyright 2015, Búza Géza & Hargitai Dávid 
+Copyright 2015, Búza Géza & Hargitai Dávid
