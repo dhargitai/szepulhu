@@ -104,7 +104,7 @@ gulp.task('scripts', function() {
             settings.libDir + '/bower_components/js-cookie/src/js.cookie.js',
             settings.libDir + '/bower_components/foundation/js/foundation.min.js',
             settings.libDir + '/bower_components/slick-carousel/slick/slick.min.js',
-            settings.libDir + '/js/geoposition/geoPosition.js',
+            settings.srcDir + '/js/geoposition/geoPosition.js',
             settings.srcDir + '/js/app.js'
         ];
     var result1 = gulp.src(header_files)

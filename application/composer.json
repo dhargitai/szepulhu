@@ -105,6 +105,6 @@
         "branch-alias": {
             "dev-master": "2.7-dev"
         },
-        "symfony-assets-install": "symlink"
+        "symfony-assets-install": "relative"
     }
 }
