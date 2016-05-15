@@ -17,6 +17,8 @@ This a helper script which builds the backend specific part of the application.
 EOF
 }
 
+source build-functions.sh
+
 is_watch_mode=0
 while getopts ":h" opt; do
   case $opt in
@@ -36,7 +38,11 @@ cwd=$(pwd)
 src_dir="$cwd/application"
 builder_dir="$cwd/builder"
 
-docker build -t php-builder builder
+if ! is_image_exists php-builder; then
+    echo -n "Creating image php-builder..."
+    docker build -t php-builder builder
+fi
+
 docker run --rm -v "$src_dir":/var/src -v "$builder_dir":/var/builder -it php-builder
 
 # Reinstall development dependencies

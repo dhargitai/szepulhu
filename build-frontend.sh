@@ -18,6 +18,8 @@ This a helper script which builds the frontend specific part of the application.
 EOF
 }
 
+source build-functions.sh
+
 is_watch_mode=0
 while getopts ":wh" opt; do
   case $opt in
@@ -47,5 +49,9 @@ if [ "$is_watch_mode" -eq 1 ]; then
     environment="-e GULP_TASK=watch"
 fi
 
-docker build -t js-compiler js-compiler
+if ! is_image_exists js-compiler; then
+    echo -n "Creating image js-compiler..."
+    docker build -t js-compiler js-compiler
+fi
+
 docker run --rm -v "$src_dir":/var/src -v "$compiler_dir":/var/compiler -v "$target_dir":/var/target $environment -it js-compiler

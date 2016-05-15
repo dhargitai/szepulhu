@@ -20,15 +20,7 @@ This a helper script which runs Behat tests of the application.
 EOF
 }
 
-function is_container_exists {
-    container_name=$1
-    ! [ -z $(docker ps -a -q --filter="name=$container_name") ]
-}
-
-function is_container_running {
-    container_name=$1
-    ! [ -z $(docker ps -q --filter="name=$container_name") ]
-}
+source build-functions.sh
 
 while getopts ":hb:cx" opt; do
   case $opt in
@@ -81,5 +73,9 @@ if ! is_container_running phantomjs; then
     echo "done."
 fi
 
-docker build -t bdd-tester bdd-tester
+if ! is_image_exists bdd-tester; then
+    echo -n "Creating image bdd-tester..."
+    docker build -t bdd-tester bdd-tester
+fi
+
 docker run --rm -v "$features_dir":/var/tests/features -v "$behat_element_finder_extension":/var/tests/extensions/Geza -v "$behat_config_file":/var/tests/behat.yml -v "$behat_script":/var/tester/behat.sh -e "APP_XDEBUG=$XDEBUG_ENABLED" -e "DOCKER_IP=$DOCKER_IP" -it bdd-tester ${BEHAT_ARGUMENTS}
