@@ -11,7 +11,7 @@ display_usage() {
 	cat <<EOF
 Usage: $0
 
-This a helper script which builds the backend specific part of the application.
+This is a helper script which builds the backend specific part of the application.
 
 -h      Display help.
 EOF
@@ -46,5 +46,5 @@ fi
 
 docker run --rm -v "$src_dir":/var/src -v "$builder_dir":/var/builder -v "$composer_home":/var/composer-home -it php-builder
 
-# Reinstall development dependencies
-docker run --rm -v "$src_dir":/var/src -v "$builder_dir":/var/builder -v "$composer_home":/var/composer-home -it php-builder bash -c "./bin/phing -f /var/builder/build.xml composer:install-dev"
+docker build -t php-builder builder
+docker run --rm -v "$src_dir":/var/src -v "$builder_dir":/var/builder -it php-builder

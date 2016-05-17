@@ -11,7 +11,7 @@ display_usage() {
 	cat <<EOF
 Usage: $0
 
-This a helper script which builds the frontend specific part of the application.
+This is a helper script which builds the frontend specific part of the application.
 
 -h      Display help.
 -w      Watch for file changes and build files on change.

@@ -24,6 +24,11 @@
             description="Run all test and build everything" />
 
 
+    <target name="dev"
+            depends="composer:install-dev"
+            description="Run tasks for building development environment" />
+
+
     <!-- Check target -->
     <target name="build:check"
             depends="build:prepare"

@@ -1,0 +1,2 @@
+database:
+  image: szepulhu_mysql_with_fixtures

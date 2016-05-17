@@ -12,8 +12,6 @@ database:
   container_name: szepulhu_mysql
   hostname: db.szepul.hu.dev
   image: mysql
-  volumes:
-    - /var/lib/mysql:/var/lib/mysql
   env_file:
     - .env
   ports:
