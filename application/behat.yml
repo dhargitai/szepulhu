@@ -4,30 +4,28 @@ default:
             paths: [ %paths.base%/features ]
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
-                - DebugContext:
-                    - 1920x1080
                 - HomepageContext:
-                    professionalUserRepository: @app.professional_repository
+                    apiUrl: 'http://test.szepul.hu.dev/api/'
+                    apiUser: behatuser
+                    apiPassword: mehecskesapka3
                 - HeaderContext
                 - ProfessionalsContext
             filters:
-                tags: @core
+                tags: '@core'
         professional_features:
             paths: [ %paths.base%/features/professionals ]
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
-                - DebugContext:
-                    - 1920x1080
                 - HomepageContext:
-                    professionalUserRepository: @app.professional_repository
+                    apiUrl: 'http://test.szepul.hu.dev/api/'
+                    apiUser: behatuser
+                    apiPassword: mehecskesapka3
                 - ProfessionalsContext
                 - PhotoGalleryContext
         client_features:
             paths: [ %paths.base%/features/clients ]
             contexts:
                 - Behat\MinkExtension\Context\RawMinkContext
-                - DebugContext:
-                    - 1920x1080
                 - ClientsContext
 
 #   domain:
@@ -43,17 +41,18 @@ default:
 #       tags: @critical
 
     extensions:
-        Behat\Symfony2Extension: ~
         Geza\Behat\ElementFinderExtension\ServiceContainer\Extension: ~
         SensioLabs\Behat\PageObjectExtension:
             factory: geza.behat.element_finder_extension.page_factory_class
         Behat\TeamCityFormatter\TeamCityFormatterExtension: ~
         Behat\MinkExtension:
-            base_url: 'http://szepul.hu.test/'
+            base_url: 'http://test.szepul.hu.dev/'
             selenium2:
-                wd_host: http://localhost:4444/wd/hub
+                wd_host: http://phantomjs.dev:4444/wd/hub
                 browser: phantomjs
             show_cmd: echo '%s'
             show_tmp_dir: ./tmp/
         Bex\Behat\ScreenshotExtension:
             active_image_drivers: upload_pie
+        Bex\Behat\BrowserInitialiserExtension:
+            browser_window_size: 1920x1080

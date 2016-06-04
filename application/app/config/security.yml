@@ -4,6 +4,9 @@ security:
     # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
@@ -17,6 +20,12 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
+        in_memory:
+            memory:
+                users:
+                    behatuser:
+                        password: $2y$12$ZbiK565ZkP9bISL2w4vb5efNQJ4cgk4vA415P8ez2MpxPK0FXpXPy
+                        roles: 'ROLE_ADMIN'
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
@@ -41,6 +50,12 @@ security:
             anonymous:          true
 
         # -> end custom configuration
+
+        api:
+            pattern:      /api/.*
+            http_basic:   ~
+            stateless:    true
+            provider:     in_memory
 
         # default login area for standard users
 
@@ -73,6 +88,9 @@ security:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        # Rest API
+        - { path: ^/api/.*, role: ROLE_ADMIN }
 
         # Secured part of the site
         # This config requires being logged for the whole site and having the admin role for the admin part.

@@ -1,29 +1,47 @@
+dns:
+  container_name: dns_server
+  image: elvetemedve/docker-spy
+  ports:
+    - "53:53/udp"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  env_file:
+    - .env-dns
+
 database:
   container_name: szepulhu_mysql
+  hostname: db.szepul.hu.dev
   image: mysql
-  volumes:
-    - /var/lib/mysql:/var/lib/mysql
   env_file:
     - .env
-  extra_hosts:
-    - "db1.szepul.hu.dev:127.0.0.1"
   ports:
     - "3306:3306"
 
-web:
+web1:
   container_name: szepulhu_web_1
+  hostname: szepul.hu.dev
   build: .
   links:
     - database:db
   volumes:
     - ./application:/var/www/szepul.hu
-    - ./application/app/tmp:/tmp  # Sharing the tmp dir with the host enables Xdebug to step into genrated proxy
-                                  # classes of page object classes. (workaround until page object extension is fixed)
   env_file:
     - .env
-  extra_hosts:
-    - "web1.szepul.hu.dev:127.0.0.1"
-    - "szepul.hu.dev:127.0.0.1"
-    - "szepul.hu.test:127.0.0.1"
   ports:
     - "80:80"
+
+web2:
+  container_name: szepulhu_web_2
+  hostname: test.szepul.hu.dev
+  build: .
+  links:
+    - database:db
+  volumes:
+    - ./application:/var/www/szepul.hu
+  env_file:
+    - .env
+  environment:
+    - APP_ENV=test
+    - APP_DEBUG=0
+  ports:
+    - "8080:80"

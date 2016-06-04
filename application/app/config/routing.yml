@@ -20,6 +20,13 @@ fos_user_change_password:
      resource: "@AppUserBundle/Resources/config/routing/change_password.xml"
      prefix: /profil
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+app_rest_api:
+    resource: "@AppBundle/Resources/config/routing/rest_api.yml"
+    prefix: /api
+
 app_bundle_annotations:
     resource: "@AppBundle/Controller"
     prefix: /

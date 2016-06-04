@@ -1,0 +1,33 @@
+{
+    "type": "project",
+    "description": "Szepul.hu BDD tester tool",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/elvetemedve/BehatFormatterTeamcity"
+        }
+    ],
+    "require": {
+        "behat/behat": "^3.0.0",
+        "behat/mink": "1.7.*@dev",
+        "behat/mink-extension": "^2.1.0",
+        "behat/mink-browserkit-driver": "^1.1.0",
+        "behat/mink-goutte-driver": "^1.1.0",
+        "behat/mink-selenium2-driver": "^1.1.1",
+        "bex/behat-screenshot": "^1.0",
+        "bex/behat-screenshot-image-driver-uploadpie": "^1.0",
+        "bex/behat-browser-initialiser": "^1.0",
+        "ocramius/proxy-manager": "^1.0.0",
+        "sensiolabs/behat-page-object-extension": "^2.0.0-rc1",
+        "guzzlehttp/guzzle": "^6.0.0",
+        "anho/behat-formatter-teamcity": "dev-master"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": {
+            "Geza\\": "/var/tests/extensions"
+        }
+    }
+}

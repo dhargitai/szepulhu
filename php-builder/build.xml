@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="szepul.hu" basedir="/var/src" default="build:main">
+    <!-- Properties -->
+    <property name="toolsdir" value="/var/build-tools" />
+    <property name="project.basedir" value="/var/src" />
+    <property name="dir.app" value="${project.basedir}/app" />
+    <property name="dir.bin" value="${toolsdir}/bin" />
+    <property name="dir.src" value="${project.basedir}/src" />
+    <property name="dir.build" value="/var/build" />
+    <property name="dir.reports" value="${dir.build}/logs" />
+    <property name="dir.reports.pdepend" value="${dir.reports}/pdepend" />
+    <property name="dir.reports.coverage" value="${dir.reports}/coverage" />
+    <property name="threads" value="4" />
+
+    <!-- Filesets -->
+    <fileset id="sourcecode" dir="${project.basedir}">
+        <include name="src/**/*.php" />
+        <include name="app/Resources/**/*.php" />
+    </fileset>
+
+    <!-- Default target -->
+    <target name="build:main"
+            depends="build:check, build:dependencies, build:test"
+            description="Run all test and build everything" />
+
+
+    <target name="dev"
+            depends="composer:install-dev"
+            description="Run tasks for building development environment" />
+
+
+    <!-- Check target -->
+    <target name="build:check"
+            depends="build:prepare"
+            description="Analyzes app code.">
+        <parallel threadCount="${threads}">
+            <phingcall target="check:cs"/>
+            <phingcall target="check:md"/>
+            <phingcall target="check:cpd"/>
+            <phingcall target="check:depend"/>
+        </parallel>
+    </target>
+
+    <!-- Project build prepare -->
+    <target name="build:prepare" description="Create build directories." hidden="true">
+        <echo msg="Creating build directories ..." />
+        <mkdir dir="${dir.build}" />
+        <mkdir dir="${dir.reports}" />
+        <mkdir dir="${dir.reports.coverage}" />
+        <mkdir dir="${dir.reports.pdepend}" />
+    </target>
+
+    <!-- Symfony2 code sniffer -->
+    <target name="check:cs" description="Checks coding standard.">
+        <echo msg="Checking coding standard ..." />
+        <phpcodesniffer standard="Symfony2"
+                        showSniffs="false"
+                        showSources="false"
+                        showWarnings="false"
+                        haltonerror="false">
+            <config name="installed_paths" value="${toolsdir}/vendor/escapestudios/symfony2-coding-standard"/>
+            <fileset refid="sourcecode" />
+            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle.xml" />
+        </phpcodesniffer>
+    </target>
+
+    <!-- copy/paste detector -->
+    <target name="check:cpd" description="Checks similar code blocks.">
+        <echo msg="Checking similar code blocks ..." />
+        <phpcpd>
+            <fileset refid="sourcecode" />
+            <formatter type="pmd" outfile="${dir.reports}/pmd-cpd.xml" />
+        </phpcpd>
+    </target>
+
+    <!-- Mess detector -->
+    <target name="check:md" description="Generate code metrics.">
+        <echo msg="Generating code metrics ..." />
+        <phpmd rulesets="codesize,unusedcode">
+            <fileset refid="sourcecode" />
+            <formatter type="xml" outfile="${dir.reports}/pmd.xml" />
+        </phpmd>
+    </target>
+
+    <!-- Code dependency -->
+    <target name="check:depend" description="Checks coupling and dependency.">
+        <echo msg="Checking coupling and dependency ..." />
+        <phpdepend>
+            <fileset refid="sourcecode" />
+            <logger type="jdepend-xml" outfile="${dir.reports.pdepend}/jdepend.xml" />
+            <logger type="jdepend-chart" outfile="${dir.reports.pdepend}/dependencies.svg" />
+            <logger type="overview-pyramid" outfile="${dir.reports.pdepend}/overview-pyramid.svg" />
+        </phpdepend>
+    </target>
+
+
+    <!-- Application dependencies -->
+    <target name="build:dependencies"
+            depends="build:prepare"
+            description="Install dependencies.">
+        <parallel threadCount="${threads}">
+            <phingcall target="composer:install"/>
+        </parallel>
+    </target>
+
+    <!-- Composer install -->
+    <target name="composer:install" description="Install PHP dependencies.">
+        <echo msg="Running composer install ..." />
+        <exec command="cd ${project.basedir} &amp;&amp; composer install --ansi --prefer-dist --no-interaction --no-dev" checkreturn="true" passthru="true" />
+    </target>
+
+    <!-- Composer install with dev tools -->
+    <target name="composer:install-dev" description="Install PHP dependencies with development tools.">
+        <echo msg="Running composer install with development tools ..." />
+        <exec command="cd ${project.basedir} &amp;&amp; composer install --ansi --prefer-dist --no-interaction" checkreturn="true" passthru="true" />
+    </target>
+
+
+    <!-- Test target -->
+    <target name="build:test"
+            depends="build:dependencies"
+            description="Executes all tests..">
+        <parallel threadCount="${threads}">
+            <phingcall target="test:unit"/>
+        </parallel>
+    </target>
+
+    <!-- Unit tests -->
+    <target name="test:unit" description="Executes unit tests.">
+        <echo msg="Running unit tests ..." />
+        <exec command="${dir.bin}/phpspec -n run --format=pretty --stop-on-failure --no-code-generation" checkreturn="true" passthru="true" />
+    </target>
+
+</project>

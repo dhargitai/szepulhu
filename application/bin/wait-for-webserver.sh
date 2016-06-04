@@ -1,8 +1,11 @@
 #!/bin/bash
-echo "Waiting for the webserver..."
 
-until [[ "`docker exec $1 /bin/sh -c 'service nginx status'`" == *"nginx is running"* ]]; do
-    printf "."
-    sleep 5;
-done;
+echo -n "Waiting for the webserver..."
+
+while ! curl -s http://szepul.hu.dev/ > /dev/null
+do
+  echo -n "."
+  sleep 1
+done
+
 echo " Got it!"

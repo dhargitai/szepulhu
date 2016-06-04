@@ -6,13 +6,11 @@
  * file that was distributed with this source code.
  */
 
-use Application\Entity\ProfessionalUserRepository;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
 use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
 use Page\Homepage;
 use Page\ProfessionalProfile;
 
@@ -21,8 +19,6 @@ use Page\ProfessionalProfile;
  */
 class HomepageContext extends PageObjectContext implements Context, SnippetAcceptingContext
 {
-    use KernelDictionary;
-
     /**
      * @var Homepage
      */
@@ -33,16 +29,17 @@ class HomepageContext extends PageObjectContext implements Context, SnippetAccep
      */
     private $professionalProfile;
 
-    /** @var ProfessionalUserRepository $professionalUserRepository */
-    private $professionalUserRepository;
+    /**
+     * @var \RestApi\Client
+     */
+    private $restClient;
 
     public function __construct(
-        Homepage $homepage, ProfessionalProfile $professionalProfile,
-        ProfessionalUserRepository $professionalUserRepository
+        Homepage $homepage, ProfessionalProfile $professionalProfile, $apiUrl, $apiUser, $apiPassword
     ) {
         $this->homepage = $homepage;
         $this->professionalProfile = $professionalProfile;
-        $this->professionalUserRepository = $professionalUserRepository;
+        $this->restClient = new \RestApi\Client($apiUrl, $apiUser, $apiPassword);
     }
 
     /**
@@ -210,12 +207,7 @@ class HomepageContext extends PageObjectContext implements Context, SnippetAccep
      */
     public function iShouldSeeOnlyProfessionalsFromCounty($countyName)
     {
-        $expectedUserIds = array_map(
-            function($value){
-                return $value['id'];
-            },
-            $this->findAllProfessionalUserByCounty($countyName)
-        );
+        $expectedUserIds = $this->findAllProfessionalUserByCounty($countyName);
         $currentUserIds = $this->homepage->getFeaturedProfessionalsIds();
 
         if ($missingIds = array_diff($expectedUserIds, $currentUserIds)) {
@@ -232,18 +224,7 @@ class HomepageContext extends PageObjectContext implements Context, SnippetAccep
 
     private function findAllProfessionalUserByCounty($countyName)
     {
-        $query = $this->professionalUserRepository->createQueryBuilder('u')
-            ->select('u.id')
-            ->join('u.city', 'c')
-            ->join('c.county', 'co', \Doctrine\ORM\Query\Expr\Join::WITH, 'co.name = :countyName')
-            ->where('u.enabled = :yes')
-            ->andwhere('u.featuredFrom <= CURRENT_TIME()')
-            ->andWhere('u.featuredTo >= CURRENT_TIME()')
-            ->andWhere('c.isBigCity <> :yes')
-            ->andWhere('c.isCapital <> :yes')
-            ->setParameters(['yes' => 1, 'countyName' => $countyName])
-            ->getQuery();
-
-        return $query->getArrayResult();
+        $response = json_decode($this->restClient->get('professionals/featured/' . $countyName . '/county.json'), true);
+        return empty($response['ids']) ? [] : $response['ids'];
     }
 }

@@ -6,6 +6,11 @@ if [ "$APP_ENV" = "dev" ] ; then
     NGINX_INDEX_SCRIPT="app_dev.php"
     COMPOSER_INSTALL_MODE=""
 fi
+
+if [ "$APP_ENV" = "test" ] ; then
+    NGINX_INDEX_SCRIPT="app_test.php"
+fi
+
 sed -i "s|\${NGINX_INDEX_SCRIPT}|${NGINX_INDEX_SCRIPT}|" /etc/nginx/sites-enabled/default
 
 sed -i "s|;clear_env = no|clear_env = no|" /etc/php5/fpm/pool.d/www.conf

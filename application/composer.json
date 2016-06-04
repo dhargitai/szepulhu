@@ -37,7 +37,8 @@
         "knplabs/knp-paginator-bundle": "^2.4",
         "beberlei/DoctrineExtensions": "^1.0",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
-        "nomaya/social-bundle": "dev-master"
+        "nomaya/social-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "^1.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
@@ -48,7 +49,7 @@
         "behat/symfony2-extension": "~2.0",
         "behat/mink-goutte-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "ocramius/proxy-manager": "~0.5",
+        "ocramius/proxy-manager": "~1.0.0",
         "phpspec/phpspec": "~2.0",
         "bossa/phpspec2-expect": "~1.0",
         "fabpot/goutte": "2.0.*@dev",
@@ -80,20 +81,16 @@
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "PhantomInstaller\\Installer::installPhantomJS"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "PhantomInstaller\\Installer::installPhantomJS"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles"
         ]
     },
     "config": {
@@ -108,6 +105,6 @@
         "branch-alias": {
             "dev-master": "2.7-dev"
         },
-        "symfony-assets-install": "symlink"
+        "symfony-assets-install": "relative"
     }
 }

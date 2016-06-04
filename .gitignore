@@ -9,6 +9,7 @@ application/bin/*
 application/build
 application/cache.properties
 .env
+.env-dns
 docker/services/php5-fpm/php.ini
 
 # Composer
