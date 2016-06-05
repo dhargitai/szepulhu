@@ -78,11 +78,4 @@ if ! is_image_exists bdd-tester; then
     docker build -t bdd-tester bdd-tester
 fi
 
-if is_container_running szepulhu_mysql; then
-    echo -n "Recreating container szepulhu_mysql..."
-    docker-compose stop && docker rm -f szepulhu_mysql
-    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d && ./application/bin/wait-for-webserver.sh
-    echo "done."
-fi
-
 docker run --rm -v "$features_dir":/var/tests/features -v "$behat_element_finder_extension":/var/tests/extensions/Geza -v "$behat_config_file":/var/tests/behat.yml -v "$behat_script":/var/tester/behat.sh -e "APP_XDEBUG=$XDEBUG_ENABLED" -e "DOCKER_IP=$DOCKER_IP" -it bdd-tester ${BEHAT_ARGUMENTS}

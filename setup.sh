@@ -28,6 +28,7 @@ MYSQL_USER=dev
 MYSQL_PASSWORD=123pass
 MYSQL_ROOT_PASSWORD=supersecret
 MYSQL_DATABASE=szepulhu_db
+MYSQL_DATA_DIR=/var/lib/mysql-fixtures
 DOCKER_IP=$dockerip
 DOCKER_INTERFACE_IP=$dockerinterfaceip
 GITHUB_API_TOKEN=$githubapitoken" > .env
