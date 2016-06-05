@@ -1,2 +1,39 @@
+dns:
+  extends:
+    file: docker-compose.yml
+    service: dns
+
 database:
-  image: szepulhu_mysql_with_fixtures
+  extends:
+    file: docker-compose.yml
+    service: database
+  image: szepulhu_database
+
+web1:
+  container_name: szepulhu_web_1
+  hostname: szepul.hu.dev
+  build: .
+  links:
+    - database:db
+  volumes:
+    - ./application:/var/www/szepul.hu
+  env_file:
+    - .env
+  ports:
+    - "80:80"
+
+web2:
+  container_name: szepulhu_web_2
+  hostname: test.szepul.hu.dev
+  build: .
+  links:
+    - database:db
+  volumes:
+    - ./application:/var/www/szepul.hu
+  env_file:
+    - .env
+  environment:
+    - APP_ENV=test
+    - APP_DEBUG=0
+  ports:
+    - "8080:80"
