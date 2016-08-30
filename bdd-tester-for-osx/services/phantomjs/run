@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec /sbin/setuser phantomjs /usr/local/bin/phantomjs --webdriver=4444 > /dev/null
